@@ -42,5 +42,5 @@ add_library(
    lib/imrt/imrt-noto-mono-regular.embed
 )
 
-target_include_directories(imrt PUBLIC lib/imgui lib/imgui/backends lib/implot lib/imrt)
+target_include_directories(imrt PUBLIC lib/imgui lib/imgui/backends lib/implot lib/imrt include)
 target_link_libraries(imrt PUBLIC glfw rtaudio OpenGL::GL)
