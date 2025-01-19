@@ -10,11 +10,11 @@
 
 #include "imrt-noto-mono-regular.embed"
 
-template <typename Derived> class ImEditor {
+template <typename Derived> class ImRtEditor {
 public:
-   ImEditor(std::string title, ImVec2 windowSize, float fontSize,
-      ImGuiStyle guiStyle, ImPlotStyle plotStyle, bool windowDecoration,
-      bool alwaysOnTop)
+   ImRtEditor(std::string title, ImVec2 windowSize, float fontSize,
+      ImGuiStyle guiStyle = ImGuiStyle(), ImPlotStyle plotStyle = ImPlotStyle(),
+      bool windowDecoration = true, bool alwaysOnTop = false)
       : _title(title)
       , _windowSize(windowSize)
       , _fontSize(fontSize)
@@ -66,7 +66,7 @@ public:
       io->FontDefault = notoMonoFont;
    }
 
-   virtual ~ImEditor()
+   virtual ~ImRtEditor()
    {
       ImGui_ImplOpenGL3_Shutdown();
       ImGui_ImplGlfw_Shutdown();
