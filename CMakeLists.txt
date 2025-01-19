@@ -39,6 +39,6 @@ add_library(
    include/imrt.h
 )
 
-target_include_directories(imrt PUBLIC include)
+target_include_directories(imrt PUBLIC include lib/imgui lib/glfw lib/implot lib/rtaudio)
 
 target_link_libraries(imrt PRIVATE glfw OpenGL::GL rtaudio)
