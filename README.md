@@ -7,8 +7,13 @@ A framework for the developement of audio applications using __Dear ImGui__ with
 In your terminal:
 
 ```bash
+mkdir ____ # Use project name.
+cd ____ # Use project name.
+git init
 git submodule add https://github.com/tonstein/imrt.git lib/imrt
 git submodule update --init --recursive
+touch CMakeLists.txt
+code .
 ```
 
 In your CMakeLists.txt:
@@ -18,7 +23,7 @@ cmake_minimum_required(VERSION 3.16)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_CXX_STANDARD 17)
 
-project(____) # Enter project name.
+project(____) # Use project name.
 
 add_subdirectory(lib/imrt)
 
