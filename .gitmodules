@@ -1,0 +1,13 @@
+[submodule "lib/imgui"]
+	path = lib/imgui
+	url = https://github.com/ocornut/imgui.git
+	branch = docking
+[submodule "lib/glfw"]
+	path = lib/glfw
+	url = https://github.com/glfw/glfw.git
+[submodule "lib/implot"]
+	path = lib/implot
+	url = https://github.com/epezent/implot.git
+[submodule "lib/rtaudio"]
+	path = lib/rtaudio
+	url = https://github.com/thestk/rtaudio.git
