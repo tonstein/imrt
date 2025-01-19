@@ -8,7 +8,7 @@
 #include <imgui_impl_opengl3.h>
 #include <implot.h>
 
-#include <noto-mono-regular.embed>
+#include <imrt-noto-mono-regular.embed>
 
 template <typename Derived> class ImEditor {
 public:
