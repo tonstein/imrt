@@ -37,9 +37,9 @@ add_library(
    lib/implot/implot.h
    lib/implot/implot_items.cpp
 
-   lib/imrt/im-editor.h
-   lib/imrt/rt-processor.h
-   lib/imrt/noto-mono-regular.embed
+   lib/imrt/imrt-editor.h
+   lib/imrt/imrt-processor.h
+   lib/imrt/imrt-noto-mono-regular.embed
 )
 
 target_include_directories(imrt PUBLIC lib/imgui lib/imgui/backends lib/implot lib/imrt)
