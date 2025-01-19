@@ -2,17 +2,18 @@ cmake_minimum_required(VERSION 3.16)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_CXX_STANDARD 17)
 
+project(imrt LANGUAGES CXX)
+
 set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 set(GLFW_LIBRARY_TYPE STATIC CACHE BOOL "" FORCE)
 
-add_subdirectory(lib/glfw)
-
 set(RTAUDIO_BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)
 set(RTAUDIO_TARGETNAME_UNINSTALL "rtaudio-uninstall" CACHE BOOL "" FORCE)
-
 add_subdirectory(lib/rtaudio)
+
+add_subdirectory(lib/glfw)
 
 find_package(OpenGL REQUIRED)
 
@@ -36,9 +37,10 @@ add_library(
    lib/implot/implot.h
    lib/implot/implot_items.cpp
 
-   include/imrt.h
+   lib/imrt/im-editor.h
+   lib/imrt/rt-processor.h
+   lib/imrt/noto-mono-regular.embed
 )
 
-target_include_directories(imrt PUBLIC include lib/imgui lib/glfw lib/implot lib/rtaudio)
-
-target_link_libraries(imrt PRIVATE glfw OpenGL::GL rtaudio)
+target_include_directories(imrt PUBLIC lib/imgui lib/imgui/backends lib/implot lib/imrt)
+target_link_libraries(imrt PUBLIC glfw rtaudio OpenGL::GL)
