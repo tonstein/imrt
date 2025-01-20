@@ -15,18 +15,18 @@ namespace ImRt {
 template <typename Derived> class Editor {
 public:
    struct Config {
-      struct Window {
+      struct {
          std::string title = "Default title";
          ImVec2 size       = { 1024, 768 };
          bool decorated    = true;
          bool alwaysOnTop  = false;
       } window;
 
-      struct Font {
+      struct {
          float size = 14.0f;
       } font;
 
-      struct Style {
+      struct {
          ImGuiStyle gui   = ImGuiStyle();
          ImPlotStyle plot = ImPlotStyle();
       } style;
