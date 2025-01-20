@@ -2,21 +2,28 @@
 
 #include <RtAudio.h>
 
-template <typename Derived> class ImRtProcessor {
+namespace ImRt {
+
+template <typename Derived> class Processor {
 public:
-   ImRtProcessor(unsigned int numChannels, unsigned int sampleRate)
-      : _sampleRate(sampleRate)
-      , _numChannels(numChannels)
+   struct Config {
+      int numChannels         = 2;
+      unsigned int sampleRate = 44100;
+   };
+
+   Processor(Config config)
+      : _numChannels(config.numChannels)
+      , _sampleRate(config.sampleRate)
    {
       if (_audio.getDeviceIds().size() == 0)
          abort();
 
       _parameters.deviceId     = _audio.getDefaultInputDevice();
-      _parameters.nChannels    = numChannels;
+      _parameters.nChannels    = _numChannels;
       _parameters.firstChannel = 0;
    }
 
-   ~ImRtProcessor()
+   ~Processor()
    {
       if (_audio.isStreamRunning())
          _audio.stopStream();
@@ -62,7 +69,9 @@ private:
       unsigned int nBufferFrames, double streamTime, unsigned int status,
       void* userData)
    {
-      return static_cast<ImRtProcessor*>(userData)->audioCallback(
+      return static_cast<Processor*>(userData)->audioCallback(
          outputBuffer, inputBuffer, nBufferFrames, streamTime, status);
    }
 };
+
+} // namespace ImRt

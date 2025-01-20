@@ -10,14 +10,32 @@
 
 #include "imrt-noto-mono-regular.embed"
 
-template <typename Derived> class ImRtEditor {
+namespace ImRt {
+
+template <typename Derived> class Editor {
 public:
-   ImRtEditor(std::string title, ImVec2 windowSize, float fontSize,
-      ImGuiStyle guiStyle = ImGuiStyle(), ImPlotStyle plotStyle = ImPlotStyle(),
-      bool windowDecoration = true, bool alwaysOnTop = false)
-      : _title(title)
-      , _windowSize(windowSize)
-      , _fontSize(fontSize)
+   struct Config {
+      struct Window {
+         std::string title = "Default title";
+         ImVec2 size       = { 1024, 768 };
+         bool decorated    = true;
+         bool alwaysOnTop  = false;
+      } window;
+
+      struct Font {
+         float size = 14.0f;
+      } font;
+
+      struct Style {
+         ImGuiStyle gui   = ImGuiStyle();
+         ImPlotStyle plot = ImPlotStyle();
+      } style;
+   };
+
+   Editor(Config config)
+      : _title(config.window.title)
+      , _windowSize(config.window.size)
+      , _fontSize(config.font.size)
    {
       glfwSetErrorCallback(ErrorCallback);
 
@@ -28,15 +46,15 @@ public:
       glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
       glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
 
-      if (!windowDecoration)
+      if (!config.window.decorated)
          glfwWindowHint(GLFW_DECORATED, GLFW_FALSE);
 
-      _window = glfwCreateWindow(
-         windowSize.x, windowSize.y, title.c_str(), nullptr, nullptr);
+      _window = glfwCreateWindow(config.window.size.x, config.window.size.y,
+         config.window.title.c_str(), nullptr, nullptr);
       if (_window == NULL)
          std::exit(1);
 
-      if (alwaysOnTop)
+      if (config.window.alwaysOnTop)
          glfwSetWindowAttrib(_window, GLFW_FLOATING, GLFW_TRUE);
 
       glfwMakeContextCurrent(_window);
@@ -46,8 +64,8 @@ public:
       ImGui::CreateContext();
       ImPlot::CreateContext();
 
-      ImGui::GetStyle()  = guiStyle;
-      ImPlot::GetStyle() = plotStyle;
+      ImGui::GetStyle()  = config.style.gui;
+      ImPlot::GetStyle() = config.style.plot;
 
       glfwGetWindowContentScale(_window, &_scale.x, &_scale.y);
       ImGui::GetStyle().ScaleAllSizes(0.75f * _scale.y);
@@ -57,16 +75,15 @@ public:
 
       io = &ImGui::GetIO();
       io->Fonts->Clear();
-      // io->Fonts->AddFontFromFileTTF(_font.c_str(), fontSize * _scale.x);
       ImFontConfig fontConfig;
       fontConfig.FontDataOwnedByAtlas = false;
-      ImFont* notoMonoFont
-         = io->Fonts->AddFontFromMemoryTTF((void*)notoMonoRegularTtf,
-            sizeof(notoMonoRegularTtf), fontSize * _scale.x, &fontConfig);
+      ImFont* notoMonoFont            = io->Fonts->AddFontFromMemoryTTF(
+         (void*)notoMonoRegularTtf, sizeof(notoMonoRegularTtf),
+         config.font.size * _scale.x, &fontConfig);
       io->FontDefault = notoMonoFont;
    }
 
-   virtual ~ImRtEditor()
+   virtual ~Editor()
    {
       ImGui_ImplOpenGL3_Shutdown();
       ImGui_ImplGlfw_Shutdown();
@@ -140,3 +157,5 @@ private:
       std::cerr << "Glfw Error" << error << ": " << description << std::endl;
    }
 };
+
+} // namespace ImRt
