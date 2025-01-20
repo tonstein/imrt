@@ -23,7 +23,7 @@ public:
       _parameters.firstChannel = 0;
    }
 
-   ~Processor()
+   virtual ~Processor()
    {
       if (_audio.isStreamRunning())
          _audio.stopStream();
