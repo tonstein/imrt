@@ -12,14 +12,13 @@ public:
    };
 
    Processor(Config config)
-      : _numChannels(config.numChannels)
-      , _sampleRate(config.sampleRate)
+      : _config(config)
    {
       if (_audio.getDeviceIds().size() == 0)
          abort();
 
       _parameters.deviceId     = _audio.getDefaultInputDevice();
-      _parameters.nChannels    = _numChannels;
+      _parameters.nChannels    = _config.numChannels;
       _parameters.firstChannel = 0;
    }
 
@@ -34,8 +33,8 @@ public:
    void run()
    {
       unsigned int frames = 0; // 0 means as small as possible
-      if (_audio.openStream(nullptr, &_parameters, RTAUDIO_FLOAT32, _sampleRate,
-             &frames, &Static_audioCallback, this))
+      if (_audio.openStream(nullptr, &_parameters, RTAUDIO_FLOAT32,
+             _config.sampleRate, &frames, &Static_audioCallback, this))
          abort();
 
       if (_audio.startStream())
@@ -49,13 +48,13 @@ public:
 
    unsigned int numChannels()
    {
-      return _numChannels;
+      return _config.numChannels;
    }
 
 private:
    RtAudio _audio;
    RtAudio::StreamParameters _parameters;
-   unsigned int _sampleRate, _numChannels;
+   Config _config;
 
 private:
    int audioCallback(void* outputBuffer, void* inputBuffer,

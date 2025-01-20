@@ -33,9 +33,7 @@ public:
    };
 
    Editor(Config config)
-      : _title(config.window.title)
-      , _windowSize(config.window.size)
-      , _fontSize(config.font.size)
+      : _config(config)
    {
       glfwSetErrorCallback(ErrorCallback);
 
@@ -46,15 +44,15 @@ public:
       glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
       glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
 
-      if (!config.window.decorated)
+      if (!_config.window.decorated)
          glfwWindowHint(GLFW_DECORATED, GLFW_FALSE);
 
-      _window = glfwCreateWindow(config.window.size.x, config.window.size.y,
-         config.window.title.c_str(), nullptr, nullptr);
+      _window = glfwCreateWindow(_config.window.size.x, _config.window.size.y,
+         _config.window.title.c_str(), nullptr, nullptr);
       if (_window == NULL)
          std::exit(1);
 
-      if (config.window.alwaysOnTop)
+      if (_config.window.alwaysOnTop)
          glfwSetWindowAttrib(_window, GLFW_FLOATING, GLFW_TRUE);
 
       glfwMakeContextCurrent(_window);
@@ -64,8 +62,8 @@ public:
       ImGui::CreateContext();
       ImPlot::CreateContext();
 
-      ImGui::GetStyle()  = config.style.gui;
-      ImPlot::GetStyle() = config.style.plot;
+      ImGui::GetStyle()  = _config.style.gui;
+      ImPlot::GetStyle() = _config.style.plot;
 
       glfwGetWindowContentScale(_window, &_scale.x, &_scale.y);
       ImGui::GetStyle().ScaleAllSizes(0.75f * _scale.y);
@@ -73,14 +71,14 @@ public:
       ImGui_ImplGlfw_InitForOpenGL(_window, true);
       ImGui_ImplOpenGL3_Init(glsl_version);
 
-      io = &ImGui::GetIO();
-      io->Fonts->Clear();
+      _io = &ImGui::GetIO();
+      _io->Fonts->Clear();
       ImFontConfig fontConfig;
       fontConfig.FontDataOwnedByAtlas = false;
-      ImFont* notoMonoFont            = io->Fonts->AddFontFromMemoryTTF(
+      ImFont* notoMonoFont            = _io->Fonts->AddFontFromMemoryTTF(
          (void*)notoMonoRegularTtf, sizeof(notoMonoRegularTtf),
-         config.font.size * _scale.x, &fontConfig);
-      io->FontDefault = notoMonoFont;
+         _config.font.size * _scale.x, &fontConfig);
+      _io->FontDefault = notoMonoFont;
    }
 
    virtual ~Editor()
@@ -106,7 +104,7 @@ public:
          ImGui_ImplGlfw_NewFrame();
          ImGui::NewFrame();
 
-         ImGui::SetNextWindowSize(io->DisplaySize);
+         ImGui::SetNextWindowSize(_io->DisplaySize);
          ImGui::SetNextWindowPos({ 0, 0 });
 
          ImGui::Begin("main", nullptr,
@@ -133,13 +131,11 @@ private:
    GLFWwindow* _window = nullptr;
    ImVec2 _scale;
 
-   ImGuiIO* io;
+   ImGuiIO* _io;
 
    std::string _font { "/usr/share/fonts/truetype/noto/NotoMono-Regular.ttf" };
 
-   std::string _title = "Default";
-   ImVec2 _windowSize = { 1200, 800 };
-   float _fontSize    = 15;
+   Config _config;
 
 private:
    void onStart()
