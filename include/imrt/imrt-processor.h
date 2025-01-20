@@ -9,6 +9,7 @@ public:
    struct Config {
       int numChannels         = 2;
       unsigned int sampleRate = 44100;
+      unsigned int bufferSize = 0; // 0 means as small as possible
    };
 
    Processor(Config config)
@@ -32,9 +33,10 @@ public:
 
    void run()
    {
-      unsigned int frames = 0; // 0 means as small as possible
+      // [FixMe] Better use RTAUDIO_FLOAT64.
       if (_audio.openStream(nullptr, &_parameters, RTAUDIO_FLOAT32,
-             _config.sampleRate, &frames, &Static_audioCallback, this))
+             _config.sampleRate, &_config.bufferSize, &Static_audioCallback,
+             this))
          abort();
 
       if (_audio.startStream())
