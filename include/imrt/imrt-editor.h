@@ -72,14 +72,14 @@ public:
       ImGui_ImplGlfw_InitForOpenGL(_window, true);
       ImGui_ImplOpenGL3_Init(glsl_version);
 
-      _io = &ImGui::GetIO();
-      _io->Fonts->Clear();
+      ImGuiIO& io = ImGui::GetIO();
+      io.Fonts->Clear();
       ImFontConfig fontConfig;
       fontConfig.FontDataOwnedByAtlas = false;
-      ImFont* notoMonoFont            = _io->Fonts->AddFontFromMemoryTTF(
+      ImFont* notoMonoFont            = io.Fonts->AddFontFromMemoryTTF(
          (void*)notoMonoRegularTtf, sizeof(notoMonoRegularTtf),
          _config.font.size * _scale.x, &fontConfig);
-      _io->FontDefault = notoMonoFont;
+      io.FontDefault = notoMonoFont;
    }
 
    virtual ~Editor()
@@ -105,13 +105,7 @@ public:
          ImGui_ImplGlfw_NewFrame();
          ImGui::NewFrame();
 
-         ImGui::SetNextWindowSize(_io->DisplaySize);
-         ImGui::SetNextWindowPos({ 0, 0 });
-
-         ImGui::Begin("main", nullptr,
-            ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize);
          onUpdate();
-         ImGui::End();
 
          ImGui::Render();
          int display_w, display_h;
@@ -133,13 +127,8 @@ protected:
 
 private:
    GLFWwindow* _window = nullptr;
-   ImVec2 _scale;
-
-   ImGuiIO* _io;
-
-   std::string _font { "/usr/share/fonts/truetype/noto/NotoMono-Regular.ttf" };
-
    Config _config;
+   ImVec2 _scale;
 
 private:
    void onStart()
