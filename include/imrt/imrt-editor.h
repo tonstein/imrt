@@ -12,7 +12,7 @@
 
 namespace ImRt {
 
-template <typename Derived> class Editor {
+template <typename Derived, typename Processor> class Editor {
 public:
    struct Config {
       struct {
@@ -32,8 +32,9 @@ public:
       } style;
    };
 
-   Editor(Config config)
+   Editor(Config config, Processor* processor)
       : _config(config)
+      , processor(processor)
    {
       glfwSetErrorCallback(ErrorCallback);
 
@@ -126,6 +127,9 @@ public:
    {
       return _scale;
    }
+
+protected:
+   Processor* processor;
 
 private:
    GLFWwindow* _window = nullptr;
