@@ -105,6 +105,7 @@ public:
          ImGui_ImplGlfw_NewFrame();
          ImGui::NewFrame();
 
+         ImGui::DockSpaceOverViewport(0, ImGui::GetMainViewport());
          onUpdate();
 
          ImGui::Render();
