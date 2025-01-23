@@ -27,6 +27,7 @@ public:
          ImVec2 size       = { 1024, 768 };
          bool decorated    = true;
          bool alwaysOnTop  = false;
+         ImVec4 clearColor = ImColor(22, 29, 38).Value;
       } window;
 
       struct {
@@ -123,8 +124,17 @@ public:
          int display_w, display_h;
          glfwGetFramebufferSize(_window, &display_w, &display_h);
          glViewport(0, 0, display_w, display_h);
+         glClearColor(_config.window.clearColor.x, _config.window.clearColor.y,
+            _config.window.clearColor.z, _config.window.clearColor.w);
          glClear(GL_COLOR_BUFFER_BIT);
          ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+         ImGuiIO& io = ImGui::GetIO();
+         if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable) {
+            GLFWwindow* backup_current_context = glfwGetCurrentContext();
+            ImGui::UpdatePlatformWindows();
+            ImGui::RenderPlatformWindowsDefault();
+            glfwMakeContextCurrent(backup_current_context);
+         }
          glfwSwapBuffers(_window);
       }
    }
