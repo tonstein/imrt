@@ -15,6 +15,13 @@ namespace ImRt {
 template <typename Derived, typename Processor> class Editor {
 public:
    struct Config {
+      friend class Editor<Derived, Processor>;
+
+      Config() = delete;
+
+      Config(Processor& processor)
+         : processor(processor) {};
+
       struct {
          std::string title = "Default title";
          ImVec2 size       = { 1024, 768 };
@@ -30,11 +37,16 @@ public:
          ImGuiStyle gui   = ImGuiStyle();
          ImPlotStyle plot = ImPlotStyle();
       } style;
+
+   private:
+      Processor& processor;
    };
 
-   Editor(Config config, Processor* processor)
+   Editor() = delete;
+
+   Editor(Config config)
       : _config(config)
-      , processor(processor)
+      , processor(config.processor)
    {
       glfwSetErrorCallback(ErrorCallback);
 
@@ -123,7 +135,7 @@ public:
    }
 
 protected:
-   Processor* processor;
+   Processor& processor;
 
 private:
    GLFWwindow* _window = nullptr;
