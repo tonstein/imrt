@@ -33,7 +33,6 @@ public:
 
    void run()
    {
-      // [FixMe] Better use RTAUDIO_FLOAT64.
       if (_audio.openStream(nullptr, &_parameters, RTAUDIO_FLOAT32,
              _config.sampleRate, &_config.bufferSize, &Static_audioCallback,
              this))
