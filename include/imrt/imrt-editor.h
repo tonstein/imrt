@@ -12,6 +12,11 @@
 
 namespace ImRt {
 
+struct Style {
+   ImGuiStyle gui   = ImGuiStyle();
+   ImPlotStyle plot = ImPlotStyle();
+};
+
 template <typename Derived, typename Processor> class Editor {
 public:
    struct Config {
@@ -34,10 +39,7 @@ public:
          float size = 14.0f;
       } font;
 
-      struct {
-         ImGuiStyle gui   = ImGuiStyle();
-         ImPlotStyle plot = ImPlotStyle();
-      } style;
+      Style style;
 
    private:
       Processor& processor;
