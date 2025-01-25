@@ -7,7 +7,8 @@ namespace ImRt {
 template <typename Derived> class Processor {
 public:
    struct Config {
-      int numChannels         = 2;
+      int numChannelsIn       = 2;
+      int numChannelsOut      = 2;
       unsigned int sampleRate = 44100;
       unsigned int bufferSize = 0; // 0 means as small as possible
    };
@@ -15,46 +16,50 @@ public:
    Processor(Config config)
       : _config(config)
    {
-      if (_audio.getDeviceIds().size() == 0)
+      auto defaultIn  = _dac.getDefaultInputDevice();
+      auto defaultOut = _dac.getDefaultOutputDevice();
+
+      if ((defaultIn == 0) || (defaultOut == 0))
          abort();
 
-      _parameters.deviceId     = _audio.getDefaultInputDevice();
-      _parameters.nChannels    = _config.numChannels;
-      _parameters.firstChannel = 0;
+      _paramsIn.deviceId = defaultIn;
+      _paramsIn.nChannels
+         = _config.numChannelsIn; // [FixMe] Check number of available channels.
+      _paramsIn.firstChannel = 0;
+
+      _paramsOut.deviceId = defaultOut;
+      _paramsOut.nChannels
+         = _config.numChannelsIn; // [FixMe] Check number of available channels.
+      _paramsOut.firstChannel = 0;
    }
 
    virtual ~Processor()
    {
-      if (_audio.isStreamRunning())
-         _audio.stopStream();
-      if (_audio.isStreamOpen())
-         _audio.closeStream();
+      if (_dac.isStreamRunning())
+         _dac.stopStream();
+      if (_dac.isStreamOpen())
+         _dac.closeStream();
    }
 
    void run()
    {
-      if (_audio.openStream(nullptr, &_parameters, RTAUDIO_FLOAT32,
+      if (_dac.openStream(&_paramsOut, &_paramsIn, RTAUDIO_FLOAT32,
              _config.sampleRate, &_config.bufferSize, &Static_audioCallback,
              this))
          abort();
 
-      if (_audio.startStream())
+      if (_dac.startStream())
          abort();
    }
 
    unsigned int sampleRate()
    {
-      return _audio.getStreamSampleRate();
-   }
-
-   unsigned int numChannels()
-   {
-      return _config.numChannels;
+      return _dac.getStreamSampleRate();
    }
 
 private:
-   RtAudio _audio;
-   RtAudio::StreamParameters _parameters;
+   RtAudio _dac;
+   RtAudio::StreamParameters _paramsIn, _paramsOut;
    Config _config;
 
 private:
