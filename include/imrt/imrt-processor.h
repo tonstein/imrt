@@ -59,11 +59,18 @@ private:
    Config _config;
 
 private:
+   int process(float* out, float* in, unsigned int bufferSize)
+   {
+      return static_cast<Derived*>(this)->process(out, in, bufferSize);
+   }
+
+private:
    int audioCallback(void* outputBuffer, void* inputBuffer,
       unsigned int nBufferFrames, double streamTime, unsigned int status)
    {
-      return static_cast<Derived*>(this)->audioCallback(
-         outputBuffer, inputBuffer, nBufferFrames, streamTime, status);
+      float* in  = (float*)inputBuffer;
+      float* out = (float*)outputBuffer;
+      return process(out, in, nBufferFrames);
    }
 
    static int Static_audioCallback(void* outputBuffer, void* inputBuffer,
