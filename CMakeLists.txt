@@ -51,6 +51,8 @@ target_include_directories(
    lib/imgui/backends
    lib/implot
 
+   lib/choc
+
    include
 )
 

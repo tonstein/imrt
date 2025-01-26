@@ -2,7 +2,12 @@
 
 #include <RtAudio.h>
 
+#include <choc_SampleBuffers.h>
+
 namespace ImRt {
+
+using Buffer
+   = choc::buffer::AllocatedBuffer<float, choc::buffer::SeparateChannelLayout>;
 
 struct Stream {
    int numChannelsIn       = 2;
@@ -69,21 +74,44 @@ private:
    Config _config;
 
 private:
-   int process(float* out, float* in, unsigned int bufferSize)
+   int process(Buffer& out, Buffer& in)
    {
-      return static_cast<Derived*>(this)->process(out, in, bufferSize);
+      return static_cast<Derived*>(this)->process(out, in);
    }
 
 private:
    int audioCallback(void* outputBuffer, void* inputBuffer,
       unsigned int nBufferFrames, double streamTime, unsigned int status)
    {
-      float* in  = (float*)inputBuffer;
-      float* out = (float*)outputBuffer;
-      return process(out, in, nBufferFrames);
+
+      unsigned int n = numChannelsIn();
+      ImRt::Buffer in;
+      in.resize({ n, nBufferFrames });
+
+      for (unsigned int frame = 0; frame < nBufferFrames; ++frame) {
+         for (unsigned int channel = 0; channel < n; ++channel) {
+            in.getSample(channel, frame)
+               = ((float*)inputBuffer)[n * frame + channel];
+         }
+      }
+
+      unsigned int m = numChannelsIn();
+      ImRt::Buffer out;
+      out.resize({ m, nBufferFrames });
+
+      int r = process(out, in);
+
+      for (unsigned int frame = 0; frame < nBufferFrames; ++frame) {
+         for (unsigned int channel = 0; channel < m; ++channel) {
+            ((float*)outputBuffer)[m * frame + channel]
+               = out.getSample(channel, frame);
+         }
+      }
+
+      return r;
    }
 
-   static int Static_audioCallback(void* outputBuffer, void* inputBuffer,
+   static int AudioCallback(void* outputBuffer, void* inputBuffer,
       unsigned int nBufferFrames, double streamTime, unsigned int status,
       void* userData)
    {
