@@ -56,7 +56,7 @@ public:
    {
       if (_dac.openStream(&_paramsOut, &_paramsIn, RTAUDIO_FLOAT32,
              _config.stream.sampleRate, &_config.stream.bufferSize,
-             &Static_audioCallback, this))
+             &AudioCallback, this))
          abort();
 
       if (_dac.startStream())
