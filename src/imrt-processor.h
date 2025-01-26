@@ -84,7 +84,7 @@ private:
       unsigned int nBufferFrames, double streamTime, unsigned int status)
    {
 
-      unsigned int n = numChannelsIn();
+      unsigned int n = _config.stream.numChannelsIn;
       ImRt::Buffer in;
       in.resize({ n, nBufferFrames });
 
@@ -95,7 +95,7 @@ private:
          }
       }
 
-      unsigned int m = numChannelsIn();
+      unsigned int m = _config.stream.numChannelsOut;
       ImRt::Buffer out;
       out.resize({ m, nBufferFrames });
 
