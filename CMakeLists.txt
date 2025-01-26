@@ -37,9 +37,9 @@ add_library(
    lib/implot/implot.h
    lib/implot/implot_items.cpp
 
-   include/imrt/imrt-editor.h
-   include/imrt/imrt-processor.h
-   include/imrt/imrt-noto-mono-regular.embed
+   src/imrt-editor.h
+   src/imrt-processor.h
+   src/imrt-noto-mono-regular.embed
 )
 
 target_include_directories(
@@ -52,6 +52,6 @@ target_include_directories(
    lib/implot
 
    include
-   include/imrt)
+)
 
 target_link_libraries(imrt PUBLIC glfw rtaudio OpenGL::GL)

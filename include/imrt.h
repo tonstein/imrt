@@ -1,4 +1,4 @@
 #pragma once
 
-#include "imrt-editor.h"
-#include "imrt-processor.h"
+#include "../src/imrt-editor.h"
+#include "../src/imrt-processor.h"
