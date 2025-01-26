@@ -41,8 +41,8 @@ add_library(
    src/imrt-processor.h
    src/imrt-noto-mono-regular.embed
 
-   src/parameters.cpp
-   src/parameters.h
+   src/imrt-parameters.cpp
+   src/imrt-parameters.h
 )
 
 target_include_directories(
