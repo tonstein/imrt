@@ -10,10 +10,10 @@ using Buffer
    = choc::buffer::AllocatedBuffer<float, choc::buffer::SeparateChannelLayout>;
 
 struct Stream {
-   int numChannelsIn       = 2;
-   int numChannelsOut      = 2;
-   unsigned int sampleRate = 44100;
-   unsigned int bufferSize = 0; // 0 means as small as possible
+   int numChannelsIn   = 2;
+   int numChannelsOut  = 2;
+   uint32_t sampleRate = 44100;
+   uint32_t bufferSize = 0; // 0 means as small as possible
 };
 
 template <typename Derived> class Processor {
@@ -63,7 +63,7 @@ public:
          abort();
    }
 
-   unsigned int sampleRate()
+   uint32_t sampleRate()
    {
       return _dac.getStreamSampleRate();
    }
@@ -72,37 +72,35 @@ private:
    RtAudio _dac;
    RtAudio::StreamParameters _paramsIn, _paramsOut;
    Config _config;
+   ImRt::Buffer in, out;
 
 private:
-   int process(Buffer& in, Buffer& out, unsigned int numFrames)
+   int process(Buffer& in, Buffer& out, uint32_t numFrames)
    {
       return static_cast<Derived*>(this)->process(in, out, numFrames);
    }
 
 private:
-   int audioCallback(void* outputBuffer, void* inputBuffer,
-      unsigned int nBufferFrames, double streamTime, unsigned int status)
+   int audioCallback(
+      void* outputBuffer, void* inputBuffer, uint32_t nBufferFrames)
    {
-
-      unsigned int n = _config.stream.numChannelsIn;
-      ImRt::Buffer in;
+      uint32_t n = _config.stream.numChannelsIn;
       in.resize({ n, nBufferFrames });
 
-      for (unsigned int frame = 0; frame < nBufferFrames; ++frame) {
-         for (unsigned int channel = 0; channel < n; ++channel) {
+      for (uint32_t frame = 0; frame < nBufferFrames; ++frame) {
+         for (uint32_t channel = 0; channel < n; ++channel) {
             in.getSample(channel, frame)
                = ((float*)inputBuffer)[n * frame + channel];
          }
       }
 
-      unsigned int m = _config.stream.numChannelsOut;
-      ImRt::Buffer out;
+      uint32_t m = _config.stream.numChannelsOut;
       out.resize({ m, nBufferFrames });
 
       int r = process(in, out, nBufferFrames);
 
-      for (unsigned int frame = 0; frame < nBufferFrames; ++frame) {
-         for (unsigned int channel = 0; channel < m; ++channel) {
+      for (uint32_t frame = 0; frame < nBufferFrames; ++frame) {
+         for (uint32_t channel = 0; channel < m; ++channel) {
             ((float*)outputBuffer)[m * frame + channel]
                = out.getSample(channel, frame);
          }
@@ -116,7 +114,7 @@ private:
       void* userData)
    {
       return static_cast<Processor*>(userData)->audioCallback(
-         outputBuffer, inputBuffer, nBufferFrames, streamTime, status);
+         outputBuffer, inputBuffer, nBufferFrames);
    }
 };
 
