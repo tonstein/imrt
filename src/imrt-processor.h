@@ -4,6 +4,8 @@
 
 #include <audio/choc_SampleBuffers.h>
 
+#include "imrt-parameters.h"
+
 namespace ImRt {
 
 using Buffer
@@ -58,6 +60,9 @@ public:
    {
       return _dac.getStreamSampleRate();
    }
+
+protected:
+   Parameters parameters;
 
 private:
    RtAudio _dac;
