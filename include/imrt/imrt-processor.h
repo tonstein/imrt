@@ -4,13 +4,17 @@
 
 namespace ImRt {
 
+struct Stream {
+   int numChannelsIn       = 2;
+   int numChannelsOut      = 2;
+   unsigned int sampleRate = 44100;
+   unsigned int bufferSize = 0; // 0 means as small as possible
+};
+
 template <typename Derived> class Processor {
 public:
    struct Config {
-      int numChannelsIn       = 2;
-      int numChannelsOut      = 2;
-      unsigned int sampleRate = 44100;
-      unsigned int bufferSize = 0; // 0 means as small as possible
+      Stream stream;
    };
 
    Processor(Config config)
@@ -24,12 +28,14 @@ public:
 
       _paramsIn.deviceId = defaultIn;
       _paramsIn.nChannels
-         = _config.numChannelsIn; // [FixMe] Check number of available channels.
+         = _config.stream
+              .numChannelsIn; // [FixMe] Check number of available channels.
       _paramsIn.firstChannel = 0;
 
       _paramsOut.deviceId = defaultOut;
       _paramsOut.nChannels
-         = _config.numChannelsIn; // [FixMe] Check number of available channels.
+         = _config.stream
+              .numChannelsIn; // [FixMe] Check number of available channels.
       _paramsOut.firstChannel = 0;
    }
 
@@ -44,8 +50,8 @@ public:
    void run()
    {
       if (_dac.openStream(&_paramsOut, &_paramsIn, RTAUDIO_FLOAT32,
-             _config.sampleRate, &_config.bufferSize, &Static_audioCallback,
-             this))
+             _config.stream.sampleRate, &_config.stream.bufferSize,
+             &Static_audioCallback, this))
          abort();
 
       if (_dac.startStream())

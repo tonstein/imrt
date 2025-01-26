@@ -1,3 +1,5 @@
+#pragma once
+
 #include <cstddef>
 #include <cstdio>
 #include <iostream>
@@ -15,6 +17,15 @@ namespace ImRt {
 struct Style {
    ImGuiStyle gui   = ImGuiStyle();
    ImPlotStyle plot = ImPlotStyle();
+   float fontSize   = 14.0f;
+};
+
+struct Window {
+   std::string title = "Default title";
+   ImVec2 size       = { 1024, 768 };
+   bool decorated    = true;
+   bool alwaysOnTop  = false;
+   ImVec4 clearColor = ImColor(22, 29, 38).Value;
 };
 
 template <typename Derived, typename Processor> class Editor {
@@ -22,23 +33,11 @@ public:
    struct Config {
       friend class Editor<Derived, Processor>;
 
-      Config() = delete;
-
       Config(Processor& processor)
          : processor(processor) {};
+      Config() = delete;
 
-      struct {
-         std::string title = "Default title";
-         ImVec2 size       = { 1024, 768 };
-         bool decorated    = true;
-         bool alwaysOnTop  = false;
-         ImVec4 clearColor = ImColor(22, 29, 38).Value;
-      } window;
-
-      struct {
-         float size = 14.0f;
-      } font;
-
+      Window window;
       Style style;
 
    private:
@@ -93,7 +92,7 @@ public:
       fontConfig.FontDataOwnedByAtlas = false;
       ImFont* notoMonoFont            = io.Fonts->AddFontFromMemoryTTF(
          (void*)notoMonoRegularTtf, sizeof(notoMonoRegularTtf),
-         _config.font.size * _scale.x, &fontConfig);
+         _config.style.fontSize * _scale.x, &fontConfig);
       io.FontDefault = notoMonoFont;
    }
 
