@@ -74,9 +74,9 @@ private:
    Config _config;
 
 private:
-   int process(Buffer& out, Buffer& in)
+   int process(Buffer& in, Buffer& out, unsigned int numFrames)
    {
-      return static_cast<Derived*>(this)->process(out, in);
+      return static_cast<Derived*>(this)->process(in, out, numFrames);
    }
 
 private:
@@ -99,7 +99,7 @@ private:
       ImRt::Buffer out;
       out.resize({ m, nBufferFrames });
 
-      int r = process(out, in);
+      int r = process(in, out, nBufferFrames);
 
       for (unsigned int frame = 0; frame < nBufferFrames; ++frame) {
          for (unsigned int channel = 0; channel < m; ++channel) {
