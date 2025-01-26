@@ -20,32 +20,22 @@ struct Style {
    float fontSize   = 14.0f;
 };
 
-template <typename Processor> struct WindowSettings {
-   WindowSettings(Processor& processor)
-      : processor(processor)
-   {
-   }
-
+struct WindowSettings {
+   std::string title = "Default title";
+   ImVec2 size       = { 1024, 768 };
+   bool decorated    = true;
+   bool alwaysOnTop  = false;
+   ImVec4 clearColor = ImColor(22, 29, 38).Value;
    Style style;
-
-   struct {
-      std::string title = "Default title";
-      ImVec2 size       = { 1024, 768 };
-      bool decorated    = true;
-      bool alwaysOnTop  = false;
-      ImVec4 clearColor = ImColor(22, 29, 38).Value;
-   } window;
-
-   Processor& processor;
 };
 
 template <typename Derived, typename Processor> class Editor {
 public:
    Editor() = delete;
 
-   Editor(WindowSettings<Processor> settings)
+   Editor(Processor& processor, WindowSettings settings = WindowSettings())
       : _settings(settings)
-      , processor(settings.processor)
+      , processor(processor)
    {
       glfwSetErrorCallback(ErrorCallback);
 
@@ -56,16 +46,15 @@ public:
       glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
       glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
 
-      if (!_settings.window.decorated)
+      if (!_settings.decorated)
          glfwWindowHint(GLFW_DECORATED, GLFW_FALSE);
 
-      _window
-         = glfwCreateWindow(_settings.window.size.x, _settings.window.size.y,
-            _settings.window.title.c_str(), nullptr, nullptr);
+      _window = glfwCreateWindow(_settings.size.x, _settings.size.y,
+         _settings.title.c_str(), nullptr, nullptr);
       if (_window == NULL)
          std::exit(1);
 
-      if (_settings.window.alwaysOnTop)
+      if (_settings.alwaysOnTop)
          glfwSetWindowAttrib(_window, GLFW_FLOATING, GLFW_TRUE);
 
       glfwMakeContextCurrent(_window);
@@ -123,9 +112,8 @@ public:
          int display_w, display_h;
          glfwGetFramebufferSize(_window, &display_w, &display_h);
          glViewport(0, 0, display_w, display_h);
-         glClearColor(_settings.window.clearColor.x,
-            _settings.window.clearColor.y, _settings.window.clearColor.z,
-            _settings.window.clearColor.w);
+         glClearColor(_settings.clearColor.x, _settings.clearColor.y,
+            _settings.clearColor.z, _settings.clearColor.w);
          glClear(GL_COLOR_BUFFER_BIT);
          ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
          ImGuiIO& io = ImGui::GetIO();
@@ -149,7 +137,7 @@ protected:
 
 private:
    GLFWwindow* _window = nullptr;
-   WindowSettings<Processor> _settings;
+   WindowSettings _settings;
    ImVec2 _scale;
 
 private:

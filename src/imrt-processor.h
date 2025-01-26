@@ -18,7 +18,7 @@ struct AudioSettings {
 
 template <typename Derived> class Processor {
 public:
-   Processor(AudioSettings settings)
+   Processor(AudioSettings settings = AudioSettings())
       : _settings(settings)
    {
       auto defaultIn  = _dac.getDefaultInputDevice();
