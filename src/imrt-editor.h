@@ -20,35 +20,32 @@ struct Style {
    float fontSize   = 14.0f;
 };
 
-struct Window {
-   std::string title = "Default title";
-   ImVec2 size       = { 1024, 768 };
-   bool decorated    = true;
-   bool alwaysOnTop  = false;
-   ImVec4 clearColor = ImColor(22, 29, 38).Value;
+template <typename Processor> struct WindowSettings {
+   WindowSettings(Processor& processor)
+      : processor(processor)
+   {
+   }
+
+   Style style;
+
+   struct {
+      std::string title = "Default title";
+      ImVec2 size       = { 1024, 768 };
+      bool decorated    = true;
+      bool alwaysOnTop  = false;
+      ImVec4 clearColor = ImColor(22, 29, 38).Value;
+   } window;
+
+   Processor& processor;
 };
 
 template <typename Derived, typename Processor> class Editor {
 public:
-   struct Config {
-      friend class Editor<Derived, Processor>;
-
-      Config(Processor& processor)
-         : processor(processor) {};
-      Config() = delete;
-
-      Window window;
-      Style style;
-
-   private:
-      Processor& processor;
-   };
-
    Editor() = delete;
 
-   Editor(Config config)
-      : _config(config)
-      , processor(config.processor)
+   Editor(WindowSettings<Processor> settings)
+      : _settings(settings)
+      , processor(settings.processor)
    {
       glfwSetErrorCallback(ErrorCallback);
 
@@ -59,15 +56,16 @@ public:
       glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
       glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
 
-      if (!_config.window.decorated)
+      if (!_settings.window.decorated)
          glfwWindowHint(GLFW_DECORATED, GLFW_FALSE);
 
-      _window = glfwCreateWindow(_config.window.size.x, _config.window.size.y,
-         _config.window.title.c_str(), nullptr, nullptr);
+      _window
+         = glfwCreateWindow(_settings.window.size.x, _settings.window.size.y,
+            _settings.window.title.c_str(), nullptr, nullptr);
       if (_window == NULL)
          std::exit(1);
 
-      if (_config.window.alwaysOnTop)
+      if (_settings.window.alwaysOnTop)
          glfwSetWindowAttrib(_window, GLFW_FLOATING, GLFW_TRUE);
 
       glfwMakeContextCurrent(_window);
@@ -77,8 +75,8 @@ public:
       ImGui::CreateContext();
       ImPlot::CreateContext();
 
-      ImGui::GetStyle()  = _config.style.gui;
-      ImPlot::GetStyle() = _config.style.plot;
+      ImGui::GetStyle()  = _settings.style.gui;
+      ImPlot::GetStyle() = _settings.style.plot;
 
       glfwGetWindowContentScale(_window, &_scale.x, &_scale.y);
       ImGui::GetStyle().ScaleAllSizes(0.75f * _scale.y);
@@ -92,7 +90,7 @@ public:
       fontConfig.FontDataOwnedByAtlas = false;
       ImFont* notoMonoFont            = io.Fonts->AddFontFromMemoryTTF(
          (void*)notoMonoRegularTtf, sizeof(notoMonoRegularTtf),
-         _config.style.fontSize * _scale.x, &fontConfig);
+         _settings.style.fontSize * _scale.x, &fontConfig);
       io.FontDefault = notoMonoFont;
    }
 
@@ -125,8 +123,9 @@ public:
          int display_w, display_h;
          glfwGetFramebufferSize(_window, &display_w, &display_h);
          glViewport(0, 0, display_w, display_h);
-         glClearColor(_config.window.clearColor.x, _config.window.clearColor.y,
-            _config.window.clearColor.z, _config.window.clearColor.w);
+         glClearColor(_settings.window.clearColor.x,
+            _settings.window.clearColor.y, _settings.window.clearColor.z,
+            _settings.window.clearColor.w);
          glClear(GL_COLOR_BUFFER_BIT);
          ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
          ImGuiIO& io = ImGui::GetIO();
@@ -150,7 +149,7 @@ protected:
 
 private:
    GLFWwindow* _window = nullptr;
-   Config _config;
+   WindowSettings<Processor> _settings;
    ImVec2 _scale;
 
 private:

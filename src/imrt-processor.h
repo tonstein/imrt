@@ -9,7 +9,7 @@ namespace ImRt {
 using Buffer
    = choc::buffer::AllocatedBuffer<float, choc::buffer::SeparateChannelLayout>;
 
-struct Stream {
+struct AudioSettings {
    int numChannelsIn   = 2;
    int numChannelsOut  = 2;
    uint32_t sampleRate = 44100;
@@ -18,12 +18,8 @@ struct Stream {
 
 template <typename Derived> class Processor {
 public:
-   struct Config {
-      Stream stream;
-   };
-
-   Processor(Config config)
-      : _config(config)
+   Processor(AudioSettings settings)
+      : _settings(settings)
    {
       auto defaultIn  = _dac.getDefaultInputDevice();
       auto defaultOut = _dac.getDefaultOutputDevice();
@@ -31,16 +27,12 @@ public:
       if ((defaultIn == 0) || (defaultOut == 0))
          abort();
 
-      _paramsIn.deviceId = defaultIn;
-      _paramsIn.nChannels
-         = _config.stream
-              .numChannelsIn; // [FixMe] Check number of available channels.
+      _paramsIn.deviceId     = defaultIn;
+      _paramsIn.nChannels    = _settings.numChannelsIn;
       _paramsIn.firstChannel = 0;
 
-      _paramsOut.deviceId = defaultOut;
-      _paramsOut.nChannels
-         = _config.stream
-              .numChannelsIn; // [FixMe] Check number of available channels.
+      _paramsOut.deviceId     = defaultOut;
+      _paramsOut.nChannels    = _settings.numChannelsIn;
       _paramsOut.firstChannel = 0;
    }
 
@@ -55,8 +47,7 @@ public:
    void run()
    {
       if (_dac.openStream(&_paramsOut, &_paramsIn, RTAUDIO_FLOAT32,
-             _config.stream.sampleRate, &_config.stream.bufferSize,
-             &AudioCallback, this))
+             _settings.sampleRate, &_settings.bufferSize, &AudioCallback, this))
          abort();
 
       if (_dac.startStream())
@@ -71,7 +62,7 @@ public:
 private:
    RtAudio _dac;
    RtAudio::StreamParameters _paramsIn, _paramsOut;
-   Config _config;
+   AudioSettings _settings;
    ImRt::Buffer in, out;
 
 private:
@@ -84,7 +75,7 @@ private:
    int audioCallback(
       void* outputBuffer, void* inputBuffer, uint32_t nBufferFrames)
    {
-      uint32_t n = _config.stream.numChannelsIn;
+      uint32_t n = _settings.numChannelsIn;
       in.resize({ n, nBufferFrames });
 
       for (uint32_t frame = 0; frame < nBufferFrames; ++frame) {
@@ -94,7 +85,7 @@ private:
          }
       }
 
-      uint32_t m = _config.stream.numChannelsOut;
+      uint32_t m = _settings.numChannelsOut;
       out.resize({ m, nBufferFrames });
 
       int r = process(in, out, nBufferFrames);
