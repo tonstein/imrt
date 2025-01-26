@@ -17,7 +17,7 @@ public:
    Parameter() = delete;
    ~Parameter();
 
-   void push(float newValue);
+   void push(float& newValue);
    void update();
 
 private:

@@ -12,7 +12,7 @@ Parameter::Parameter(std::string name, float min, float max, float init)
 
 Parameter::~Parameter() { }
 
-void Parameter::push(float newValue)
+void Parameter::push(float& newValue)
 {
    fifo.push(&newValue, sizeof(float));
 }
