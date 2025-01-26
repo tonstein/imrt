@@ -2,7 +2,7 @@
 
 #include <RtAudio.h>
 
-#include <choc_SampleBuffers.h>
+#include <audio/choc_SampleBuffers.h>
 
 namespace ImRt {
 
