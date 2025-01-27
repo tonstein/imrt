@@ -16,7 +16,7 @@
 namespace ImRt {
 
 /* ------------------------------------------------------ */
-/*                     WindowSettings                     */
+/*                     window settings                    */
 /* ------------------------------------------------------ */
 
 struct Style {
@@ -35,7 +35,7 @@ struct WindowSettings {
 };
 
 /* ------------------------------------------------------ */
-/*                         Editor                         */
+/*                         editor                         */
 /* ------------------------------------------------------ */
 
 template <typename Derived, typename Processor> class Editor {
@@ -148,15 +148,6 @@ public:
       return _scale;
    }
 
-protected:
-   Processor& processor;
-   Parameters parameters;
-
-private:
-   GLFWwindow* _window = nullptr;
-   WindowSettings _settings;
-   ImVec2 _scale;
-
 private:
    void onStart()
    {
@@ -168,6 +159,20 @@ private:
       static_cast<Derived*>(this)->onUpdate();
    }
 
+protected:
+   Processor& processor;
+   Parameters parameters;
+
+private:
+   GLFWwindow* _window = nullptr;
+   WindowSettings _settings;
+   ImVec2 _scale;
+
+   /* ------------------------------------------------------ */
+   /*                     error callback                     */
+   /* ------------------------------------------------------ */
+
+private:
    static void ErrorCallback(int error, const char* description)
    {
       std::cerr << "Glfw Error" << error << ": " << description << std::endl;

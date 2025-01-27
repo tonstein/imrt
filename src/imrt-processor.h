@@ -12,7 +12,7 @@ using Buffer
    = choc::buffer::AllocatedBuffer<float, choc::buffer::SeparateChannelLayout>;
 
 /* ------------------------------------------------------ */
-/*                      AudioSettings                     */
+/*                      audio settings                    */
 /* ------------------------------------------------------ */
 
 struct AudioSettings {
@@ -23,7 +23,7 @@ struct AudioSettings {
 };
 
 /* ------------------------------------------------------ */
-/*                        Processor                       */
+/*                        processor                       */
 /* ------------------------------------------------------ */
 
 template <typename Derived> class Processor {
@@ -69,6 +69,12 @@ public:
       return _dac.getStreamSampleRate();
    }
 
+private:
+   int process(Buffer& in, Buffer& out, uint32_t numFrames)
+   {
+      return static_cast<Derived*>(this)->process(in, out, numFrames);
+   }
+
 public:
    AudioParameters parameters;
 
@@ -78,11 +84,9 @@ private:
    AudioSettings _settings;
    ImRt::Buffer in, out;
 
-private:
-   int process(Buffer& in, Buffer& out, uint32_t numFrames)
-   {
-      return static_cast<Derived*>(this)->process(in, out, numFrames);
-   }
+   /* ------------------------------------------------------ */
+   /*                     audio callback                     */
+   /* ------------------------------------------------------ */
 
 private:
    int audioCallback(
