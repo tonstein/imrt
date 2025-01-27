@@ -4,7 +4,6 @@
 #include <map>
 #include <memory>
 #include <string>
-#include <vector>
 
 #include <cstring> // choc_...FIFO.h needs it
 
@@ -33,18 +32,6 @@ protected:
 };
 
 /* ------------------------------------------------------ */
-/*                      parameter IDs                     */
-/* ------------------------------------------------------ */
-
-class ParameterIds {
-public:
-   std::vector<uint32_t> ids();
-
-protected:
-   std::vector<uint32_t> _ids;
-};
-
-/* ------------------------------------------------------ */
 /*                      gui parameter                     */
 /* ------------------------------------------------------ */
 
@@ -62,7 +49,7 @@ struct GuiParameter : public ParameterLayout {
 
 class DspParameters;
 
-class GuiParameters : ParameterIds {
+class GuiParameters {
 public:
    GuiParameters(const DspParameters& audioParameters);
    GuiParameters() = delete;

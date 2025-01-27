@@ -42,15 +42,6 @@ float ParameterLayout::init()
 }
 
 /* ------------------------------------------------------ */
-/*                      parameter IDs                     */
-/* ------------------------------------------------------ */
-
-std::vector<uint32_t> ParameterIds::ids()
-{
-   return _ids;
-}
-
-/* ------------------------------------------------------ */
 /*                      gui parameter                     */
 /* ------------------------------------------------------ */
 
@@ -69,9 +60,6 @@ GuiParameters::GuiParameters(const DspParameters& audioParameters)
 {
    for (auto iterator = audioParameters._params.begin();
         iterator != audioParameters._params.end(); iterator++) {
-      uint32_t id = iterator->first;
-      _ids.push_back(iterator->first);
-
       auto dspParam = iterator->second.get();
       auto guiParam = std::make_unique<GuiParameter>(dspParam->id(),
          dspParam->name(), dspParam->min(), dspParam->max(), dspParam->init());
