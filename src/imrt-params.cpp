@@ -2,6 +2,8 @@
 #include <cstdint>
 #include <memory>
 
+namespace ImRt {
+
 /* ------------------------------------------------------ */
 /*                    parameter layout                    */
 /* ------------------------------------------------------ */
@@ -102,12 +104,12 @@ GuiParameter* GuiParameters::byId(uint32_t paramId)
 /*                     dsp parameters                     */
 /* ------------------------------------------------------ */
 
-void DspParameters::add(
-   uint32_t id, std::string name, float min, float max, float init)
+void DspParameters::add(ParameterLayout& layout)
 {
    // [FixMe] Check whether paramId already exists.
-   auto parameter = std::make_unique<DspParameter>(id, name, min, max, init);
-   _params.insert_or_assign(id, std::move(parameter));
+   auto parameter = std::make_unique<DspParameter>(
+      layout.id(), layout.name(), layout.min(), layout.max(), layout.init());
+   _params.insert_or_assign(layout.id(), std::move(parameter));
 }
 
 void DspParameters::push(uint32_t paramId, float& newValue)
@@ -127,3 +129,5 @@ float DspParameters::value(uint32_t paramId)
    // [FixMe] Check if paramId is available.
    return _params.at(paramId)->value;
 }
+
+} // namespace ImRt

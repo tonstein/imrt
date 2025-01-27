@@ -9,6 +9,8 @@
 
 #include <containers/choc_VariableSizeFIFO.h>
 
+namespace ImRt {
+
 /* ------------------------------------------------------ */
 /*                    parameter layout                    */
 /* ------------------------------------------------------ */
@@ -88,8 +90,7 @@ class DspParameters {
    friend class GuiParameters;
 
 public:
-   void add(
-      uint32_t paramId, std::string name, float min, float max, float init);
+   void add(ParameterLayout& layout);
 
    void push(uint32_t paramId, float& newValue);
    void update(uint32_t paramId);
@@ -99,3 +100,5 @@ public:
 private:
    std::map<uint32_t, std::unique_ptr<DspParameter>> _params;
 };
+
+} // namespace ImRt
