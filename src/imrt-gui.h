@@ -11,7 +11,7 @@
 #include <implot.h>
 
 #include "imrt-font.embed"
-#include "imrt-parameters.h"
+#include "imrt-params.h"
 
 namespace ImRt {
 

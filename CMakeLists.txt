@@ -37,12 +37,13 @@ add_library(
    lib/implot/implot.h
    lib/implot/implot_items.cpp
 
-   src/imrt-gui.h
    src/imrt-dsp.h
+
+   src/imrt-gui.h
    src/imrt-font.embed
 
-   src/imrt-parameters.cpp
-   src/imrt-parameters.h
+   src/imrt-params.cpp
+   src/imrt-params.h
 )
 
 target_include_directories(

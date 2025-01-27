@@ -4,7 +4,7 @@
 
 #include <audio/choc_SampleBuffers.h>
 
-#include "imrt-parameters.h"
+#include "imrt-params.h"
 
 namespace ImRt {
 

@@ -1,4 +1,4 @@
-#include "imrt-parameters.h"
+#include "imrt-params.h"
 #include <cstdint>
 #include <memory>
 
