@@ -101,14 +101,12 @@ void AudioParameter::update()
 AudioParameters::AudioParameters() { }
 AudioParameters::~AudioParameters() { }
 
-uint32_t AudioParameters::add(
-   std::string name, float min, float max, float init)
+void AudioParameters::add(
+   uint32_t paramId, std::string name, float min, float max, float init)
 {
-   uint32_t id    = _nextId;
+   // [FixMe] Check whether paramId already exists.
    auto parameter = std::make_unique<AudioParameter>(name, min, max, init);
-   _params.insert_or_assign(id, std::move(parameter));
-   ++_nextId;
-   return id;
+   _params.insert_or_assign(paramId, std::move(parameter));
 }
 
 std::vector<uint32_t> AudioParameters::ids()

@@ -82,7 +82,8 @@ public:
    AudioParameters();
    ~AudioParameters();
 
-   uint32_t add(std::string name, float min, float max, float init);
+   void add(
+      uint32_t paramId, std::string name, float min, float max, float init);
 
    std::vector<uint32_t> ids();
 
@@ -92,7 +93,6 @@ public:
    float value(uint32_t paramId);
 
 private:
-   uint32_t _nextId = 0;
    std::vector<uint32_t> _ids;
    std::map<uint32_t, std::unique_ptr<AudioParameter>> _params;
 };
