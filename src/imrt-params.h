@@ -16,17 +16,20 @@
 
 class ParameterLayout {
 public:
-   ParameterLayout(std::string name, float min, float max, float init);
+   ParameterLayout(
+      uint32_t id, std::string name, float min, float max, float init);
    ParameterLayout() = delete;
 
+   uint32_t id();
    const char* name();
    float min();
    float max();
    float init();
 
 protected:
-   std::string _name;
-   float _min, _max, _init;
+   const uint32_t _id;
+   const std::string _name;
+   const float _min, _max, _init;
 };
 
 /* ------------------------------------------------------ */
@@ -46,7 +49,8 @@ protected:
 /* ------------------------------------------------------ */
 
 struct GuiParameter : public ParameterLayout {
-   GuiParameter(std::string name, float min, float max, float init);
+   GuiParameter(
+      uint32_t id, std::string name, float min, float max, float init);
    GuiParameter() = delete;
 
    float value;
@@ -77,7 +81,8 @@ class DspParameter : public ParameterLayout {
    friend class DspParameters;
 
 public:
-   DspParameter(std::string name, float min, float max, float init);
+   DspParameter(
+      uint32_t id, std::string name, float min, float max, float init);
    DspParameter() = delete;
 
    void push(float& newValue);

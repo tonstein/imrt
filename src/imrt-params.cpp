@@ -7,12 +7,18 @@
 /* ------------------------------------------------------ */
 
 ParameterLayout::ParameterLayout(
-   std::string name, float min, float max, float init)
-   : _name(name)
+   uint32_t id, std::string name, float min, float max, float init)
+   : _id(id)
+   , _name(name)
    , _min(min)
    , _max(max)
    , _init(init)
 {
+}
+
+uint32_t ParameterLayout::id()
+{
+   return _id;
 }
 
 const char* ParameterLayout::name()
@@ -48,8 +54,9 @@ std::vector<uint32_t> ParameterIds::ids()
 /*                      gui parameter                     */
 /* ------------------------------------------------------ */
 
-GuiParameter::GuiParameter(std::string name, float min, float max, float init)
-   : ParameterLayout(name, min, max, init)
+GuiParameter::GuiParameter(
+   uint32_t id, std::string name, float min, float max, float init)
+   : ParameterLayout(id, name, min, max, init)
    , value(init)
 {
 }
@@ -60,15 +67,15 @@ GuiParameter::GuiParameter(std::string name, float min, float max, float init)
 
 GuiParameters::GuiParameters(const DspParameters& audioParameters)
 {
-   for (auto i = audioParameters._params.begin();
-        i != audioParameters._params.end(); i++) {
-      uint32_t id = i->first;
-      _ids.push_back(i->first);
+   for (auto iterator = audioParameters._params.begin();
+        iterator != audioParameters._params.end(); iterator++) {
+      uint32_t id = iterator->first;
+      _ids.push_back(iterator->first);
 
-      auto p         = i->second.get();
-      auto parameter = std::make_unique<GuiParameter>(
-         p->name(), p->min(), p->max(), p->init());
-      _params.insert_or_assign(i->first, std::move(parameter));
+      auto dspParam = iterator->second.get();
+      auto guiParam = std::make_unique<GuiParameter>(dspParam->id(),
+         dspParam->name(), dspParam->min(), dspParam->max(), dspParam->init());
+      _params.insert_or_assign(iterator->first, std::move(guiParam));
    }
 }
 
@@ -82,8 +89,9 @@ GuiParameter* GuiParameters::byId(uint32_t paramId)
 /*                     audio parameter                    */
 /* ------------------------------------------------------ */
 
-DspParameter::DspParameter(std::string name, float min, float max, float init)
-   : ParameterLayout(name, min, max, init)
+DspParameter::DspParameter(
+   uint32_t id, std::string name, float min, float max, float init)
+   : ParameterLayout(id, name, min, max, init)
    , value(init)
 {
    _fifo.reset(4 * sizeof(float));
@@ -107,11 +115,11 @@ void DspParameter::update()
 /* ------------------------------------------------------ */
 
 void DspParameters::add(
-   uint32_t paramId, std::string name, float min, float max, float init)
+   uint32_t id, std::string name, float min, float max, float init)
 {
    // [FixMe] Check whether paramId already exists.
-   auto parameter = std::make_unique<DspParameter>(name, min, max, init);
-   _params.insert_or_assign(paramId, std::move(parameter));
+   auto parameter = std::make_unique<DspParameter>(id, name, min, max, init);
+   _params.insert_or_assign(id, std::move(parameter));
 }
 
 void DspParameters::push(uint32_t paramId, float& newValue)
