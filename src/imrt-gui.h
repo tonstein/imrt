@@ -19,13 +19,15 @@ namespace ImRt {
 /*                     window settings                    */
 /* ------------------------------------------------------ */
 
-struct Style {
+struct Style
+{
    ImGuiStyle gui   = ImGuiStyle();
    ImPlotStyle plot = ImPlotStyle();
    float fontSize   = 14.0f;
 };
 
-struct GuiSettings {
+struct GuiSettings
+{
    std::string title = "Default title";
    ImVec2 size       = { 1024, 768 };
    bool decorated    = true;
@@ -38,9 +40,13 @@ struct GuiSettings {
 /*                           gui                          */
 /* ------------------------------------------------------ */
 
-template <typename Derived, typename Dsp> class Gui {
-   template <typename, typename> friend class Slider;
-   template <typename, typename> friend class Knob;
+template <typename Derived, typename Dsp>
+class Gui
+{
+   template <typename, typename>
+   friend class Slider;
+   template <typename, typename>
+   friend class Knob;
 
 public:
    Gui() = delete;
@@ -62,8 +68,10 @@ public:
       if (!_settings.decorated)
          glfwWindowHint(GLFW_DECORATED, GLFW_FALSE);
 
-      _window = glfwCreateWindow(_settings.size.x, _settings.size.y,
-         _settings.title.c_str(), nullptr, nullptr);
+      _window = glfwCreateWindow(
+         _settings.size.x, _settings.size.y, _settings.title.c_str(), nullptr,
+         nullptr
+      );
       if (_window == NULL)
          std::exit(1);
 
@@ -92,7 +100,8 @@ public:
       fontConfig.FontDataOwnedByAtlas = false;
       ImFont* notoMonoFont            = io.Fonts->AddFontFromMemoryTTF(
          (void*)notoMonoRegularTtf, sizeof(notoMonoRegularTtf),
-         _settings.style.fontSize * _scale.x, &fontConfig);
+         _settings.style.fontSize * _scale.x, &fontConfig
+      );
       io.FontDefault = notoMonoFont;
    }
 
@@ -111,7 +120,8 @@ public:
    {
       onStart();
 
-      while (!glfwWindowShouldClose(_window)) {
+      while (!glfwWindowShouldClose(_window))
+      {
 
          glfwPollEvents();
 
@@ -122,8 +132,11 @@ public:
          ImGuiIO& io = ImGui::GetIO();
          ImGui::SetNextWindowSize(io.DisplaySize);
          ImGui::SetNextWindowPos({ 0, 0 });
-         if (ImGui::Begin("Audioskop", nullptr,
-                ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize)) {
+         if (ImGui::Begin(
+                "Audioskop", nullptr,
+                ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize
+             ))
+         {
             onUpdate();
          }
          ImGui::End();
@@ -132,11 +145,14 @@ public:
          int display_w, display_h;
          glfwGetFramebufferSize(_window, &display_w, &display_h);
          glViewport(0, 0, display_w, display_h);
-         glClearColor(_settings.clearColor.x, _settings.clearColor.y,
-            _settings.clearColor.z, _settings.clearColor.w);
+         glClearColor(
+            _settings.clearColor.x, _settings.clearColor.y,
+            _settings.clearColor.z, _settings.clearColor.w
+         );
          glClear(GL_COLOR_BUFFER_BIT);
          ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-         if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable) {
+         if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+         {
             GLFWwindow* backup_current_context = glfwGetCurrentContext();
             ImGui::UpdatePlatformWindows();
             ImGui::RenderPlatformWindowsDefault();

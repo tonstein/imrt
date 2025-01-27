@@ -9,7 +9,8 @@ namespace ImRt {
 /* ------------------------------------------------------ */
 
 ParameterLayout::ParameterLayout(
-   uint32_t id, std::string name, float min, float max, float init)
+   uint32_t id, std::string name, float min, float max, float init
+)
    : _id(id)
    , _name(name)
    , _min(min)
@@ -48,7 +49,8 @@ float ParameterLayout::init()
 /* ------------------------------------------------------ */
 
 GuiParameter::GuiParameter(
-   uint32_t id, std::string name, float min, float max, float init)
+   uint32_t id, std::string name, float min, float max, float init
+)
    : ParameterLayout(id, name, min, max, init)
    , value(init)
 {
@@ -59,7 +61,8 @@ GuiParameter::GuiParameter(
 /* ------------------------------------------------------ */
 
 DspParameter::DspParameter(
-   uint32_t id, std::string name, float min, float max, float init)
+   uint32_t id, std::string name, float min, float max, float init
+)
    : ParameterLayout(id, name, min, max, init)
    , value(init)
 {
@@ -73,10 +76,13 @@ void DspParameter::push(float& newValue)
 
 void DspParameter::update()
 {
-   _fifo.pop([this](const void* data, uint32_t size) {
-      if (size == sizeof(float))
-         value = *(float*)data;
-   });
+   _fifo.pop(
+      [this](const void* data, uint32_t size)
+      {
+         if (size == sizeof(float))
+            value = *(float*)data;
+      }
+   );
 }
 
 /* ------------------------------------------------------ */
@@ -86,10 +92,13 @@ void DspParameter::update()
 GuiParameters::GuiParameters(const DspParameters& audioParameters)
 {
    for (auto iterator = audioParameters._params.begin();
-        iterator != audioParameters._params.end(); iterator++) {
+        iterator != audioParameters._params.end(); iterator++)
+   {
       auto dspParam = iterator->second.get();
-      auto guiParam = std::make_unique<GuiParameter>(dspParam->id(),
-         dspParam->name(), dspParam->min(), dspParam->max(), dspParam->init());
+      auto guiParam = std::make_unique<GuiParameter>(
+         dspParam->id(), dspParam->name(), dspParam->min(), dspParam->max(),
+         dspParam->init()
+      );
       _params.insert_or_assign(iterator->first, std::move(guiParam));
    }
 }
@@ -108,7 +117,8 @@ void DspParameters::add(ParameterLayout& layout)
 {
    // [FixMe] Check whether paramId already exists.
    auto parameter = std::make_unique<DspParameter>(
-      layout.id(), layout.name(), layout.min(), layout.max(), layout.init());
+      layout.id(), layout.name(), layout.min(), layout.max(), layout.init()
+   );
    _params.insert_or_assign(layout.id(), std::move(parameter));
 }
 

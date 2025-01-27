@@ -15,10 +15,12 @@ namespace ImRt {
 /*                    parameter layout                    */
 /* ------------------------------------------------------ */
 
-class ParameterLayout {
+class ParameterLayout
+{
 public:
    ParameterLayout(
-      uint32_t id, std::string name, float min, float max, float init);
+      uint32_t id, std::string name, float min, float max, float init
+   );
    ParameterLayout() = delete;
 
    uint32_t id();
@@ -37,9 +39,11 @@ protected:
 /*                      gui parameter                     */
 /* ------------------------------------------------------ */
 
-struct GuiParameter : public ParameterLayout {
+struct GuiParameter : public ParameterLayout
+{
    GuiParameter(
-      uint32_t id, std::string name, float min, float max, float init);
+      uint32_t id, std::string name, float min, float max, float init
+   );
    GuiParameter() = delete;
 
    float value;
@@ -49,12 +53,14 @@ struct GuiParameter : public ParameterLayout {
 /*                      dsp parameter                     */
 /* ------------------------------------------------------ */
 
-class DspParameter : public ParameterLayout {
+class DspParameter : public ParameterLayout
+{
    friend class DspParameters;
 
 public:
    DspParameter(
-      uint32_t id, std::string name, float min, float max, float init);
+      uint32_t id, std::string name, float min, float max, float init
+   );
    DspParameter() = delete;
 
    void push(float& newValue);
@@ -71,7 +77,8 @@ private:
 
 class DspParameters;
 
-class GuiParameters {
+class GuiParameters
+{
 public:
    GuiParameters(const DspParameters& audioParameters);
    GuiParameters() = delete;
@@ -86,7 +93,8 @@ private:
 /*                     dsp parameters                     */
 /* ------------------------------------------------------ */
 
-class DspParameters {
+class DspParameters
+{
    friend class GuiParameters;
 
 public:

@@ -15,7 +15,8 @@ using Buffer
 /*                      audio settings                    */
 /* ------------------------------------------------------ */
 
-struct DspSettings {
+struct DspSettings
+{
    int numChannelsIn   = 2;
    int numChannelsOut  = 2;
    uint32_t sampleRate = 44100;
@@ -26,8 +27,11 @@ struct DspSettings {
 /*                           dsp                          */
 /* ------------------------------------------------------ */
 
-template <typename Derived> class Dsp {
-   template <typename, typename> friend class Gui;
+template <typename Derived>
+class Dsp
+{
+   template <typename, typename>
+   friend class Gui;
 
 public:
    Dsp(DspSettings settings = DspSettings())
@@ -58,8 +62,10 @@ public:
 
    void run()
    {
-      if (_dac.openStream(&_paramsOut, &_paramsIn, RTAUDIO_FLOAT32,
-             _settings.sampleRate, &_settings.bufferSize, &AudioCallback, this))
+      if (_dac.openStream(
+             &_paramsOut, &_paramsIn, RTAUDIO_FLOAT32, _settings.sampleRate,
+             &_settings.bufferSize, &AudioCallback, this
+          ))
          abort();
 
       if (_dac.startStream())
@@ -96,14 +102,16 @@ private:
    /* ------------------------------------------------------ */
 
 private:
-   int audioCallback(
-      void* outputBuffer, void* inputBuffer, uint32_t nBufferFrames)
+   int
+   audioCallback(void* outputBuffer, void* inputBuffer, uint32_t nBufferFrames)
    {
       uint32_t n = _settings.numChannelsIn;
       in.resize({ n, nBufferFrames });
 
-      for (uint32_t frame = 0; frame < nBufferFrames; ++frame) {
-         for (uint32_t channel = 0; channel < n; ++channel) {
+      for (uint32_t frame = 0; frame < nBufferFrames; ++frame)
+      {
+         for (uint32_t channel = 0; channel < n; ++channel)
+         {
             in.getSample(channel, frame)
                = ((float*)inputBuffer)[n * frame + channel];
          }
@@ -114,8 +122,10 @@ private:
 
       int r = process(in, out, nBufferFrames);
 
-      for (uint32_t frame = 0; frame < nBufferFrames; ++frame) {
-         for (uint32_t channel = 0; channel < m; ++channel) {
+      for (uint32_t frame = 0; frame < nBufferFrames; ++frame)
+      {
+         for (uint32_t channel = 0; channel < m; ++channel)
+         {
             ((float*)outputBuffer)[m * frame + channel]
                = out.getSample(channel, frame);
          }
@@ -124,12 +134,14 @@ private:
       return r;
    }
 
-   static int AudioCallback(void* outputBuffer, void* inputBuffer,
-      unsigned int nBufferFrames, double streamTime, unsigned int status,
-      void* userData)
+   static int AudioCallback(
+      void* outputBuffer, void* inputBuffer, unsigned int nBufferFrames,
+      double streamTime, unsigned int status, void* userData
+   )
    {
       return static_cast<Dsp*>(userData)->audioCallback(
-         outputBuffer, inputBuffer, nBufferFrames);
+         outputBuffer, inputBuffer, nBufferFrames
+      );
    }
 };
 
