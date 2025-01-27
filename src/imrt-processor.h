@@ -4,6 +4,7 @@
 
 #include <audio/choc_SampleBuffers.h>
 
+#include "imrt-editor.h"
 #include "imrt-parameters.h"
 
 namespace ImRt {
@@ -27,6 +28,8 @@ struct AudioSettings {
 /* ------------------------------------------------------ */
 
 template <typename Derived> class Processor {
+   template <typename, typename> friend class Editor;
+
 public:
    Processor(AudioSettings settings = AudioSettings())
       : _settings(settings)
@@ -75,7 +78,7 @@ private:
       return static_cast<Derived*>(this)->process(in, out, numFrames);
    }
 
-public:
+protected:
    AudioParameters parameters;
 
 private:
