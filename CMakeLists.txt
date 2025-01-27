@@ -37,9 +37,9 @@ add_library(
    lib/implot/implot.h
    lib/implot/implot_items.cpp
 
-   src/imrt-editor.h
-   src/imrt-processor.h
-   src/imrt-noto-mono-regular.embed
+   src/imrt-gui.h
+   src/imrt-dsp.h
+   src/imrt-font.embed
 
    src/imrt-parameters.cpp
    src/imrt-parameters.h

@@ -15,7 +15,7 @@ using Buffer
 /*                      audio settings                    */
 /* ------------------------------------------------------ */
 
-struct AudioSettings {
+struct DspSettings {
    int numChannelsIn   = 2;
    int numChannelsOut  = 2;
    uint32_t sampleRate = 44100;
@@ -26,11 +26,11 @@ struct AudioSettings {
 /*                        processor                       */
 /* ------------------------------------------------------ */
 
-template <typename Derived> class Processor {
-   template <typename, typename> friend class Editor;
+template <typename Derived> class Dsp {
+   template <typename, typename> friend class Gui;
 
 public:
-   Processor(AudioSettings settings = AudioSettings())
+   Dsp(DspSettings settings = DspSettings())
       : _settings(settings)
    {
       auto defaultIn  = _dac.getDefaultInputDevice();
@@ -48,7 +48,7 @@ public:
       _paramsOut.firstChannel = 0;
    }
 
-   virtual ~Processor()
+   virtual ~Dsp()
    {
       if (_dac.isStreamRunning())
          _dac.stopStream();
@@ -88,7 +88,7 @@ protected:
 private:
    RtAudio _dac;
    RtAudio::StreamParameters _paramsIn, _paramsOut;
-   AudioSettings _settings;
+   DspSettings _settings;
    ImRt::Buffer in, out;
 
    /* ------------------------------------------------------ */
@@ -128,7 +128,7 @@ private:
       unsigned int nBufferFrames, double streamTime, unsigned int status,
       void* userData)
    {
-      return static_cast<Processor*>(userData)->audioCallback(
+      return static_cast<Dsp*>(userData)->audioCallback(
          outputBuffer, inputBuffer, nBufferFrames);
    }
 };

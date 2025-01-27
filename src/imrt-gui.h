@@ -10,7 +10,7 @@
 #include <imgui_impl_opengl3.h>
 #include <implot.h>
 
-#include "imrt-noto-mono-regular.embed"
+#include "imrt-font.embed"
 #include "imrt-parameters.h"
 
 namespace ImRt {
@@ -25,7 +25,7 @@ struct Style {
    float fontSize   = 14.0f;
 };
 
-struct WindowSettings {
+struct GuiSettings {
    std::string title = "Default title";
    ImVec2 size       = { 1024, 768 };
    bool decorated    = true;
@@ -35,14 +35,14 @@ struct WindowSettings {
 };
 
 /* ------------------------------------------------------ */
-/*                         editor                         */
+/*                           gui                          */
 /* ------------------------------------------------------ */
 
-template <typename Derived, typename Processor> class Editor {
+template <typename Derived, typename Processor> class Gui {
 public:
-   Editor() = delete;
+   Gui() = delete;
 
-   Editor(Processor& processor, WindowSettings settings = WindowSettings())
+   Gui(Processor& processor, GuiSettings settings = GuiSettings())
       : _settings(settings)
       , processor(processor)
       , parameters(processor.parameters)
@@ -93,7 +93,7 @@ public:
       io.FontDefault = notoMonoFont;
    }
 
-   virtual ~Editor()
+   virtual ~Gui()
    {
       ImGui_ImplOpenGL3_Shutdown();
       ImGui_ImplGlfw_Shutdown();
@@ -165,7 +165,7 @@ protected:
 
 private:
    GLFWwindow* _window = nullptr;
-   WindowSettings _settings;
+   GuiSettings _settings;
    ImVec2 _scale;
 
    /* ------------------------------------------------------ */
