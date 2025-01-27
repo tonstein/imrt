@@ -76,16 +76,6 @@ public:
       parameters.push(paramId, newValue);
    }
 
-   void updateParameter(uint32_t paramId)
-   {
-      parameters.update(paramId);
-   }
-
-   float parameterValue(uint32_t paramId)
-   {
-      parameters.value(paramId);
-   }
-
 private:
    int process(Buffer& in, Buffer& out, uint32_t numFrames)
    {
