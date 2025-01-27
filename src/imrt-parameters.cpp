@@ -64,6 +64,7 @@ std::vector<uint32_t> Parameters::ids()
 
 Parameter* Parameters::byId(uint32_t paramId)
 {
+   // [FixMe] Check if paramId is available.
    return _params.at(paramId).get();
 }
 
@@ -117,15 +118,18 @@ std::vector<uint32_t> AudioParameters::ids()
 
 void AudioParameters::push(uint32_t paramId, float& newValue)
 {
+   // [FixMe] Check if paramId is available.
    _params.at(paramId)->push(newValue);
 }
 
 void AudioParameters::update(uint32_t paramId)
 {
+   // [FixMe] Check if paramId is available.
    _params.at(paramId)->update();
 }
 
 float AudioParameters::value(uint32_t paramId)
 {
+   // [FixMe] Check if paramId is available.
    return _params.at(paramId)->value;
 }
