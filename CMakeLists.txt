@@ -37,6 +37,8 @@ add_library(
    lib/implot/implot.h
    lib/implot/implot_items.cpp
 
+   lib/imgui-knobs/imgui-knobs.cpp
+
    src/imrt-dsp.h
 
    src/imrt-gui.h
@@ -56,6 +58,8 @@ target_include_directories(
    lib/imgui
    lib/imgui/backends
    lib/implot
+
+   lib/imgui-knobs
 
    lib/choc
 

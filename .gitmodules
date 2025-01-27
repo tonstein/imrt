@@ -14,3 +14,6 @@
 [submodule "lib/choc"]
 	path = lib/choc
 	url = https://github.com/Tracktion/choc.git
+[submodule "lib/imgui-knobs"]
+	path = lib/imgui-knobs
+	url = https://github.com/altschuler/imgui-knobs.git
