@@ -38,14 +38,14 @@ struct GuiSettings {
 /*                           gui                          */
 /* ------------------------------------------------------ */
 
-template <typename Derived, typename Processor> class Gui {
+template <typename Derived, typename Dsp> class Gui {
 public:
    Gui() = delete;
 
-   Gui(Processor& processor, GuiSettings settings = GuiSettings())
+   Gui(Dsp& dsp, GuiSettings settings = GuiSettings())
       : _settings(settings)
-      , processor(processor)
-      , parameters(processor.parameters)
+      , dsp(dsp)
+      , parameters(dsp.parameters)
    {
       glfwSetErrorCallback(ErrorCallback);
 
@@ -160,7 +160,7 @@ private:
    }
 
 protected:
-   Processor& processor;
+   Dsp& dsp;
    Parameters parameters;
 
 private:
