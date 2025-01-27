@@ -49,7 +49,7 @@ public:
 
 private:
    std::vector<uint32_t> _ids;
-   std::map<uint32_t, Parameter*> _params;
+   std::map<uint32_t, std::unique_ptr<Parameter>> _params;
 };
 
 /* ------------------------------------------------------ */

@@ -1,4 +1,6 @@
 #include "imrt-parameters.h"
+#include <cstdint>
+#include <memory>
 
 /* ------------------------------------------------------ */
 /*                        Parameter                       */
@@ -43,8 +45,13 @@ Parameters::Parameters(const AudioParameters& audioParameters)
 {
    for (auto i = audioParameters._params.begin();
         i != audioParameters._params.end(); i++) {
+      uint32_t id = i->first;
       _ids.push_back(i->first);
-      _params.insert_or_assign(i->first, i->second.get());
+
+      auto p         = i->second.get();
+      auto parameter = std::make_unique<Parameter>(
+         p->name(), p->min(), p->max(), p->init());
+      _params.insert_or_assign(i->first, std::move(parameter));
    }
 }
 
@@ -57,7 +64,7 @@ std::vector<uint32_t> Parameters::ids()
 
 Parameter* Parameters::byId(uint32_t paramId)
 {
-   return _params.at(paramId);
+   return _params.at(paramId).get();
 }
 
 /* ------------------------------------------------------ */
@@ -96,9 +103,9 @@ AudioParameters::~AudioParameters() { }
 uint32_t AudioParameters::add(
    std::string name, float min, float max, float init)
 {
-   uint32_t id = _nextId;
-   auto p      = std::make_unique<AudioParameter>(name, min, max, init);
-   _params.insert_or_assign(id, std::move(p));
+   uint32_t id    = _nextId;
+   auto parameter = std::make_unique<AudioParameter>(name, min, max, init);
+   _params.insert_or_assign(id, std::move(parameter));
    ++_nextId;
    return id;
 }
