@@ -11,8 +11,13 @@
 #include <implot.h>
 
 #include "imrt-noto-mono-regular.embed"
+#include "imrt-parameters.h"
 
 namespace ImRt {
+
+/* ------------------------------------------------------ */
+/*                     WindowSettings                     */
+/* ------------------------------------------------------ */
 
 struct Style {
    ImGuiStyle gui   = ImGuiStyle();
@@ -29,6 +34,10 @@ struct WindowSettings {
    Style style;
 };
 
+/* ------------------------------------------------------ */
+/*                         Editor                         */
+/* ------------------------------------------------------ */
+
 template <typename Derived, typename Processor> class Editor {
 public:
    Editor() = delete;
@@ -36,6 +45,7 @@ public:
    Editor(Processor& processor, WindowSettings settings = WindowSettings())
       : _settings(settings)
       , processor(processor)
+      , parameters(processor.parameters)
    {
       glfwSetErrorCallback(ErrorCallback);
 
@@ -134,6 +144,7 @@ public:
 
 protected:
    Processor& processor;
+   Parameters parameters;
 
 private:
    GLFWwindow* _window = nullptr;

@@ -1,73 +1,124 @@
 #include "imrt-parameters.h"
 
+/* ------------------------------------------------------ */
+/*                        Parameter                       */
+/* ------------------------------------------------------ */
+
 Parameter::Parameter(std::string name, float min, float max, float init)
-   : name(name)
-   , min(min)
-   , max(max)
-   , init(init)
+   : _name(name)
+   , _min(min)
+   , _max(max)
+   , _init(init)
    , value(init)
 {
-   fifo.reset(4 * sizeof(float));
 }
 
 Parameter::~Parameter() { }
 
-void Parameter::push(float& newValue)
+const char* Parameter::name()
 {
-   fifo.push(&newValue, sizeof(float));
+   return _name.c_str();
 }
 
-void Parameter::update()
+float Parameter::min()
 {
-   fifo.pop([this](const void* data, uint32_t size) {
+   return _min;
+}
+
+float Parameter::max()
+{
+   return _max;
+}
+
+float Parameter::init()
+{
+   return _init;
+}
+
+/* ------------------------------------------------------ */
+/*                       Parameters                       */
+/* ------------------------------------------------------ */
+
+Parameters::Parameters(const AudioParameters& audioParameters)
+{
+   for (auto i = audioParameters._params.begin();
+        i != audioParameters._params.end(); i++) {
+      _ids.push_back(i->first);
+      _params.insert_or_assign(i->first, i->second.get());
+   }
+}
+
+Parameters::~Parameters() { }
+
+std::vector<uint32_t> Parameters::ids()
+{
+   return _ids;
+}
+
+Parameter* Parameters::byId(uint32_t paramId)
+{
+   return _params.at(paramId);
+}
+
+/* ------------------------------------------------------ */
+/*                     AudioParameter                     */
+/* ------------------------------------------------------ */
+
+AudioParameter::AudioParameter(
+   std::string name, float min, float max, float init)
+   : Parameter(name, min, max, init)
+{
+   _fifo.reset(4 * sizeof(float));
+}
+
+AudioParameter::~AudioParameter() { }
+
+void AudioParameter::push(float& newValue)
+{
+   _fifo.push(&newValue, sizeof(float));
+}
+
+void AudioParameter::update()
+{
+   _fifo.pop([this](const void* data, uint32_t size) {
       if (size == sizeof(float))
          value = *(float*)data;
    });
 }
 
-Parameters::Parameters() { }
-Parameters::~Parameters() { }
+/* ------------------------------------------------------ */
+/*                     AudioParameters                    */
+/* ------------------------------------------------------ */
 
-uint32_t Parameters::add(std::string name, float min, float max, float init)
+AudioParameters::AudioParameters() { }
+AudioParameters::~AudioParameters() { }
+
+uint32_t AudioParameters::add(
+   std::string name, float min, float max, float init)
 {
-   uint32_t id = nextId;
-   auto p      = std::make_unique<Parameter>(name, min, max, init);
-   parameters.insert_or_assign(id, std::move(p));
-   ++nextId;
+   uint32_t id = _nextId;
+   auto p      = std::make_unique<AudioParameter>(name, min, max, init);
+   _params.insert_or_assign(id, std::move(p));
+   ++_nextId;
    return id;
 }
 
-void Parameters::push(uint32_t paramId, float& newValue)
+std::vector<uint32_t> AudioParameters::ids()
 {
-   parameters.at(paramId)->push(newValue);
+   return _ids;
 }
 
-void Parameters::update(uint32_t paramId)
+void AudioParameters::push(uint32_t paramId, float& newValue)
 {
-   parameters.at(paramId)->update();
+   _params.at(paramId)->push(newValue);
 }
 
-std::string Parameters::name(uint32_t paramId)
+void AudioParameters::update(uint32_t paramId)
 {
-   return parameters.at(paramId)->name;
+   _params.at(paramId)->update();
 }
 
-float Parameters::min(uint32_t paramId)
+float AudioParameters::value(uint32_t paramId)
 {
-   return parameters.at(paramId)->min;
-}
-
-float Parameters::max(uint32_t paramId)
-{
-   return parameters.at(paramId)->max;
-}
-
-float Parameters::init(uint32_t paramId)
-{
-   return parameters.at(paramId)->init;
-}
-
-float Parameters::value(uint32_t paramId)
-{
-   return parameters.at(paramId)->value;
+   return _params.at(paramId)->value;
 }

@@ -11,12 +11,20 @@ namespace ImRt {
 using Buffer
    = choc::buffer::AllocatedBuffer<float, choc::buffer::SeparateChannelLayout>;
 
+/* ------------------------------------------------------ */
+/*                      AudioSettings                     */
+/* ------------------------------------------------------ */
+
 struct AudioSettings {
    int numChannelsIn   = 2;
    int numChannelsOut  = 2;
    uint32_t sampleRate = 44100;
    uint32_t bufferSize = 0; // 0 means as small as possible
 };
+
+/* ------------------------------------------------------ */
+/*                        Processor                       */
+/* ------------------------------------------------------ */
 
 template <typename Derived> class Processor {
 public:
@@ -61,8 +69,8 @@ public:
       return _dac.getStreamSampleRate();
    }
 
-protected:
-   Parameters parameters;
+public:
+   AudioParameters parameters;
 
 private:
    RtAudio _dac;
