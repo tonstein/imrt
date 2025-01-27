@@ -44,6 +44,8 @@ add_library(
 
    src/imrt-params.cpp
    src/imrt-params.h
+
+   src/imrt-widgets.h
 )
 
 target_include_directories(

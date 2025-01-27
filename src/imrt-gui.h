@@ -39,6 +39,8 @@ struct GuiSettings {
 /* ------------------------------------------------------ */
 
 template <typename Derived, typename Dsp> class Gui {
+   template <typename, typename> friend class Slider;
+
 public:
    Gui() = delete;
 
