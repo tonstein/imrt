@@ -63,7 +63,7 @@ DspParameter::DspParameter(
    : ParameterLayout(id, name, min, max, init)
    , value(init)
 {
-   _fifo.reset(4 * sizeof(float));
+   _fifo.reset(120 * sizeof(float));
 }
 
 void DspParameter::push(float& newValue)
