@@ -44,23 +44,6 @@ struct GuiParameter : public ParameterLayout {
 };
 
 /* ------------------------------------------------------ */
-/*                     gui parameters                     */
-/* ------------------------------------------------------ */
-
-class DspParameters;
-
-class GuiParameters {
-public:
-   GuiParameters(const DspParameters& audioParameters);
-   GuiParameters() = delete;
-
-   GuiParameter* byId(uint32_t paramId);
-
-private:
-   std::map<uint32_t, std::unique_ptr<GuiParameter>> _params;
-};
-
-/* ------------------------------------------------------ */
 /*                      dsp parameter                     */
 /* ------------------------------------------------------ */
 
@@ -78,6 +61,23 @@ public:
 private:
    float value;
    choc::fifo::VariableSizeFIFO _fifo;
+};
+
+/* ------------------------------------------------------ */
+/*                     gui parameters                     */
+/* ------------------------------------------------------ */
+
+class DspParameters;
+
+class GuiParameters {
+public:
+   GuiParameters(const DspParameters& audioParameters);
+   GuiParameters() = delete;
+
+   GuiParameter* byId(uint32_t paramId);
+
+private:
+   std::map<uint32_t, std::unique_ptr<GuiParameter>> _params;
 };
 
 /* ------------------------------------------------------ */

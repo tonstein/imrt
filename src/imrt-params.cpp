@@ -53,28 +53,7 @@ GuiParameter::GuiParameter(
 }
 
 /* ------------------------------------------------------ */
-/*                     gui parameters                     */
-/* ------------------------------------------------------ */
-
-GuiParameters::GuiParameters(const DspParameters& audioParameters)
-{
-   for (auto iterator = audioParameters._params.begin();
-        iterator != audioParameters._params.end(); iterator++) {
-      auto dspParam = iterator->second.get();
-      auto guiParam = std::make_unique<GuiParameter>(dspParam->id(),
-         dspParam->name(), dspParam->min(), dspParam->max(), dspParam->init());
-      _params.insert_or_assign(iterator->first, std::move(guiParam));
-   }
-}
-
-GuiParameter* GuiParameters::byId(uint32_t paramId)
-{
-   // [FixMe] Check if paramId is available.
-   return _params.at(paramId).get();
-}
-
-/* ------------------------------------------------------ */
-/*                     audio parameter                    */
+/*                      dsp parameter                     */
 /* ------------------------------------------------------ */
 
 DspParameter::DspParameter(
@@ -99,7 +78,28 @@ void DspParameter::update()
 }
 
 /* ------------------------------------------------------ */
-/*                    audio parameters                    */
+/*                     gui parameters                     */
+/* ------------------------------------------------------ */
+
+GuiParameters::GuiParameters(const DspParameters& audioParameters)
+{
+   for (auto iterator = audioParameters._params.begin();
+        iterator != audioParameters._params.end(); iterator++) {
+      auto dspParam = iterator->second.get();
+      auto guiParam = std::make_unique<GuiParameter>(dspParam->id(),
+         dspParam->name(), dspParam->min(), dspParam->max(), dspParam->init());
+      _params.insert_or_assign(iterator->first, std::move(guiParam));
+   }
+}
+
+GuiParameter* GuiParameters::byId(uint32_t paramId)
+{
+   // [FixMe] Check if paramId is available.
+   return _params.at(paramId).get();
+}
+
+/* ------------------------------------------------------ */
+/*                     dsp parameters                     */
 /* ------------------------------------------------------ */
 
 void DspParameters::add(
