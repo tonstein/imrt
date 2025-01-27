@@ -25,7 +25,9 @@ public:
    {
       auto p = _gui.parameters.byId(_paramId);
       if (ImGui::SliderFloat(p->name(), &p->value, p->min(), p->max()))
+      {
          _dsp.pushParameter(_paramId, p->value);
+      }
    }
 
 private:

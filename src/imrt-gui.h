@@ -59,24 +59,32 @@ public:
       glfwSetErrorCallback(ErrorCallback);
 
       if (!glfwInit())
+      {
          std::exit(1);
+      }
 
       const char* glsl_version = "#version 130";
       glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
       glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
 
       if (!_settings.decorated)
+      {
          glfwWindowHint(GLFW_DECORATED, GLFW_FALSE);
+      }
 
       _window = glfwCreateWindow(
          _settings.size.x, _settings.size.y, _settings.title.c_str(), nullptr,
          nullptr
       );
       if (_window == NULL)
+      {
          std::exit(1);
+      }
 
       if (_settings.alwaysOnTop)
+      {
          glfwSetWindowAttrib(_window, GLFW_FLOATING, GLFW_TRUE);
+      }
 
       glfwMakeContextCurrent(_window);
       glfwSwapInterval(1);

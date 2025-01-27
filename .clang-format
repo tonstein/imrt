@@ -135,8 +135,8 @@ IndentPPDirectives: None
 IndentRequiresClause: true
 IndentWidth:     3
 IndentWrappedFunctionNames: false
-InsertBraces:    false
-InsertNewlineAtEOF: false
+InsertBraces:    true
+InsertNewlineAtEOF: true
 InsertTrailingCommas: None
 IntegerLiteralSeparator:
   Binary:          0

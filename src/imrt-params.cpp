@@ -80,7 +80,9 @@ void DspParameter::update()
       [this](const void* data, uint32_t size)
       {
          if (size == sizeof(float))
+         {
             value = *(float*)data;
+         }
       }
    );
 }

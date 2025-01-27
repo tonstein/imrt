@@ -41,7 +41,9 @@ public:
       auto defaultOut = _dac.getDefaultOutputDevice();
 
       if ((defaultIn == 0) || (defaultOut == 0))
+      {
          abort();
+      }
 
       _paramsIn.deviceId     = defaultIn;
       _paramsIn.nChannels    = _settings.numChannelsIn;
@@ -55,9 +57,13 @@ public:
    virtual ~Dsp()
    {
       if (_dac.isStreamRunning())
+      {
          _dac.stopStream();
+      }
       if (_dac.isStreamOpen())
+      {
          _dac.closeStream();
+      }
    }
 
    void run()
@@ -66,10 +72,14 @@ public:
              &_paramsOut, &_paramsIn, RTAUDIO_FLOAT32, _settings.sampleRate,
              &_settings.bufferSize, &AudioCallback, this
           ))
+      {
          abort();
+      }
 
       if (_dac.startStream())
+      {
          abort();
+      }
    }
 
    uint32_t sampleRate()
