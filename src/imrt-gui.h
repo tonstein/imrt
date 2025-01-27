@@ -40,6 +40,7 @@ struct GuiSettings {
 
 template <typename Derived, typename Dsp> class Gui {
    template <typename, typename> friend class Slider;
+   template <typename, typename> friend class Knob;
 
 public:
    Gui() = delete;
