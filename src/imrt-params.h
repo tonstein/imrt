@@ -11,81 +11,93 @@
 #include <containers/choc_VariableSizeFIFO.h>
 
 /* ------------------------------------------------------ */
-/*                        parameter                       */
+/*                    parameter layout                    */
 /* ------------------------------------------------------ */
 
-class Parameter {
+class ParameterLayout {
 public:
-   Parameter(std::string name, float min, float max, float init);
-   Parameter() = delete;
-   ~Parameter();
+   ParameterLayout(std::string name, float min, float max, float init);
+   ParameterLayout() = delete;
 
    const char* name();
    float min();
    float max();
    float init();
 
-   float value;
-
-private:
+protected:
    std::string _name;
    float _min, _max, _init;
 };
 
 /* ------------------------------------------------------ */
-/*                       parameters                       */
+/*                      parameter IDs                     */
 /* ------------------------------------------------------ */
 
-class AudioParameters;
-
-class Parameters {
+class ParameterIds {
 public:
-   Parameters() = delete;
-   Parameters(const AudioParameters& audioParameters);
-   ~Parameters();
-
    std::vector<uint32_t> ids();
-   Parameter* byId(uint32_t paramId);
 
-private:
+protected:
    std::vector<uint32_t> _ids;
-   std::map<uint32_t, std::unique_ptr<Parameter>> _params;
 };
 
 /* ------------------------------------------------------ */
-/*                     audio parameter                    */
+/*                      gui parameter                     */
 /* ------------------------------------------------------ */
 
-class AudioParameter : public Parameter {
-   friend class AudioParameters;
+struct GuiParameter : public ParameterLayout {
+   GuiParameter(std::string name, float min, float max, float init);
+   GuiParameter() = delete;
+
+   float value;
+};
+
+/* ------------------------------------------------------ */
+/*                     gui parameters                     */
+/* ------------------------------------------------------ */
+
+class DspParameters;
+
+class GuiParameters : ParameterIds {
+public:
+   GuiParameters(const DspParameters& audioParameters);
+   GuiParameters() = delete;
+
+   GuiParameter* byId(uint32_t paramId);
+
+private:
+   std::map<uint32_t, std::unique_ptr<GuiParameter>> _params;
+};
+
+/* ------------------------------------------------------ */
+/*                      dsp parameter                     */
+/* ------------------------------------------------------ */
+
+class DspParameter : public ParameterLayout {
+   friend class DspParameters;
 
 public:
-   AudioParameter(std::string name, float min, float max, float init);
-   AudioParameter() = delete;
-   ~AudioParameter();
+   DspParameter(std::string name, float min, float max, float init);
+   DspParameter() = delete;
 
    void push(float& newValue);
    void update();
 
 private:
+   float value;
    choc::fifo::VariableSizeFIFO _fifo;
 };
 
 /* ------------------------------------------------------ */
-/*                     audio parameters                   */
+/*                     dsp parameters                     */
 /* ------------------------------------------------------ */
 
-class AudioParameters {
-   friend class Parameters;
+class DspParameters {
+   friend class GuiParameters;
 
 public:
-   AudioParameters();
-   ~AudioParameters();
-
    void add(
       uint32_t paramId, std::string name, float min, float max, float init);
-
-   std::vector<uint32_t> ids();
 
    void push(uint32_t paramId, float& newValue);
    void update(uint32_t paramId);
@@ -93,6 +105,5 @@ public:
    float value(uint32_t paramId);
 
 private:
-   std::vector<uint32_t> _ids;
-   std::map<uint32_t, std::unique_ptr<AudioParameter>> _params;
+   std::map<uint32_t, std::unique_ptr<DspParameter>> _params;
 };

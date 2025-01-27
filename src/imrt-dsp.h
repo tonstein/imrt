@@ -83,7 +83,7 @@ private:
    }
 
 protected:
-   AudioParameters parameters;
+   DspParameters parameters;
 
 private:
    RtAudio _dac;

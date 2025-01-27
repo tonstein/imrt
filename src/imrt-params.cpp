@@ -3,45 +3,62 @@
 #include <memory>
 
 /* ------------------------------------------------------ */
-/*                        Parameter                       */
+/*                    parameter layout                    */
 /* ------------------------------------------------------ */
 
-Parameter::Parameter(std::string name, float min, float max, float init)
+ParameterLayout::ParameterLayout(
+   std::string name, float min, float max, float init)
    : _name(name)
    , _min(min)
    , _max(max)
    , _init(init)
-   , value(init)
 {
 }
 
-Parameter::~Parameter() { }
-
-const char* Parameter::name()
+const char* ParameterLayout::name()
 {
    return _name.c_str();
 }
 
-float Parameter::min()
+float ParameterLayout::min()
 {
    return _min;
 }
 
-float Parameter::max()
+float ParameterLayout::max()
 {
    return _max;
 }
 
-float Parameter::init()
+float ParameterLayout::init()
 {
    return _init;
 }
 
 /* ------------------------------------------------------ */
-/*                       Parameters                       */
+/*                      parameter IDs                     */
 /* ------------------------------------------------------ */
 
-Parameters::Parameters(const AudioParameters& audioParameters)
+std::vector<uint32_t> ParameterIds::ids()
+{
+   return _ids;
+}
+
+/* ------------------------------------------------------ */
+/*                      gui parameter                     */
+/* ------------------------------------------------------ */
+
+GuiParameter::GuiParameter(std::string name, float min, float max, float init)
+   : ParameterLayout(name, min, max, init)
+   , value(init)
+{
+}
+
+/* ------------------------------------------------------ */
+/*                     gui parameters                     */
+/* ------------------------------------------------------ */
+
+GuiParameters::GuiParameters(const DspParameters& audioParameters)
 {
    for (auto i = audioParameters._params.begin();
         i != audioParameters._params.end(); i++) {
@@ -49,44 +66,35 @@ Parameters::Parameters(const AudioParameters& audioParameters)
       _ids.push_back(i->first);
 
       auto p         = i->second.get();
-      auto parameter = std::make_unique<Parameter>(
+      auto parameter = std::make_unique<GuiParameter>(
          p->name(), p->min(), p->max(), p->init());
       _params.insert_or_assign(i->first, std::move(parameter));
    }
 }
 
-Parameters::~Parameters() { }
-
-std::vector<uint32_t> Parameters::ids()
-{
-   return _ids;
-}
-
-Parameter* Parameters::byId(uint32_t paramId)
+GuiParameter* GuiParameters::byId(uint32_t paramId)
 {
    // [FixMe] Check if paramId is available.
    return _params.at(paramId).get();
 }
 
 /* ------------------------------------------------------ */
-/*                     AudioParameter                     */
+/*                     audio parameter                    */
 /* ------------------------------------------------------ */
 
-AudioParameter::AudioParameter(
-   std::string name, float min, float max, float init)
-   : Parameter(name, min, max, init)
+DspParameter::DspParameter(std::string name, float min, float max, float init)
+   : ParameterLayout(name, min, max, init)
+   , value(init)
 {
    _fifo.reset(4 * sizeof(float));
 }
 
-AudioParameter::~AudioParameter() { }
-
-void AudioParameter::push(float& newValue)
+void DspParameter::push(float& newValue)
 {
    _fifo.push(&newValue, sizeof(float));
 }
 
-void AudioParameter::update()
+void DspParameter::update()
 {
    _fifo.pop([this](const void* data, uint32_t size) {
       if (size == sizeof(float))
@@ -95,38 +103,30 @@ void AudioParameter::update()
 }
 
 /* ------------------------------------------------------ */
-/*                     AudioParameters                    */
+/*                    audio parameters                    */
 /* ------------------------------------------------------ */
 
-AudioParameters::AudioParameters() { }
-AudioParameters::~AudioParameters() { }
-
-void AudioParameters::add(
+void DspParameters::add(
    uint32_t paramId, std::string name, float min, float max, float init)
 {
    // [FixMe] Check whether paramId already exists.
-   auto parameter = std::make_unique<AudioParameter>(name, min, max, init);
+   auto parameter = std::make_unique<DspParameter>(name, min, max, init);
    _params.insert_or_assign(paramId, std::move(parameter));
 }
 
-std::vector<uint32_t> AudioParameters::ids()
-{
-   return _ids;
-}
-
-void AudioParameters::push(uint32_t paramId, float& newValue)
+void DspParameters::push(uint32_t paramId, float& newValue)
 {
    // [FixMe] Check if paramId is available.
    _params.at(paramId)->push(newValue);
 }
 
-void AudioParameters::update(uint32_t paramId)
+void DspParameters::update(uint32_t paramId)
 {
    // [FixMe] Check if paramId is available.
    _params.at(paramId)->update();
 }
 
-float AudioParameters::value(uint32_t paramId)
+float DspParameters::value(uint32_t paramId)
 {
    // [FixMe] Check if paramId is available.
    return _params.at(paramId)->value;

@@ -161,7 +161,7 @@ private:
 
 protected:
    Dsp& dsp;
-   Parameters parameters;
+   GuiParameters parameters;
 
 private:
    GLFWwindow* _window = nullptr;
