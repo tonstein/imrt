@@ -116,7 +116,14 @@ public:
          ImGui_ImplGlfw_NewFrame();
          ImGui::NewFrame();
 
-         onUpdate();
+         ImGuiIO& io = ImGui::GetIO();
+         ImGui::SetNextWindowSize(io.DisplaySize);
+         ImGui::SetNextWindowPos({ 0, 0 });
+         if (ImGui::Begin("Audioskop", nullptr,
+                ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize)) {
+            onUpdate();
+         }
+         ImGui::End();
 
          ImGui::Render();
          int display_w, display_h;
@@ -126,7 +133,6 @@ public:
             _settings.clearColor.z, _settings.clearColor.w);
          glClear(GL_COLOR_BUFFER_BIT);
          ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-         ImGuiIO& io = ImGui::GetIO();
          if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable) {
             GLFWwindow* backup_current_context = glfwGetCurrentContext();
             ImGui::UpdatePlatformWindows();
