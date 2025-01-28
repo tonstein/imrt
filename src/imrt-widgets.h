@@ -6,14 +6,28 @@
 
 namespace ImRt {
 
-/* ------------------------------------------------------ */
-/*                         slider                         */
-/* ------------------------------------------------------ */
+/* -------------------------------------------------------------------------- */
+/*                         SLIDER                                             */
+/* -------------------------------------------------------------------------- */
 
+/**
+ * @brief A template Slider class for a parameter that controls a GUI parameter
+ * value and announces the changes to the corresponding DSP parameter value
+ * automatically.
+ *
+ * @tparam Derived A class derived from GUI<>.
+ * @tparam Dsp A class derived from Dsp<>.
+ */
 template <typename Derived, typename Dsp>
 class Slider
 {
 public:
+   /**
+    * @brief Construct a new Slider object that can be painted onto the given
+    * Gui object. It controls the GuiParameter with the given parameter ID and
+    * announces the value changes to the corresponding DspParameter of the given
+    * Dsp object.
+    */
    Slider(Gui<Derived, Dsp>& gui, Dsp& dsp, uint32_t paramId)
       : _gui(gui)
       , _dsp(dsp)
@@ -21,6 +35,9 @@ public:
    {
    }
 
+   /**
+    * @brief Paints the slider using ImGui.
+    */
    void show()
    {
       auto p = _gui.parameters.byId(_paramId);
@@ -36,14 +53,28 @@ private:
    const uint32_t _paramId;
 };
 
-/* ------------------------------------------------------ */
-/*                          knob                          */
-/* ------------------------------------------------------ */
+/* -------------------------------------------------------------------------- */
+/*                          KNOB                                              */
+/* -------------------------------------------------------------------------- */
 
+/**
+ * @brief A template Knob class for a parameter that controls a GUI parameter
+ * value and announces the changes to the corresponding DSP parameter value
+ * automatically.
+ *
+ * @tparam Derived A class derived from GUI<>.
+ * @tparam Dsp A class derived from Dsp<>.
+ */
 template <typename Derived, typename Dsp>
 class Knob
 {
 public:
+   /**
+    * @brief Construct a new Knob object that can be painted onto the given
+    * Gui object. It controls the GuiParameter with the given parameter ID and
+    * announces the value changes to the corresponding DspParameter of the given
+    * Dsp object.
+    */
    Knob(Gui<Derived, Dsp>& gui, Dsp& dsp, uint32_t paramId)
       : _gui(gui)
       , _dsp(dsp)
@@ -51,6 +82,10 @@ public:
    {
    }
 
+   /**
+    * @brief Paints the knob using ImGui.
+    *
+    */
    void show()
    {
       auto p = _gui.parameters.byId(_paramId);
