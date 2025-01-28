@@ -31,7 +31,7 @@ code .
 
 ### Oscilloscope
 
-<img src="examples/oscilloscope/img/oscilloscope.png" alt="Oscilloscope" width="2034">
+<img src="examples/oscilloscope/img/oscilloscope.gif" alt="Oscilloscope" width="2034">
 
 See [examples/oscilloscope](examples/oscilloscope).
 

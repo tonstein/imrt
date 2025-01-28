@@ -1,3 +1,3 @@
 # Oscilloscope
 
-![](img/oscilloscope.png)
+<img src="img/oscilloscope.gif" alt="Oscilloscope" width="2034">
