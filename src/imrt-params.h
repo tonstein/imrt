@@ -77,8 +77,8 @@ protected:
 /* -------------------------------------------------------------------------- */
 
 /**
- * @brief This class fills the skeleton given by a parameter with life. It has a
- * parameter value to which changes can be announced via
+ * @brief This class fills the skeleton given by a parameter layout with life.
+ * It has a parameter value to which changes can be announced via
  * DspParameter::announce(). This is typically done by the GUI thread. The
  * changes are applied when the DspParameter::update() method is called. This is
  * typically done by the DSP thread.
@@ -127,11 +127,12 @@ private:
 /* -------------------------------------------------------------------------- */
 
 /**
- * @brief This class fills the skeleton given by a parameter with life. It has
- * parameter value as a public member which can be changed directly. In addition
- * to changing the value a change should be announced to the corresponding
- * DspParameters in the DSP thread by calling DspParameters<>::announce(). When
- * adding a widget for the parameter, the widget does this automatically.
+ * @brief This class fills the skeleton given by a parameter layout with life.
+ * It has parameter value as a public member which can be changed directly. In
+ * addition to changing the value a change should be announced to the
+ * corresponding DspParameters in the DSP thread by calling
+ * DspParameters<>::announce(). When adding a widget for the parameter, the
+ * widget does this automatically.
  *
  */
 struct GuiParameter : public ParameterLayout
