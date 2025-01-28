@@ -4,7 +4,7 @@ set(CMAKE_CXX_STANDARD 17)
 
 project(utility)
 
-if(EXISTS lib/imrt)
+if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/lib/imrt")
    add_subdirectory(lib/imrt)
 endif()
 
