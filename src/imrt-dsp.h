@@ -179,35 +179,35 @@ private:
    RtAudio _dac;
    RtAudio::StreamParameters _paramsIn, _paramsOut;
    DspSettings _settings;
-   ImRt::Buffer in, out;
+   ImRt::Buffer _in, _out;
 
 private:
    int
    audioCallback(void* outputBuffer, void* inputBuffer, uint32_t nBufferFrames)
    {
       uint32_t n = _settings.numChannelsIn;
-      in.resize({ n, nBufferFrames });
+      _in.resize({ n, nBufferFrames });
 
       for (uint32_t frame = 0; frame < nBufferFrames; ++frame)
       {
          for (uint32_t channel = 0; channel < n; ++channel)
          {
-            in.getSample(channel, frame)
+            _in.getSample(channel, frame)
                = ((float*)inputBuffer)[n * frame + channel];
          }
       }
 
       uint32_t m = _settings.numChannelsOut;
-      out.resize({ m, nBufferFrames });
+      _out.resize({ m, nBufferFrames });
 
-      int r = process(in, out, nBufferFrames);
+      int r = process(_in, _out, nBufferFrames);
 
       for (uint32_t frame = 0; frame < nBufferFrames; ++frame)
       {
          for (uint32_t channel = 0; channel < m; ++channel)
          {
             ((float*)outputBuffer)[m * frame + channel]
-               = out.getSample(channel, frame);
+               = _out.getSample(channel, frame);
          }
       }
 
