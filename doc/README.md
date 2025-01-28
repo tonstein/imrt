@@ -1,19 +1,16 @@
 # ImRt Documentation
 
 With this directory a documentation of the ImRt framework can be generated from
-the source code using the `doxygen` tool. For instructions on generating
-offline docs, see below.
+the source code using the `doxygen` tool.
 
-These HTML docs can also be [found online](https://xxx.xxx/xxx).
+## Generating the HTML Documentation
 
-# Generating Offline HTML Documentation
-
-## Dependencies
+### Dependencies
 
 - doxygen
 - graphviz (to generate inheritance diagrams)
 
-## Building
+### Building
 
 In a terminal run
 ```bash
