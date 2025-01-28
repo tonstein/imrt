@@ -125,11 +125,28 @@ private:
 /*                      GUI PARAMETER                                         */
 /* -------------------------------------------------------------------------- */
 
+/**
+ * @brief This class fills the skeleton given by a parameter with life. It has
+ * parameter value as a public member which can be changed directly. In addition
+ * to changing the value a change should be announced to the corresponding
+ * DspParameters in the DSP thread by calling DspParameters<>::announce(). When
+ * adding a widget for the parameter, the widget does this automatically.
+ *
+ */
 struct GuiParameter : public ParameterLayout
 {
+   /**
+    * @brief Construct a new GUI parameter object.
+    *
+    * @param layout The layout with the information for the ID, name, minimum,
+    * maximum and initial value of the GUI parameter.
+    */
    GuiParameter(ParameterLayout layout);
    GuiParameter() = delete;
 
+   /**
+    * @brief The current value of the GUI parameter.
+    */
    float value;
 };
 
