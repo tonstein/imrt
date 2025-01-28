@@ -16,10 +16,10 @@ namespace ImRt {
 /* -------------------------------------------------------------------------- */
 
 /**
- * @brief This class serves as a skeleton a parameter. Note that a parameter
- * layout does not have a current parameter value, but the derived classes
- * GuiParameter and DspParameter have. These derived classes deal with the
- * parameter value in different ways (cf. GuiParameter and DspParameter).
+ * @brief This class serves as a "skeleton" for a parameter. Note that a
+ * parameter layout does not have a current parameter value, but the derived
+ * classes GuiParameter and DspParameter have. These derived classes deal with
+ * the parameter value in different ways (cf. GuiParameter and DspParameter).
  */
 class ParameterLayout
 {
@@ -130,7 +130,7 @@ private:
  * @brief This class fills the skeleton given by a parameter layout with life.
  * It has parameter value as a public member which can be changed directly. In
  * addition to changing the value a change should be announced to the
- * corresponding DspParameters in the DSP thread by calling
+ * corresponding DspParameter in the DSP thread by calling
  * DspParameters<>::announce(). When adding a widget for the parameter, the
  * widget does this automatically.
  *
