@@ -116,6 +116,7 @@ public:
          abort();
       }
    }
+
    /**
     * @brief Returns the actual sample rate of the (open) stream, which may
     * differ slightly from the specified one. one. If a stream is not open, a
