@@ -4,6 +4,9 @@ set(CMAKE_CXX_STANDARD 17)
 
 project(imrt LANGUAGES CXX)
 
+option(IMRT_BUILD_EXAMPLES "Build examples")
+set(IMRT_BUILD_EXAMPLES OFF)
+
 set(RTAUDIO_BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)
 set(RTAUDIO_TARGETNAME_UNINSTALL "rtaudio-uninstall" CACHE BOOL "" FORCE)
 add_subdirectory(lib/rtaudio)
@@ -66,3 +69,7 @@ target_include_directories(
 )
 
 target_link_libraries(imrt PUBLIC glfw rtaudio OpenGL::GL)
+
+if(IMRT_BUILD_EXAMPLES)
+   add_subdirectory(examples/utility)
+endif()

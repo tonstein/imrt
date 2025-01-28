@@ -1,0 +1,36 @@
+#include "dsp.h"
+#include "params.h"
+
+Dsp::Dsp(ImRt::DspSettings settings)
+   : ImRt::Dsp<Dsp>(settings)
+{
+   parameters.add(gainLayout);
+   parameters.add(panLayout);
+}
+
+int Dsp::process(ImRt::Buffer& in, ImRt::Buffer& out, uint32_t numFrames)
+{
+   for (uint32_t frame = 0; frame < numFrames; ++frame)
+   {
+      parameters.update(gainId);
+      gainValue = parameters.value(gainId);
+
+      parameters.update(panId);
+      panValue = parameters.value(panId);
+      if (panValue < 0)
+      {
+         panAmountL = 1.0f;
+         panAmountR = 1.0f + panValue;
+      }
+      else
+      {
+         panAmountL = 1.0f - panValue;
+         panAmountR = 1.0f;
+      }
+
+      out.getSample(0, frame) = in.getSample(0, frame) * panAmountL * gainValue;
+      out.getSample(1, frame) = in.getSample(0, frame) * panAmountR * gainValue;
+   }
+
+   return 0;
+}
