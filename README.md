@@ -29,7 +29,7 @@ code .
 
 ## Documentation
 
-![https://tonstein.github.io/imrt/](https://tonstein.github.io/imrt/)
+[https://tonstein.github.io/imrt/](https://tonstein.github.io/imrt/)
 
 ## Examples
 
