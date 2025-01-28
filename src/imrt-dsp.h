@@ -48,7 +48,8 @@ public:
     * given settings.
     *
     * @param settings If not specified the default settings are:
-    * - Number of input and output channels: 2
+    * - Number of input channels: 2
+    * - Number of output channels: 2
     * - Sample rate: 41000
     * - Buffer size: as small as possible
     */
