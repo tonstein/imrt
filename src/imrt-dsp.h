@@ -68,9 +68,17 @@ public:
 
    void run()
    {
+      auto options  = RtAudio::StreamOptions();
+      options.flags = 0;
+      // options.flags |= RTAUDIO_NONINTERLEAVED;
+      options.flags |= RTAUDIO_MINIMIZE_LATENCY;
+      options.flags |= RTAUDIO_SCHEDULE_REALTIME;
+      options.streamName = "imrt-stream";
+      options.priority   = 10; // 99
+
       if (_dac.openStream(
              &_paramsOut, &_paramsIn, RTAUDIO_FLOAT32, _settings.sampleRate,
-             &_settings.bufferSize, &AudioCallback, this
+             &_settings.bufferSize, &AudioCallback, this, &options
           ))
       {
          abort();
