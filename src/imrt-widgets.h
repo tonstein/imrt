@@ -26,7 +26,7 @@ public:
       auto p = _gui.parameters.byId(_paramId);
       if (ImGui::SliderFloat(p->name(), &p->value, p->min(), p->max()))
       {
-         _dsp.pushParameter(_paramId, p->value);
+         _dsp.announce(_paramId, p->value);
       }
    }
 
@@ -68,13 +68,13 @@ public:
          ImGui::GetIO().KeyCtrl ? _speed = (p->max() - p->min()) / 1000
                                 : _speed = (p->max() - p->min()) / 200;
 
-         _dsp.pushParameter(_paramId, p->value);
+         _dsp.announce(_paramId, p->value);
       }
 
       if (ImGui::IsItemActive() && ImGui::IsMouseDoubleClicked(0))
       {
          p->value = p->init();
-         _dsp.pushParameter(_paramId, p->value);
+         _dsp.announce(_paramId, p->value);
       }
    }
 
