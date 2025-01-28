@@ -73,20 +73,6 @@ protected:
 };
 
 /* -------------------------------------------------------------------------- */
-/*                      GUI PARAMETER                                         */
-/* -------------------------------------------------------------------------- */
-
-struct GuiParameter : public ParameterLayout
-{
-   GuiParameter(
-      uint32_t id, std::string name, float min, float max, float init
-   );
-   GuiParameter() = delete;
-
-   float value;
-};
-
-/* -------------------------------------------------------------------------- */
 /*                      DSP PARAMETER                                         */
 /* -------------------------------------------------------------------------- */
 
@@ -95,9 +81,7 @@ class DspParameter : public ParameterLayout
    friend class DspParameters;
 
 public:
-   DspParameter(
-      uint32_t id, std::string name, float min, float max, float init
-   );
+   DspParameter(ParameterLayout layout);
    DspParameter() = delete;
 
    void push(float& newValue);
@@ -109,21 +93,15 @@ private:
 };
 
 /* -------------------------------------------------------------------------- */
-/*              COLLECTION OF GUI PARAMETERS                                  */
+/*                      GUI PARAMETER                                         */
 /* -------------------------------------------------------------------------- */
 
-class DspParameters;
-
-class GuiParameters
+struct GuiParameter : public ParameterLayout
 {
-public:
-   GuiParameters(const DspParameters& audioParameters);
-   GuiParameters() = delete;
+   GuiParameter(ParameterLayout layout);
+   GuiParameter() = delete;
 
-   GuiParameter* byId(uint32_t paramId);
-
-private:
-   std::map<uint32_t, std::unique_ptr<GuiParameter>> _params;
+   float value;
 };
 
 /* -------------------------------------------------------------------------- */
@@ -144,6 +122,24 @@ public:
 
 private:
    std::map<uint32_t, std::unique_ptr<DspParameter>> _params;
+};
+
+/* -------------------------------------------------------------------------- */
+/*              COLLECTION OF GUI PARAMETERS                                  */
+/* -------------------------------------------------------------------------- */
+
+class DspParameters;
+
+class GuiParameters
+{
+public:
+   GuiParameters(const DspParameters& audioParameters);
+   GuiParameters() = delete;
+
+   GuiParameter* byId(uint32_t paramId);
+
+private:
+   std::map<uint32_t, std::unique_ptr<GuiParameter>> _params;
 };
 
 } // namespace ImRt

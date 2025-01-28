@@ -101,6 +101,7 @@ public:
       // options.flags |= RTAUDIO_NONINTERLEAVED;
       options.flags |= RTAUDIO_MINIMIZE_LATENCY;
       options.flags |= RTAUDIO_SCHEDULE_REALTIME;
+      // options.flags |= RTAUDIO_ALSA_USE_DEFAULT;
       options.streamName = "imrt-stream";
       options.priority   = 10; // 99
 
