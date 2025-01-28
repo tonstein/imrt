@@ -4,3 +4,6 @@ build/*
 .vscode/*
 
 imgui.ini
+
+doc/html/*
+doc/latex/*
