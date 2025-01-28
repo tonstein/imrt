@@ -111,8 +111,9 @@ public:
 
    /**
     * @brief Updates possible parameter value changes by consuming the parameter
-    * from the FIFO to which DspParameter::update() pushes. The new value of the
-    * DspParameter can be obtained by calling the DspParameters::value() method.
+    * value from the FIFO to which DspParameters::announce() pushes. The new
+    * value of the DspParameter can be obtained by calling the
+    * DspParameters::value() method.
     */
    void update();
 
@@ -154,16 +155,52 @@ struct GuiParameter : public ParameterLayout
 /*              COLLECTION OF DSP PARAMETERS                                  */
 /* -------------------------------------------------------------------------- */
 
+/**
+ * @brief A collection of DspParameter objects that typically is owned by the
+ * Dsp<> object.
+ */
 class DspParameters
 {
    friend class GuiParameters;
 
 public:
+   /**
+    * @brief Creates a new DspParameter with the given ParameterLayout and adds
+    * this parameter to the DspParameters collection.
+    *
+    * @param layout The skeleton for the new DSP parameter consisting of an ID,
+    * a name, a maximum, minimum and initial value.
+    */
    void add(ParameterLayout& layout);
 
+   /**
+    * @brief Announces a change of the DspParameter value by pushing the new
+    * value to a multiple writer, single consumer parameter FIFO. This parameter
+    * change should be read in the Dsp<>::process() method of the digital signal
+    * processor by calling the Dsp<>::update() and the DspParameters::value()
+    * methods. Multiple write threads may have to briefly spin-wait for each
+    * other, but the reader thread is not blocked by the activity of writers.
+    *
+    * @param paramId The ID of the parameter whose value should change.
+    * @param newValue The value to which the parameter value should change.
+    */
    void announce(uint32_t paramId, float& newValue);
+
+   /**
+    * @brief Updates a possible parameter value change by consuming the
+    * parameter value from the FIFO to which DspParameters::announce() pushes.
+    * The new value of the DspParameter can be obtained by calling the
+    * DspParameters::value() method.
+    *
+    * @param paramId The ID of the parameter whose value could have changed.
+    */
    void update(uint32_t paramId);
 
+   /**
+    * @brief Returns the value of a DspParameter.
+    *
+    * @param paramId The ID of the DspParameter.
+    */
    float value(uint32_t paramId);
 
 private:
@@ -174,14 +211,27 @@ private:
 /*              COLLECTION OF GUI PARAMETERS                                  */
 /* -------------------------------------------------------------------------- */
 
-class DspParameters;
-
+/**
+ * @brief A collection of GuiParameter objects that is typically owned by the
+ * Gui<> object.
+ */
 class GuiParameters
 {
 public:
+   /**
+    * @brief Construct a new GUI parameter collection. The parameter layouts of
+    * the GuiParameter objects in the collection are identical to the parameter
+    * layouts of the DspParameters that are given in the constructor argument.
+    *
+    * @param audioParameters The collection of DSP Parameters whose parameter
+    * layouts are used as a blueprint for the GUI parameters.
+    */
    GuiParameters(const DspParameters& audioParameters);
    GuiParameters() = delete;
 
+   /**
+    * @brief Returns the GuiParameter identified by the given parameter ID.
+    */
    GuiParameter* byId(uint32_t paramId);
 
 private:
