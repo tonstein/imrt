@@ -1,3 +1,3 @@
 # Gain and pan utility
 
-![](img/utility.png)
+<img src="img/utility.png" alt="Oscilloscope" width="100">
