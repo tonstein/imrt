@@ -26,3 +26,17 @@ git submodule update --init --recursive
 cp -r lib/imrt/examples/utility/* .
 code .
 ```
+
+## Examples
+
+### Oscilloscope
+
+<img src="examples/oscilloscope/img/oscilloscope.png" alt="Oscilloscope" width="2034">
+
+See [examples/oscilloscope](examples/oscilloscope).
+
+### Utility 
+
+<img src="examples/utility/img/utility.png" alt="Oscilloscope" width="100">
+
+See [examples/utility](examples/utility).
