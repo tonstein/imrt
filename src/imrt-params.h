@@ -16,10 +16,10 @@ namespace ImRt {
 /* -------------------------------------------------------------------------- */
 
 /**
- * @brief This class serves as a skeleton for defining a parameter. Note that a
- * parameter layout does not have a current parameter value, but the derived
- * classes GuiParameter and DspParameter have. These derived classes deal with
- * the parameter value in different ways (cf. GuiParameter and DspParameter).
+ * @brief This class serves as a skeleton a parameter. Note that a parameter
+ * layout does not have a current parameter value, but the derived classes
+ * GuiParameter and DspParameter have. These derived classes deal with the
+ * parameter value in different ways (cf. GuiParameter and DspParameter).
  */
 class ParameterLayout
 {
@@ -76,15 +76,44 @@ protected:
 /*                      DSP PARAMETER                                         */
 /* -------------------------------------------------------------------------- */
 
+/**
+ * @brief This class fills the skeleton given by a parameter with life. It has a
+ * parameter value to which changes can be announced via
+ * DspParameter::announce(). This is typically done by the GUI thread. The
+ * changes are applied when the DspParameter::update() method is called. This is
+ * typically done by the DSP thread.
+ */
 class DspParameter : public ParameterLayout
 {
    friend class DspParameters;
 
 public:
+   /**
+    * @brief Construct a new DSP parameter object based on a ParameterLayout.
+    *
+    * @param layout The layout with the information for the ID, name, minimum,
+    * maximum and initial value of the DSP parameter.
+    */
    DspParameter(ParameterLayout layout);
    DspParameter() = delete;
 
-   void push(float& newValue);
+   /**
+    * @brief Announces a change of the parameter value by pushing the new value
+    * to a multiple writer, single consumer parameter FIFO. This parameter
+    * change should be read in the Dsp<>::process() method of the digital signal
+    * processor by calling the Dsp<>::update() and the DspParameters::value()
+    * methods. Multiple write threads may have to briefly spin-wait for each
+    * other, but the reader thread is not blocked by the activity of writers.
+    *
+    * @param newValue The value to which the parameter value should change.
+    */
+   void announce(float& newValue);
+
+   /**
+    * @brief Updates possible parameter value changes by consuming the parameter
+    * from the FIFO to which DspParameter::update() pushes. The new value of the
+    * DspParameter can be obtained by calling the DspParameters::value() method.
+    */
    void update();
 
 private:
@@ -115,7 +144,7 @@ class DspParameters
 public:
    void add(ParameterLayout& layout);
 
-   void push(uint32_t paramId, float& newValue);
+   void announce(uint32_t paramId, float& newValue);
    void update(uint32_t paramId);
 
    float value(uint32_t paramId);

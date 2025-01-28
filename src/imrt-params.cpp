@@ -57,7 +57,7 @@ DspParameter::DspParameter(ParameterLayout layout)
    _fifo.reset(120 * sizeof(float));
 }
 
-void DspParameter::push(float& newValue)
+void DspParameter::announce(float& newValue)
 {
    _fifo.push(&newValue, sizeof(float));
 }
@@ -98,10 +98,10 @@ void DspParameters::add(ParameterLayout& layout)
    _params.insert_or_assign(layout.id(), std::move(parameter));
 }
 
-void DspParameters::push(uint32_t paramId, float& newValue)
+void DspParameters::announce(uint32_t paramId, float& newValue)
 {
    // [FixMe] Check if paramId is available.
-   _params.at(paramId)->push(newValue);
+   _params.at(paramId)->announce(newValue);
 }
 
 void DspParameters::update(uint32_t paramId)

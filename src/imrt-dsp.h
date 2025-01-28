@@ -133,17 +133,16 @@ public:
     * @brief Announces a change of a parameter value by pushing the new value to
     * a multiple writer, single consumer parameter FIFO. This parameter change
     * should be read in the Dsp<>::process() method of the digital signal
-    * processor by calling the Dsp<>::update() method of its member
-    * DspParameters parameters. Multiple write threads may have to briefly
-    * spin-wait for each other, but the reader thread is not blocked by the
-    * activity of writers.
+    * processor by calling the Dsp<>::update() and the DspParameters<>::value()
+    * methods. Multiple write threads may have to briefly spin-wait for each
+    * other, but the reader thread is not blocked by the activity of writers.
     *
     * @param paramId The ID of the parameter whose value should change.
     * @param newValue The value to which the parameter value should change.
     */
    void announce(uint32_t paramId, float& newValue)
    {
-      parameters.push(paramId, newValue);
+      parameters.announce(paramId, newValue);
    }
 
 private:
