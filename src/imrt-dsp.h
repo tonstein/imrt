@@ -48,8 +48,8 @@ public:
     * given settings.
     *
     * @param settings If not specified the default settings are:
-    * - Nnumber of input and output channels: 2
-    * - Wsample rate: 2
+    * - Number of input and output channels: 2
+    * - Sample rate: 41000
     * - Buffer size: as small as possible
     */
    Dsp(DspSettings settings = DspSettings())
