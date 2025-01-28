@@ -1,3 +1,0 @@
-[submodule "lib/imrt"]
-	path = lib/imrt
-	url = https://github.com/tonstein/imrt.git
