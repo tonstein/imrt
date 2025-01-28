@@ -70,7 +70,7 @@ target_link_libraries(imrt PUBLIC glfw rtaudio OpenGL::GL)
 target_compile_definitions(imrt PUBLIC IMGUI_DEFINE_MATH_OPERATORS)
 
 option(IMRT_BUILD_EXAMPLES "Build examples")
-set(IMRT_BUILD_EXAMPLES OFF)
+set(IMRT_BUILD_EXAMPLES ON)
 
 if(IMRT_BUILD_EXAMPLES)
    add_subdirectory(examples/utility)
