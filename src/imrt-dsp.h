@@ -1,9 +1,7 @@
 #pragma once
 
 #include <RtAudio.h>
-
 #include <audio/choc_SampleBuffers.h>
-
 #include "imrt-params.h"
 
 namespace ImRt {
@@ -11,10 +9,16 @@ namespace ImRt {
 using Buffer
    = choc::buffer::AllocatedBuffer<float, choc::buffer::SeparateChannelLayout>;
 
-/* ------------------------------------------------------ */
-/*                      audio settings                    */
-/* ------------------------------------------------------ */
+/* -------------------------------------------------------------------------- */
+/*                     AUDIO SETTINGS                                         */
+/* -------------------------------------------------------------------------- */
 
+/**
+ * @brief Settings passed to the digital signal processor (Dsp) class
+ * constructor to specify the number of input and output channels, the sample
+ * rate and the buffer size of the stream that the processor opens when its
+ * Dsp<>::run() method is called.
+ */
 struct DspSettings
 {
    int numChannelsIn   = 2;
@@ -23,10 +27,15 @@ struct DspSettings
    uint32_t bufferSize = 0; // 0 means as small as possible
 };
 
-/* ------------------------------------------------------ */
-/*                           dsp                          */
-/* ------------------------------------------------------ */
+/* -------------------------------------------------------------------------- */
+/*                        DSP CLASS                                           */
+/* -------------------------------------------------------------------------- */
 
+/**
+ * @brief Digital signal processor (DSP) template class to inherit from.
+ *
+ * @tparam Use the inheritor class as template parameter.
+ */
 template <typename Derived>
 class Dsp
 {
@@ -34,6 +43,15 @@ class Dsp
    friend class Gui;
 
 public:
+   /**
+    * @brief Construct a new digital signal processor (DSP) object with the
+    * given settings.
+    *
+    * @param settings If not specified the default settings are:
+    * - Nnumber of input and output channels: 2
+    * - Wsample rate: 2
+    * - Buffer size: as small as possible
+    */
    Dsp(DspSettings settings = DspSettings())
       : _settings(settings)
    {
@@ -54,6 +72,10 @@ public:
       _paramsOut.firstChannel = 0;
    }
 
+   /**
+    * @brief Stops the stream opened by the digital signal processor (DSP)
+    * object and destroys the object.
+    */
    virtual ~Dsp()
    {
       if (_dac.isStreamRunning())
@@ -66,6 +88,11 @@ public:
       }
    }
 
+   /**
+    * @brief Opens an input and an output stream with the settings passed to the
+    * DSP constructor and passes the input buffer to and receives the output
+    * buffer from the Dsp<>::process() callback method.
+    */
    void run()
    {
       auto options  = RtAudio::StreamOptions();
@@ -89,35 +116,70 @@ public:
          abort();
       }
    }
-
+   /**
+    * @brief Returns the actual sample rate of the (open) stream, which may
+    * differ slightly from the specified one. one. If a stream is not open, a
+    * value of zero is returned.
+    */
    uint32_t sampleRate()
    {
       return _dac.getStreamSampleRate();
    }
 
-   void pushParameter(uint32_t paramId, float& newValue)
+   /**
+    * @brief Announces a change of a parameter value by pushing the new value to
+    * a multiple writer, single consumer parameter FIFO. This parameter change
+    * should be read in the Dsp<>::process() method of the digital signal
+    * processor by calling the Dsp<>::update() method of its member
+    * DspParameters parameters. Multiple write threads may have to briefly
+    * spin-wait for each other, but the reader thread is not blocked by the
+    * activity of writers.
+    *
+    * @param paramId The ID of the parameter whose value should change.
+    * @param newValue The value to which the parameter value should change.
+    */
+   void announce(uint32_t paramId, float& newValue)
    {
       parameters.push(paramId, newValue);
    }
 
 private:
+   /**
+    * @brief The audio callback method that is fed with the input and output
+    * stream of the digital signal processor. This method must be implemented by
+    * the inheritor class of the DSP template class. Within this method one can
+    * call the Dsp<>::update() method of the member DspParameters parameters to
+    * the announced value (cf. announce()).
+    *
+    * @param in Input buffer.
+    * @param out Output buffer.
+    * @param numFrames Number of frames of the input and output buffer
+    * respectively (buffer size).
+    * @return int To continue normal stream operation, return 0.
+    * To stop the stream and drain the output buffer, return 1.
+    * To abort the stream immediately, the client should return 2.
+    */
    int process(Buffer& in, Buffer& out, uint32_t numFrames)
    {
       return static_cast<Derived*>(this)->process(in, out, numFrames);
    }
 
 protected:
+   /**
+    * @brief Holds the current values of all DSP parameters. The value of a
+    * parameter with a certain ID can be updated via Dsp<>::update().
+    */
    DspParameters parameters;
+
+   /* ----------------------------------------------------------------------- */
+   /*                    INTERNAL DETAILS                                     */
+   /* ----------------------------------------------------------------------- */
 
 private:
    RtAudio _dac;
    RtAudio::StreamParameters _paramsIn, _paramsOut;
    DspSettings _settings;
    ImRt::Buffer in, out;
-
-   /* ------------------------------------------------------ */
-   /*                     audio callback                     */
-   /* ------------------------------------------------------ */
 
 private:
    int
