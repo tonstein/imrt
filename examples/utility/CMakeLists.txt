@@ -4,6 +4,10 @@ set(CMAKE_CXX_STANDARD 17)
 
 project(utility)
 
+if(EXISTS lib/imrt)
+   add_subdirectory(lib/imrt)
+endif()
+
 add_executable(
    ${PROJECT_NAME}
    src/main.cpp
