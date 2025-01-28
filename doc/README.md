@@ -1,9 +1,4 @@
-# ImRt Documentation
-
-With this directory a documentation of the ImRt framework can be generated from
-the source code using the `doxygen` tool.
-
-## Generating the HTML Documentation
+# Generating an ImRt Documentation
 
 ### Dependencies
 
