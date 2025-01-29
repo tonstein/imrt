@@ -29,7 +29,7 @@ add_library(
    src/imrt-dsp.h
 
    src/imrt-gui.h
-   src/imrt-font.embed
+   assets/imrt-font.embed
 
    src/imrt-params.cpp
    src/imrt-params.h

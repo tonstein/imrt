@@ -10,7 +10,7 @@
 #include <imgui_impl_opengl3.h>
 #include <implot.h>
 
-#include "imrt-font.embed"
+#include "../assets/imrt-font.embed"
 #include "imrt-params.h"
 
 namespace ImRt {
