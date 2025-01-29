@@ -14,6 +14,6 @@ public:
    void onUpdate();
 
 private:
-   ImRt::Knob<Gui, Dsp> gainKnob { *this, dsp, gainId };
-   ImRt::Knob<Gui, Dsp> panKnob { *this, dsp, panId };
+   ImRt::Knob<Gui, Dsp> gainKnob { *this, gainId };
+   ImRt::Knob<Gui, Dsp> panKnob { *this, panId };
 };

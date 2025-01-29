@@ -2,6 +2,7 @@
 
 #include <imgui-knobs.h>
 
+#include "imgui.h"
 #include "imrt-gui.h"
 
 namespace ImRt {
@@ -11,46 +12,43 @@ namespace ImRt {
 /* -------------------------------------------------------------------------- */
 
 /**
- * @brief A template Slider class for a parameter that controls a GUI parameter
- * value and announces the changes to the corresponding DSP parameter value
- * automatically.
- *
- * @tparam Derived A class derived from GUI<>.
- * @tparam Dsp A class derived from Dsp<>.
+ * @brief A slider for a parameter that controls a GUI parameter value and
+ * announces the changes to the corresponding DSP parameter value automatically.
  */
 template <typename Derived, typename Dsp>
 class Slider
 {
 public:
    /**
-    * @brief Construct a new Slider object that can be painted onto the given
-    * Gui object. It controls the GuiParameter with the given parameter ID and
-    * announces the value changes to the corresponding DspParameter of the given
-    * Dsp object.
+    * @brief Constructs a new Slider object that can be painted onto the given
+    * Gui object. It automatically controls the GuiParameter with the given
+    * parameter ID and announces the value changes to the corresponding
+    * DspParameter.
     */
-   Slider(Gui<Derived, Dsp>& gui, Dsp& dsp, uint32_t paramId)
+   Slider(Gui<Derived, Dsp>& gui, uint32_t paramId)
       : _gui(gui)
-      , _dsp(dsp)
       , _paramId(paramId)
+      , _param(_gui.parameters.byId(_paramId))
    {
    }
 
    /**
-    * @brief Paints the slider using ImGui.
+    * @brief Paints the slider using ImGui at the current ImGui CursorPos.
     */
    void show()
    {
-      auto p = _gui.parameters.byId(_paramId);
-      if (ImGui::SliderFloat(p->name(), &p->value, p->min(), p->max()))
+      if (ImGui::SliderFloat(
+             _param->name(), &_param->value, _param->min(), _param->max()
+          ))
       {
-         _dsp.announce(_paramId, p->value);
+         _gui.dsp.announce(_paramId, _param->value);
       }
    }
 
 private:
    Gui<Derived, Dsp>& _gui;
-   Dsp& _dsp;
    const uint32_t _paramId;
+   GuiParameter* _param;
 };
 
 /* -------------------------------------------------------------------------- */
@@ -58,65 +56,62 @@ private:
 /* -------------------------------------------------------------------------- */
 
 /**
- * @brief A template Knob class for a parameter that controls a GUI parameter
- * value and announces the changes to the corresponding DSP parameter value
- * automatically.
- *
- * @tparam Derived A class derived from GUI<>.
- * @tparam Dsp A class derived from Dsp<>.
+ * @brief A knob for a parameter that controls a GUI parameter value and
+ * announces the changes to the corresponding DSP parameter value automatically.
  */
 template <typename Derived, typename Dsp>
 class Knob
 {
 public:
    /**
-    * @brief Construct a new Knob object that can be painted onto the given
-    * Gui object. It controls the GuiParameter with the given parameter ID and
-    * announces the value changes to the corresponding DspParameter of the given
-    * Dsp object.
+    * @brief Constructs a new Knob object that can be painted onto the given
+    * Gui object. It automatically controls the GuiParameter with the given
+    * parameter ID and announces the value changes to the corresponding
+    * DspParameter.
     */
-   Knob(Gui<Derived, Dsp>& gui, Dsp& dsp, uint32_t paramId)
+   Knob(Gui<Derived, Dsp>& gui, uint32_t paramId)
       : _gui(gui)
-      , _dsp(dsp)
       , _paramId(paramId)
+      , _param(_gui.parameters.byId(paramId))
    {
+      _knobFlags = ImGuiKnobFlags_AlwaysClamp;
+      // knobFlags |= ImGuiKnobFlags_ValueTooltip
+      // knobFlags |= ImGuiKnobFlags_NoInput;
+      // knobFlags |= ImGuiKnobFlags_Logarithmic;
    }
 
    /**
-    * @brief Paints the knob using ImGui.
+    * @brief Paints the knob using ImGui at the current ImGui CursorPos.
     *
     */
    void show()
    {
-      auto p = _gui.parameters.byId(_paramId);
-
-      ImGuiKnobFlags knobFlags = ImGuiKnobFlags_AlwaysClamp;
-      // knobFlags |= ImGuiKnobFlags_ValueTooltip
-      // knobFlags |= ImGuiKnobFlags_NoInput;
-      // knobFlags |= ImGuiKnobFlags_Logarithmic;
-
+      ImGui::GetCursorPos();
       if (ImGuiKnobs::Knob(
-             p->name(), &p->value, p->min(), p->max(), _speed, "%.3f",
-             ImGuiKnobVariant_Dot, 100, knobFlags
+             _param->name(), &_param->value, _param->min(), _param->max(),
+             _speed, "%.3f", ImGuiKnobVariant_Dot, 100, _knobFlags
           ))
       {
-         ImGui::GetIO().KeyCtrl ? _speed = (p->max() - p->min()) / 1000
-                                : _speed = (p->max() - p->min()) / 200;
+         ImGui::GetIO().KeyCtrl
+            ? _speed = (_param->max() - _param->min()) / 1000
+            : _speed = (_param->max() - _param->min()) / 200;
 
-         _dsp.announce(_paramId, p->value);
+         _gui.dsp.announce(_paramId, _param->value);
       }
 
       if (ImGui::IsItemActive() && ImGui::IsMouseDoubleClicked(0))
       {
-         p->value = p->init();
-         _dsp.announce(_paramId, p->value);
+         _param->value = _param->init();
+         _gui.dsp.announce(_paramId, _param->value);
       }
    }
 
 private:
    Gui<Derived, Dsp>& _gui;
-   Dsp& _dsp;
    const uint32_t _paramId;
+   GuiParameter* _param;
+
+   ImGuiKnobFlags _knobFlags;
    float _speed = 0.0f;
 };
 
