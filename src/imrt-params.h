@@ -16,7 +16,7 @@ namespace ImRt {
 /* -------------------------------------------------------------------------- */
 
 /**
- * @brief This class serves as a "skeleton" for a parameter. Note that a
+ * @brief This class serves as a "skeleton" for a parameter layout. Note that a
  * parameter layout does not have a current parameter value, but the derived
  * classes GuiParameter and DspParameter have. These derived classes deal with
  * the parameter value in different ways (cf. GuiParameter and DspParameter).
@@ -25,7 +25,7 @@ class ParameterLayout
 {
 public:
    /**
-    * @brief Construct a new parameter layout object that can be added to a
+    * @brief Constructs a new parameter layout object that can be added to a
     * collection of DSP parameters (cf. class DspParameters).
     *
     * @param id A unique ID used to identify the parameter e.g. when updating
@@ -89,7 +89,7 @@ class DspParameter : public ParameterLayout
 
 public:
    /**
-    * @brief Construct a new DSP parameter object based on a ParameterLayout.
+    * @brief Constructs a new DSP parameter object based on a ParameterLayout.
     *
     * @param layout The layout with the information for the ID, name, minimum,
     * maximum and initial value of the DSP parameter.
@@ -128,7 +128,7 @@ private:
 
 /**
  * @brief This class fills the skeleton given by a parameter layout with life.
- * It has parameter value as a public member which can be changed directly. In
+ * It has a parameter value as a public member which can be changed directly. In
  * addition to changing the value a change should be announced to the
  * corresponding DspParameter in the DSP thread by calling
  * DspParameters<>::announce(). When adding a widget for the parameter, the
@@ -138,7 +138,7 @@ private:
 struct GuiParameter : public ParameterLayout
 {
    /**
-    * @brief Construct a new GUI parameter object.
+    * @brief Constructs a new GUI parameter object.
     *
     * @param layout The layout with the information for the ID, name, minimum,
     * maximum and initial value of the GUI parameter.
@@ -220,7 +220,7 @@ class GuiParameters
 {
 public:
    /**
-    * @brief Construct a new GUI parameter collection. The parameter layouts of
+    * @brief Constructs a new GUI parameter collection. The parameter layouts of
     * the GuiParameter objects in the collection are identical to the parameter
     * layouts of the DspParameters that are given in the constructor argument.
     *
