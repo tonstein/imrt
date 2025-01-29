@@ -80,32 +80,25 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>A template <a class="el" href="classImRt_1_1Slider.html" title="A template Slider class for a parameter that controls a GUI parameter value and announces the changes...">Slider</a> class for a parameter that controls a GUI parameter value and announces the changes to the corresponding DSP parameter value automatically.  
+<p>A slider for a parameter that controls a GUI parameter value and announces the changes to the corresponding DSP parameter value automatically.  
  <a href="classImRt_1_1Slider.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="imrt-widgets_8h_source.html">imrt-widgets.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a03d1e54570539b57fb969888aef04f79" id="r_a03d1e54570539b57fb969888aef04f79"><td class="memItemLeft" align="right" valign="top"><a id="a03d1e54570539b57fb969888aef04f79" name="a03d1e54570539b57fb969888aef04f79"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Slider</b> (<a class="el" href="classImRt_1_1Gui.html">Gui</a>&lt; Derived, <a class="el" href="classImRt_1_1Dsp.html">Dsp</a> &gt; &amp;gui, <a class="el" href="classImRt_1_1Dsp.html">Dsp</a> &amp;dsp, uint32_t paramId)</td></tr>
-<tr class="memdesc:a03d1e54570539b57fb969888aef04f79"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="classImRt_1_1Slider.html" title="A template Slider class for a parameter that controls a GUI parameter value and announces the changes...">Slider</a> object that can be painted onto the given <a class="el" href="classImRt_1_1Gui.html">Gui</a> object. It controls the <a class="el" href="structImRt_1_1GuiParameter.html" title="This class fills the skeleton given by a parameter layout with life. It has a parameter value as a pu...">GuiParameter</a> with the given parameter ID and announces the value changes to the corresponding <a class="el" href="classImRt_1_1DspParameter.html" title="This class fills the skeleton given by a parameter layout with life. It has a parameter value to whic...">DspParameter</a> of the given <a class="el" href="classImRt_1_1Dsp.html" title="Digital signal processor (DSP) template class to inherit from.">Dsp</a> object. <br /></td></tr>
-<tr class="separator:a03d1e54570539b57fb969888aef04f79"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a916e9cbdb0de6556816e8f5c51da442d" id="r_a916e9cbdb0de6556816e8f5c51da442d"><td class="memItemLeft" align="right" valign="top"><a id="a916e9cbdb0de6556816e8f5c51da442d" name="a916e9cbdb0de6556816e8f5c51da442d"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Slider</b> (<a class="el" href="classImRt_1_1Gui.html">Gui</a>&lt; Derived, <a class="el" href="classImRt_1_1Dsp.html">Dsp</a> &gt; &amp;gui, uint32_t paramId)</td></tr>
+<tr class="memdesc:a916e9cbdb0de6556816e8f5c51da442d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a new <a class="el" href="classImRt_1_1Slider.html" title="A slider for a parameter that controls a GUI parameter value and announces the changes to the corresp...">Slider</a> object that can be painted onto the given <a class="el" href="classImRt_1_1Gui.html">Gui</a> object. It automatically controls the <a class="el" href="structImRt_1_1GuiParameter.html" title="This class fills the skeleton given by a parameter layout with life. It has a parameter value as a pu...">GuiParameter</a> with the given parameter ID and announces the value changes to the corresponding <a class="el" href="classImRt_1_1DspParameter.html" title="This class fills the skeleton given by a parameter layout with life. It has a parameter value to whic...">DspParameter</a>. <br /></td></tr>
+<tr class="separator:a916e9cbdb0de6556816e8f5c51da442d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6bd621b539e948f9ad621236bb4650c8" id="r_a6bd621b539e948f9ad621236bb4650c8"><td class="memItemLeft" align="right" valign="top"><a id="a6bd621b539e948f9ad621236bb4650c8" name="a6bd621b539e948f9ad621236bb4650c8"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>show</b> ()</td></tr>
-<tr class="memdesc:a6bd621b539e948f9ad621236bb4650c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Paints the slider using ImGui. <br /></td></tr>
+<tr class="memdesc:a6bd621b539e948f9ad621236bb4650c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Paints the slider using ImGui at the current ImGui CursorPos. <br /></td></tr>
 <tr class="separator:a6bd621b539e948f9ad621236bb4650c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;typename Derived, typename <a class="el" href="classImRt_1_1Dsp.html">Dsp</a>&gt;<br />
-class ImRt::Slider&lt; Derived, Dsp &gt;</div><p>A template <a class="el" href="classImRt_1_1Slider.html" title="A template Slider class for a parameter that controls a GUI parameter value and announces the changes...">Slider</a> class for a parameter that controls a GUI parameter value and announces the changes to the corresponding DSP parameter value automatically. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">Derived</td><td>A class derived from GUI&lt;&gt;. </td></tr>
-    <tr><td class="paramname"><a class="el" href="classImRt_1_1Dsp.html" title="Digital signal processor (DSP) template class to inherit from.">Dsp</a></td><td>A class derived from Dsp&lt;&gt;. </td></tr>
-  </table>
-  </dd>
-</dl>
+class ImRt::Slider&lt; Derived, Dsp &gt;</div><p>A slider for a parameter that controls a GUI parameter value and announces the changes to the corresponding DSP parameter value automatically. </p>
 </div><hr/>The documentation for this class was generated from the following file:<ul>
 <li><a class="el" href="imrt-widgets_8h_source.html">imrt-widgets.h</a></li>
 </ul>
