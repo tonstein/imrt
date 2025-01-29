@@ -21,7 +21,7 @@
 <!-- Node1 -->
 <g id="Node000001" class="node">
 <title>Node1</title>
-<g id="a_Node000001"><a xlink:title="This class serves as a skeleton a parameter. Note that a parameter layout does not have a current par...">
+<g id="a_Node000001"><a xlink:title="This class serves as a &quot;skeleton&quot; for a parameter layout. Note that a parameter layout does not have ...">
 <polygon fill="#999999" stroke="#666666" points="175,-74 56,-74 56,-55 175,-55 175,-74"/>
 <text text-anchor="middle" x="115.5" y="-62" font-family="Helvetica,sans-Serif" font-size="10.00">ImRt::ParameterLayout</text>
 </a>
@@ -30,7 +30,7 @@
 <!-- Node2 -->
 <g id="Node000002" class="node">
 <title>Node2</title>
-<g id="a_Node000002"><a xlink:href="classImRt_1_1DspParameter.html" target="_top" xlink:title="This class fills the skeleton given by a parameter with life. It has a parameter value to which chang...">
+<g id="a_Node000002"><a xlink:href="classImRt_1_1DspParameter.html" target="_top" xlink:title="This class fills the skeleton given by a parameter layout with life. It has a parameter value to whic...">
 <polygon fill="white" stroke="#666666" points="107,-19 0,-19 0,0 107,0 107,-19"/>
 <text text-anchor="middle" x="53.5" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">ImRt::DspParameter</text>
 </a>
@@ -48,7 +48,7 @@
 <!-- Node3 -->
 <g id="Node000003" class="node">
 <title>Node3</title>
-<g id="a_Node000003"><a xlink:href="structImRt_1_1GuiParameter.html" target="_top" xlink:title="This class fills the skeleton given by a parameter with life. It has parameter value as a public memb...">
+<g id="a_Node000003"><a xlink:href="structImRt_1_1GuiParameter.html" target="_top" xlink:title="This class fills the skeleton given by a parameter layout with life. It has a parameter value as a pu...">
 <polygon fill="white" stroke="#666666" points="229.5,-19 125.5,-19 125.5,0 229.5,0 229.5,-19"/>
 <text text-anchor="middle" x="177.5" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">ImRt::GuiParameter</text>
 </a>
