@@ -11,7 +11,7 @@
 <!-- Node0 -->
 <g id="Node000000" class="node">
 <title>Node0</title>
-<g id="a_Node000000"><a xlink:href="classImRt_1_1ParameterLayout.html" target="_top" xlink:title="This class serves as a skeleton a parameter. Note that a parameter layout does not have a current par...">
+<g id="a_Node000000"><a xlink:href="classImRt_1_1ParameterLayout.html" target="_top" xlink:title="This class serves as a &quot;skeleton&quot; for a parameter layout. Note that a parameter layout does not have ...">
 <polygon fill="white" stroke="#666666" points="119,-37 0,-37 0,-18 119,-18 119,-37"/>
 <text text-anchor="middle" x="59.5" y="-25" font-family="Helvetica,sans-Serif" font-size="10.00">ImRt::ParameterLayout</text>
 </a>
@@ -20,7 +20,7 @@
 <!-- Node1 -->
 <g id="Node000001" class="node">
 <title>Node1</title>
-<g id="a_Node000001"><a xlink:href="classImRt_1_1DspParameter.html" target="_top" xlink:title="This class fills the skeleton given by a parameter with life. It has a parameter value to which chang...">
+<g id="a_Node000001"><a xlink:href="classImRt_1_1DspParameter.html" target="_top" xlink:title="This class fills the skeleton given by a parameter layout with life. It has a parameter value to whic...">
 <polygon fill="white" stroke="#666666" points="262,-56 155,-56 155,-37 262,-37 262,-56"/>
 <text text-anchor="middle" x="208.5" y="-44" font-family="Helvetica,sans-Serif" font-size="10.00">ImRt::DspParameter</text>
 </a>
@@ -38,7 +38,7 @@
 <!-- Node2 -->
 <g id="Node000002" class="node">
 <title>Node2</title>
-<g id="a_Node000002"><a xlink:href="structImRt_1_1GuiParameter.html" target="_top" xlink:title="This class fills the skeleton given by a parameter with life. It has parameter value as a public memb...">
+<g id="a_Node000002"><a xlink:href="structImRt_1_1GuiParameter.html" target="_top" xlink:title="This class fills the skeleton given by a parameter layout with life. It has a parameter value as a pu...">
 <polygon fill="white" stroke="#666666" points="260.5,-19 156.5,-19 156.5,0 260.5,0 260.5,-19"/>
 <text text-anchor="middle" x="208.5" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">ImRt::GuiParameter</text>
 </a>
