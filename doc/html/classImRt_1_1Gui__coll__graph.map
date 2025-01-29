@@ -1,9 +1,7 @@
 <map id="ImRt::Gui&lt; Derived, Dsp &gt;" name="ImRt::Gui&lt; Derived, Dsp &gt;">
-<area shape="rect" id="Node000001" title=" " alt="" coords="141,181,281,221"/>
-<area shape="rect" id="Node000002" href="$classImRt_1_1Dsp.html" title="Digital signal processor (DSP) template class to inherit from." alt="" coords="5,93,157,119"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="110,125,186,179,183,183,107,129"/>
-<area shape="rect" id="Node000003" href="$classImRt_1_1DspParameters.html" title="A collection of DspParameter objects that typically is owned by the Dsp&lt;&gt; object." alt="" coords="6,5,157,31"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="84,45,84,93,79,93,79,45"/>
-<area shape="rect" id="Node000004" href="$classImRt_1_1GuiParameters.html" title="A collection of GuiParameter objects that is typically owned by the Gui&lt;&gt; object." alt="" coords="181,93,328,119"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="246,132,222,182,217,180,241,130"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="98,93,238,133"/>
+<area shape="rect" id="Node000002" href="$classImRt_1_1Dsp.html" title="Digital signal processor (DSP) template class to inherit from." alt="" coords="5,5,157,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="103,39,152,91,148,95,99,42"/>
+<area shape="rect" id="Node000003" href="$classImRt_1_1GuiParameters.html" title="A collection of GuiParameter objects that is typically owned by the Gui&lt;&gt; object." alt="" coords="181,5,328,31"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="237,42,188,95,184,91,233,39"/>
 </map>

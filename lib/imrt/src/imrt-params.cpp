@@ -52,27 +52,32 @@ DspParameter::DspParameter(ParameterLayout layout)
    : ParameterLayout(
         layout.id(), layout.name(), layout.min(), layout.max(), layout.init()
      )
-   , value(layout.init())
+   , _value(layout.init())
 {
    _fifo.reset(120 * sizeof(float));
 }
 
-void DspParameter::announce(float& newValue)
+void DspParameter::announceChange(float& newValue)
 {
    _fifo.push(&newValue, sizeof(float));
 }
 
-void DspParameter::update()
+void DspParameter::updateValue()
 {
    _fifo.pop(
       [this](const void* data, uint32_t size)
       {
          if (size == sizeof(float))
          {
-            value = *(float*)data;
+            _value = *(float*)data;
          }
       }
    );
+}
+
+float DspParameter::value()
+{
+   return _value;
 }
 
 /* ------------------------------------------------------ */
@@ -91,29 +96,29 @@ GuiParameter::GuiParameter(ParameterLayout layout)
 /*                     dsp parameters                     */
 /* ------------------------------------------------------ */
 
-void DspParameters::add(ParameterLayout& layout)
+void DspParameters::addParameter(ParameterLayout& layout)
 {
    // [FixMe] Check whether paramId already exists.
    auto parameter = std::make_unique<DspParameter>(layout);
    _params.insert_or_assign(layout.id(), std::move(parameter));
 }
 
-void DspParameters::announce(uint32_t paramId, float& newValue)
+void DspParameters::announceParameterChange(uint32_t paramId, float& newValue)
 {
    // [FixMe] Check if paramId is available.
-   _params.at(paramId)->announce(newValue);
+   _params.at(paramId)->announceChange(newValue);
 }
 
-void DspParameters::update(uint32_t paramId)
+void DspParameters::updateParameterValue(uint32_t paramId)
 {
    // [FixMe] Check if paramId is available.
-   _params.at(paramId)->update();
+   _params.at(paramId)->updateValue();
 }
 
 float DspParameters::value(uint32_t paramId)
 {
    // [FixMe] Check if paramId is available.
-   return _params.at(paramId)->value;
+   return _params.at(paramId)->_value;
 }
 
 /* ------------------------------------------------------ */

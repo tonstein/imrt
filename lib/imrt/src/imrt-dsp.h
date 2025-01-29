@@ -17,7 +17,7 @@ using Buffer
  * @brief Settings passed to the digital signal processor (Dsp) class
  * constructor to specify the number of input and output channels, the sample
  * rate and the buffer size of the stream that the processor opens when its
- * Dsp<>::run() method is called.
+ * Dsp::run() method is called.
  */
 struct DspSettings
 {
@@ -92,7 +92,7 @@ public:
    /**
     * @brief Opens an input and an output stream with the settings passed to the
     * DSP constructor and passes the input buffer to and receives the output
-    * buffer from the Dsp<>::process() callback method.
+    * buffer from the Dsp::process() callback method.
     */
    void run()
    {
@@ -130,28 +130,66 @@ public:
    }
 
    /**
+    * @brief Creates a new DspParameter with the given ParameterLayout and
+    * adds this parameter to the DspParameters collection managed by the Dsp
+    * object.
+    *
+    * @param layout The skeleton for the new DSP parameter consisting of an
+    * ID, a name, a maximum, minimum and initial value.
+    */
+   void addParameter(ParameterLayout& layout)
+   {
+      parameters.addParameter(layout);
+   }
+
+   /**
     * @brief Announces a change of a parameter value by pushing the new value to
     * a multiple writer, single consumer parameter FIFO. This parameter change
-    * should be read in the Dsp<>::process() method of the digital signal
-    * processor by calling the Dsp<>::update() and the DspParameters<>::value()
-    * methods. Multiple write threads may have to briefly spin-wait for each
-    * other, but the reader thread is not blocked by the activity of writers.
+    * should be read in the Dsp::process() method of the digital signal
+    * processor by calling the Dsp::updateParameterValue() and the
+    * Dsp::parameterValue() methods. Multiple write threads may have to briefly
+    * spin-wait for each other, but the reader thread is not blocked by the
+    * activity of writers.
     *
     * @param paramId The ID of the parameter whose value should change.
     * @param newValue The value to which the parameter value should change.
     */
-   void announce(uint32_t paramId, float& newValue)
+   void announceParameterChange(uint32_t paramId, float& newValue)
    {
-      parameters.announce(paramId, newValue);
+      parameters.announceParameterChange(paramId, newValue);
+   }
+
+   /**
+    * @brief Updates a possible DspParameter value change by consuming the
+    * value from the FIFO to which Dsp::announceParameterChange()
+    * pushes. The new value of the DspParameter can be obtained by calling the
+    * Dsp::parameterValue() method.
+    *
+    * @param paramId The ID of the parameter whose value could have changed.
+    */
+   void updateParameterValue(uint32_t paramId)
+   {
+      parameters.updateParameterValue(paramId);
+   }
+
+   /**
+    * @brief Returns the value of a DspParameter.
+    *
+    * @param paramId The ID of the DspParameter.
+    */
+   float parameterValue(uint32_t paramId)
+   {
+      return parameters.value(paramId);
    }
 
 private:
    /**
     * @brief The audio callback method that is fed with the input and output
-    * stream of the digital signal processor. This method must be implemented by
-    * the inheritor class of the DSP template class. Within this method one can
-    * call the Dsp<>::update() method of the member DspParameters parameters to
-    * the announced value (cf. announce()).
+    * stream of the digital signal processor. This method must be implemented
+    * by the inheritor class of the DSP template class. Within this method
+    * one can call the Dsp::updateParameterValue() method of the member
+    * DspParameters parameters to the announced value (cf.
+    * announceParameterChange()).
     *
     * @param in Input buffer.
     * @param out Output buffer.
@@ -166,13 +204,6 @@ private:
       return static_cast<Derived*>(this)->process(in, out, numFrames);
    }
 
-protected:
-   /**
-    * @brief Holds the current values of all DSP parameters. The value of a
-    * parameter with a certain ID can be updated via Dsp<>::update().
-    */
-   DspParameters parameters;
-
    /* ----------------------------------------------------------------------- */
    /*                    INTERNAL DETAILS                                     */
    /* ----------------------------------------------------------------------- */
@@ -182,6 +213,7 @@ private:
    RtAudio::StreamParameters _paramsIn, _paramsOut;
    DspSettings _settings;
    ImRt::Buffer _in, _out;
+   DspParameters parameters;
 
 private:
    int

@@ -96,13 +96,13 @@ public:
             ? _speed = (_param->max() - _param->min()) / 1000
             : _speed = (_param->max() - _param->min()) / 200;
 
-         _gui.dsp.announce(_paramId, _param->value);
+         _gui.dsp.announceParameterChange(_paramId, _param->value);
       }
 
       if (ImGui::IsItemActive() && ImGui::IsMouseDoubleClicked(0))
       {
          _param->value = _param->init();
-         _gui.dsp.announce(_paramId, _param->value);
+         _gui.dsp.announceParameterChange(_paramId, _param->value);
       }
    }
 

@@ -4,19 +4,20 @@
 Dsp::Dsp(ImRt::DspSettings settings)
    : ImRt::Dsp<Dsp>(settings)
 {
-   parameters.add(gainLayout);
-   parameters.add(panLayout);
+   addParameter(gainLayout);
+   addParameter(panLayout);
 }
 
 int Dsp::process(ImRt::Buffer& in, ImRt::Buffer& out, uint32_t numFrames)
 {
    for (uint32_t frame = 0; frame < numFrames; ++frame)
    {
-      parameters.update(gainId);
-      gainValue = parameters.value(gainId);
+      updateParameterValue(gainId);
+      gainValue = parameterValue(gainId);
 
-      parameters.update(panId);
-      panValue = parameters.value(panId);
+      updateParameterValue(panId);
+      panValue = parameterValue(panId);
+
       if (panValue < 0)
       {
          panAmountL = 1.0f;

@@ -75,7 +75,6 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="#friends">Friends</a> &#124;
 <a href="classImRt_1_1Dsp-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">ImRt::Dsp&lt; Derived &gt; Class Template Reference</div></div>
@@ -86,11 +85,6 @@ $(function() {
  <a href="classImRt_1_1Dsp.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="imrt-dsp_8h_source.html">imrt-dsp.h</a>&gt;</code></p>
-<div class="dynheader">
-Collaboration diagram for ImRt::Dsp&lt; Derived &gt;:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classImRt_1_1Dsp__coll__graph.svg" width="163" height="124"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -103,22 +97,24 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><b>~Dsp</b> ()</td></
 <tr class="separator:a66dde70a8304ee52ad3605b936576e58"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acc4efd49a0c4b10a34a7bb071f74f22e" id="r_acc4efd49a0c4b10a34a7bb071f74f22e"><td class="memItemLeft" align="right" valign="top"><a id="acc4efd49a0c4b10a34a7bb071f74f22e" name="acc4efd49a0c4b10a34a7bb071f74f22e"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>run</b> ()</td></tr>
-<tr class="memdesc:acc4efd49a0c4b10a34a7bb071f74f22e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Opens an input and an output stream with the settings passed to the DSP constructor and passes the input buffer to and receives the output buffer from the Dsp&lt;&gt;::process() callback method. <br /></td></tr>
+<tr class="memdesc:acc4efd49a0c4b10a34a7bb071f74f22e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Opens an input and an output stream with the settings passed to the DSP constructor and passes the input buffer to and receives the output buffer from the Dsp::process() callback method. <br /></td></tr>
 <tr class="separator:acc4efd49a0c4b10a34a7bb071f74f22e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a40cb98c764bc2cb41f2e4851b94f7727" id="r_a40cb98c764bc2cb41f2e4851b94f7727"><td class="memItemLeft" align="right" valign="top"><a id="a40cb98c764bc2cb41f2e4851b94f7727" name="a40cb98c764bc2cb41f2e4851b94f7727"></a>
 uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>sampleRate</b> ()</td></tr>
 <tr class="memdesc:a40cb98c764bc2cb41f2e4851b94f7727"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the actual sample rate of the (open) stream, which may differ slightly from the specified one. one. If a stream is not open, a value of zero is returned. <br /></td></tr>
 <tr class="separator:a40cb98c764bc2cb41f2e4851b94f7727"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4342e72d9a964f5ab905788391bfb5c1" id="r_a4342e72d9a964f5ab905788391bfb5c1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classImRt_1_1Dsp.html#a4342e72d9a964f5ab905788391bfb5c1">announce</a> (uint32_t paramId, float &amp;newValue)</td></tr>
-<tr class="memdesc:a4342e72d9a964f5ab905788391bfb5c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Announces a change of a parameter value by pushing the new value to a multiple writer, single consumer parameter FIFO. This parameter change should be read in the Dsp&lt;&gt;::process() method of the digital signal processor by calling the Dsp&lt;&gt;::update() and the <a class="el" href="classImRt_1_1DspParameters.html#a39d8b693fcdfd07f3ba19e19e0575f4e" title="Returns the value of a DspParameter.">DspParameters&lt;&gt;::value()</a> methods. Multiple write threads may have to briefly spin-wait for each other, but the reader thread is not blocked by the activity of writers.  <br /></td></tr>
-<tr class="separator:a4342e72d9a964f5ab905788391bfb5c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
-Protected Attributes</h2></td></tr>
-<tr class="memitem:a26a4e9ae6e56a099909b4d61276d66af" id="r_a26a4e9ae6e56a099909b4d61276d66af"><td class="memItemLeft" align="right" valign="top"><a id="a26a4e9ae6e56a099909b4d61276d66af" name="a26a4e9ae6e56a099909b4d61276d66af"></a>
-<a class="el" href="classImRt_1_1DspParameters.html">DspParameters</a>&#160;</td><td class="memItemRight" valign="bottom"><b>parameters</b></td></tr>
-<tr class="memdesc:a26a4e9ae6e56a099909b4d61276d66af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds the current values of all DSP parameters. The value of a parameter with a certain ID can be updated via Dsp&lt;&gt;::update(). <br /></td></tr>
-<tr class="separator:a26a4e9ae6e56a099909b4d61276d66af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a17b1cdb0909a8cfcd8d31009523042a9" id="r_a17b1cdb0909a8cfcd8d31009523042a9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classImRt_1_1Dsp.html#a17b1cdb0909a8cfcd8d31009523042a9">addParameter</a> (<a class="el" href="classImRt_1_1ParameterLayout.html">ParameterLayout</a> &amp;layout)</td></tr>
+<tr class="memdesc:a17b1cdb0909a8cfcd8d31009523042a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="classImRt_1_1DspParameter.html" title="This class fills the skeleton given by a parameter layout with life. It has a parameter value to whic...">DspParameter</a> with the given <a class="el" href="classImRt_1_1ParameterLayout.html" title="This class serves as a &quot;skeleton&quot; for a parameter layout. Note that a parameter layout does not have ...">ParameterLayout</a> and adds this parameter to the <a class="el" href="classImRt_1_1DspParameters.html" title="A collection of DspParameter objects that typically is owned by the Dsp&lt;&gt; object.">DspParameters</a> collection managed by the <a class="el" href="classImRt_1_1Dsp.html" title="Digital signal processor (DSP) template class to inherit from.">Dsp</a> object.  <br /></td></tr>
+<tr class="separator:a17b1cdb0909a8cfcd8d31009523042a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac319430329723b266b0717beb062787c" id="r_ac319430329723b266b0717beb062787c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classImRt_1_1Dsp.html#ac319430329723b266b0717beb062787c">announceParameterChange</a> (uint32_t paramId, float &amp;newValue)</td></tr>
+<tr class="memdesc:ac319430329723b266b0717beb062787c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Announces a change of a parameter value by pushing the new value to a multiple writer, single consumer parameter FIFO. This parameter change should be read in the Dsp::process() method of the digital signal processor by calling the <a class="el" href="classImRt_1_1Dsp.html#a105552d69afaa3edd48a30f933868919" title="Updates a possible DspParameter value change by consuming the value from the FIFO to which Dsp::annou...">Dsp::updateParameterValue()</a> and the <a class="el" href="classImRt_1_1Dsp.html#aeab52f9e6dcfd0df7de96f23bee05fcd" title="Returns the value of a DspParameter.">Dsp::parameterValue()</a> methods. Multiple write threads may have to briefly spin-wait for each other, but the reader thread is not blocked by the activity of writers.  <br /></td></tr>
+<tr class="separator:ac319430329723b266b0717beb062787c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a105552d69afaa3edd48a30f933868919" id="r_a105552d69afaa3edd48a30f933868919"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classImRt_1_1Dsp.html#a105552d69afaa3edd48a30f933868919">updateParameterValue</a> (uint32_t paramId)</td></tr>
+<tr class="memdesc:a105552d69afaa3edd48a30f933868919"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates a possible <a class="el" href="classImRt_1_1DspParameter.html" title="This class fills the skeleton given by a parameter layout with life. It has a parameter value to whic...">DspParameter</a> value change by consuming the value from the FIFO to which <a class="el" href="classImRt_1_1Dsp.html#ac319430329723b266b0717beb062787c" title="Announces a change of a parameter value by pushing the new value to a multiple writer,...">Dsp::announceParameterChange()</a> pushes. The new value of the <a class="el" href="classImRt_1_1DspParameter.html" title="This class fills the skeleton given by a parameter layout with life. It has a parameter value to whic...">DspParameter</a> can be obtained by calling the <a class="el" href="classImRt_1_1Dsp.html#aeab52f9e6dcfd0df7de96f23bee05fcd" title="Returns the value of a DspParameter.">Dsp::parameterValue()</a> method.  <br /></td></tr>
+<tr class="separator:a105552d69afaa3edd48a30f933868919"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeab52f9e6dcfd0df7de96f23bee05fcd" id="r_aeab52f9e6dcfd0df7de96f23bee05fcd"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classImRt_1_1Dsp.html#aeab52f9e6dcfd0df7de96f23bee05fcd">parameterValue</a> (uint32_t paramId)</td></tr>
+<tr class="memdesc:aeab52f9e6dcfd0df7de96f23bee05fcd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the value of a <a class="el" href="classImRt_1_1DspParameter.html" title="This class fills the skeleton given by a parameter layout with life. It has a parameter value to whic...">DspParameter</a>.  <br /></td></tr>
+<tr class="separator:aeab52f9e6dcfd0df7de96f23bee05fcd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
 Friends</h2></td></tr>
@@ -180,8 +176,8 @@ template&lt;typename Derived &gt; </div>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a4342e72d9a964f5ab905788391bfb5c1" name="a4342e72d9a964f5ab905788391bfb5c1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4342e72d9a964f5ab905788391bfb5c1">&#9670;&#160;</a></span>announce()</h2>
+<a id="a17b1cdb0909a8cfcd8d31009523042a9" name="a17b1cdb0909a8cfcd8d31009523042a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a17b1cdb0909a8cfcd8d31009523042a9">&#9670;&#160;</a></span>addParameter()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -192,7 +188,43 @@ template&lt;typename Derived &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classImRt_1_1Dsp.html">ImRt::Dsp</a>&lt; Derived &gt;::announce </td>
+          <td class="memname">void <a class="el" href="classImRt_1_1Dsp.html">ImRt::Dsp</a>&lt; Derived &gt;::addParameter </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classImRt_1_1ParameterLayout.html">ParameterLayout</a> &amp;&#160;</td>
+          <td class="paramname"><em>layout</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Creates a new <a class="el" href="classImRt_1_1DspParameter.html" title="This class fills the skeleton given by a parameter layout with life. It has a parameter value to whic...">DspParameter</a> with the given <a class="el" href="classImRt_1_1ParameterLayout.html" title="This class serves as a &quot;skeleton&quot; for a parameter layout. Note that a parameter layout does not have ...">ParameterLayout</a> and adds this parameter to the <a class="el" href="classImRt_1_1DspParameters.html" title="A collection of DspParameter objects that typically is owned by the Dsp&lt;&gt; object.">DspParameters</a> collection managed by the <a class="el" href="classImRt_1_1Dsp.html" title="Digital signal processor (DSP) template class to inherit from.">Dsp</a> object. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">layout</td><td>The skeleton for the new DSP parameter consisting of an ID, a name, a maximum, minimum and initial value. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ac319430329723b266b0717beb062787c" name="ac319430329723b266b0717beb062787c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac319430329723b266b0717beb062787c">&#9670;&#160;</a></span>announceParameterChange()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Derived &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classImRt_1_1Dsp.html">ImRt::Dsp</a>&lt; Derived &gt;::announceParameterChange </td>
           <td>(</td>
           <td class="paramtype">uint32_t&#160;</td>
           <td class="paramname"><em>paramId</em>, </td>
@@ -216,11 +248,83 @@ template&lt;typename Derived &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Announces a change of a parameter value by pushing the new value to a multiple writer, single consumer parameter FIFO. This parameter change should be read in the Dsp&lt;&gt;::process() method of the digital signal processor by calling the Dsp&lt;&gt;::update() and the <a class="el" href="classImRt_1_1DspParameters.html#a39d8b693fcdfd07f3ba19e19e0575f4e" title="Returns the value of a DspParameter.">DspParameters&lt;&gt;::value()</a> methods. Multiple write threads may have to briefly spin-wait for each other, but the reader thread is not blocked by the activity of writers. </p>
+<p>Announces a change of a parameter value by pushing the new value to a multiple writer, single consumer parameter FIFO. This parameter change should be read in the Dsp::process() method of the digital signal processor by calling the <a class="el" href="classImRt_1_1Dsp.html#a105552d69afaa3edd48a30f933868919" title="Updates a possible DspParameter value change by consuming the value from the FIFO to which Dsp::annou...">Dsp::updateParameterValue()</a> and the <a class="el" href="classImRt_1_1Dsp.html#aeab52f9e6dcfd0df7de96f23bee05fcd" title="Returns the value of a DspParameter.">Dsp::parameterValue()</a> methods. Multiple write threads may have to briefly spin-wait for each other, but the reader thread is not blocked by the activity of writers. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">paramId</td><td>The ID of the parameter whose value should change. </td></tr>
     <tr><td class="paramname">newValue</td><td>The value to which the parameter value should change. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aeab52f9e6dcfd0df7de96f23bee05fcd" name="aeab52f9e6dcfd0df7de96f23bee05fcd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeab52f9e6dcfd0df7de96f23bee05fcd">&#9670;&#160;</a></span>parameterValue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Derived &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el" href="classImRt_1_1Dsp.html">ImRt::Dsp</a>&lt; Derived &gt;::parameterValue </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>paramId</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the value of a <a class="el" href="classImRt_1_1DspParameter.html" title="This class fills the skeleton given by a parameter layout with life. It has a parameter value to whic...">DspParameter</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">paramId</td><td>The ID of the <a class="el" href="classImRt_1_1DspParameter.html" title="This class fills the skeleton given by a parameter layout with life. It has a parameter value to whic...">DspParameter</a>. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a105552d69afaa3edd48a30f933868919" name="a105552d69afaa3edd48a30f933868919"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a105552d69afaa3edd48a30f933868919">&#9670;&#160;</a></span>updateParameterValue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Derived &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classImRt_1_1Dsp.html">ImRt::Dsp</a>&lt; Derived &gt;::updateParameterValue </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>paramId</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Updates a possible <a class="el" href="classImRt_1_1DspParameter.html" title="This class fills the skeleton given by a parameter layout with life. It has a parameter value to whic...">DspParameter</a> value change by consuming the value from the FIFO to which <a class="el" href="classImRt_1_1Dsp.html#ac319430329723b266b0717beb062787c" title="Announces a change of a parameter value by pushing the new value to a multiple writer,...">Dsp::announceParameterChange()</a> pushes. The new value of the <a class="el" href="classImRt_1_1DspParameter.html" title="This class fills the skeleton given by a parameter layout with life. It has a parameter value to whic...">DspParameter</a> can be obtained by calling the <a class="el" href="classImRt_1_1Dsp.html#aeab52f9e6dcfd0df7de96f23bee05fcd" title="Returns the value of a DspParameter.">Dsp::parameterValue()</a> method. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">paramId</td><td>The ID of the parameter whose value could have changed. </td></tr>
   </table>
   </dd>
 </dl>
