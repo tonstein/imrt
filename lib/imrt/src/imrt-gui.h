@@ -55,7 +55,11 @@ template <typename Derived, typename Dsp>
 class Gui
 {
    template <typename, typename>
+   friend class ToggleButton;
+
+   template <typename, typename>
    friend class Slider;
+
    template <typename, typename>
    friend class Knob;
 
