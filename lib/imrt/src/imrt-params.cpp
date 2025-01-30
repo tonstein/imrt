@@ -98,27 +98,35 @@ GuiParameter::GuiParameter(ParameterLayout layout)
 
 void DspParameters::addParameter(ParameterLayout& layout)
 {
-   // [FixMe] Check whether paramId already exists.
+   auto iterator = _params.find(layout.id());
+   assert(iterator == _params.end());
+
    auto parameter = std::make_unique<DspParameter>(layout);
    _params.insert_or_assign(layout.id(), std::move(parameter));
 }
 
 void DspParameters::announceParameterChange(uint32_t paramId, float& newValue)
 {
-   // [FixMe] Check if paramId is available.
-   _params.at(paramId)->announceChange(newValue);
+   auto iterator = _params.find(paramId);
+   assert(iterator != _params.end());
+
+   iterator->second->announceChange(newValue);
 }
 
 void DspParameters::updateParameterValue(uint32_t paramId)
 {
-   // [FixMe] Check if paramId is available.
-   _params.at(paramId)->updateValue();
+   auto iterator = _params.find(paramId);
+   assert(iterator != _params.end());
+
+   iterator->second->updateValue();
 }
 
 float DspParameters::value(uint32_t paramId)
 {
-   // [FixMe] Check if paramId is available.
-   return _params.at(paramId)->_value;
+   auto iterator = _params.find(paramId);
+   assert(iterator != _params.end());
+
+   return iterator->second->value();
 }
 
 /* ------------------------------------------------------ */
