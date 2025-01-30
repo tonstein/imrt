@@ -4,7 +4,7 @@ set(CMAKE_CXX_STANDARD 17)
 
 project(imrt-template LANGUAGES CXX)
 
-add_subdirectory(lib/imrt)
+add_subdirectory(lib)
 
 option(IMRT_BUILD_EXAMPLES "Build examples")
 set(IMRT_BUILD_EXAMPLES ON)

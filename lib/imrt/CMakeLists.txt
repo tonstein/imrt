@@ -4,39 +4,10 @@ set(CMAKE_CXX_STANDARD 17)
 
 project(imrt LANGUAGES CXX)
 
-set(RTAUDIO_BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)
-set(RTAUDIO_TARGETNAME_UNINSTALL "rtaudio-uninstall" CACHE BOOL "" FORCE)
-add_subdirectory(../rtaudio ../rtaudio)
-
-set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
-set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
-set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
-set(GLFW_LIBRARY_TYPE STATIC CACHE BOOL "" FORCE)
-add_subdirectory(../glfw ../glfw)
-
-find_package(OpenGL REQUIRED)
-
 add_library(
    imrt
 
    STATIC
-
-   ../imgui/imgui.cpp
-   ../imgui/imgui.h
-   ../imgui/imconfig.h
-   ../imgui/imgui_draw.cpp
-   ../imgui/imgui_internal.h
-   ../imgui/imgui_tables.cpp
-   ../imgui/imgui_widgets.cpp
-
-   ../imgui/backends/imgui_impl_glfw.cpp
-   ../imgui/backends/imgui_impl_opengl3.cpp
-
-   ../implot/implot.cpp
-   ../implot/implot.h
-   ../implot/implot_items.cpp
-
-   ../imgui-knobs/imgui-knobs.cpp
 
    src/imrt-dsp.h
 
@@ -49,22 +20,6 @@ add_library(
    src/imrt-widgets.h
 )
 
-target_include_directories(
-   imrt
+target_include_directories(imrt PUBLIC include)
 
-   PUBLIC
-
-   ../imgui
-   ../imgui/backends
-   ../implot
-
-   ../imgui-knobs
-
-   ../choc
-
-   include
-)
-
-target_link_libraries(imrt PUBLIC glfw rtaudio OpenGL::GL)
-
-target_compile_definitions(imrt PUBLIC IMGUI_DEFINE_MATH_OPERATORS)
+target_link_libraries(imrt PUBLIC imrt-requirements)
