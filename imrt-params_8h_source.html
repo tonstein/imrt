@@ -131,99 +131,97 @@ $(document).ready(function() { init_codefold(0); });
 <div class="foldopen" id="foldopen00086" data-start="{" data-end="};">
 <div class="line"><a id="l00086" name="l00086"></a><span class="lineno"><a class="line" href="classImRt_1_1DspParameter.html">   86</a></span><span class="keyword">class </span><a class="code hl_class" href="classImRt_1_1DspParameter.html">DspParameter</a> : <span class="keyword">public</span> <a class="code hl_class" href="classImRt_1_1ParameterLayout.html">ParameterLayout</a></div>
 <div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>{</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>   <span class="keyword">friend</span> <span class="keyword">class </span><a class="code hl_class" href="classImRt_1_1DspParameters.html">DspParameters</a>;</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>   <a class="code hl_class" href="classImRt_1_1DspParameter.html">DspParameter</a>(<a class="code hl_class" href="classImRt_1_1ParameterLayout.html">ParameterLayout</a> layout);</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>   <a class="code hl_class" href="classImRt_1_1DspParameter.html">DspParameter</a>() = <span class="keyword">delete</span>;</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>   <span class="keywordtype">void</span> <a class="code hl_function" href="classImRt_1_1DspParameter.html#a789e678bac050139bde483f2fd342839">announceChange</a>(<span class="keywordtype">float</span>&amp; newValue);</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>   <span class="keywordtype">void</span> <a class="code hl_function" href="classImRt_1_1DspParameter.html#aa00bf4f18aef16e672371b3c9f674c91">updateValue</a>();</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span> </div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>   <span class="keywordtype">float</span> <a class="code hl_function" href="classImRt_1_1DspParameter.html#ab80aec0b89e1517d6060d1e3e0834ec3">value</a>();</div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span> </div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>   <span class="keywordtype">float</span> _value;</div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>   choc::fifo::VariableSizeFIFO _fifo;</div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>};</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>   <a class="code hl_class" href="classImRt_1_1DspParameter.html">DspParameter</a>(<a class="code hl_class" href="classImRt_1_1ParameterLayout.html">ParameterLayout</a> layout);</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>   <a class="code hl_class" href="classImRt_1_1DspParameter.html">DspParameter</a>() = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span> </div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>   <span class="keywordtype">void</span> <a class="code hl_function" href="classImRt_1_1DspParameter.html#a789e678bac050139bde483f2fd342839">announceChange</a>(<span class="keywordtype">float</span>&amp; newValue);</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span> </div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>   <span class="keywordtype">void</span> <a class="code hl_function" href="classImRt_1_1DspParameter.html#aa00bf4f18aef16e672371b3c9f674c91">updateValue</a>();</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span> </div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>   <span class="keywordtype">float</span> <a class="code hl_function" href="classImRt_1_1DspParameter.html#ab80aec0b89e1517d6060d1e3e0834ec3">value</a>();</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span> </div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>   <span class="keywordtype">float</span> _value;</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>   choc::fifo::VariableSizeFIFO _fifo;</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>};</div>
 </div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span> </div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span> </div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span><span class="comment">/* -------------------------------------------------------------------------- */</span></div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span><span class="comment">/*                      GUI PARAMETER                                         */</span></div>
 <div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span><span class="comment">/* -------------------------------------------------------------------------- */</span></div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span><span class="comment">/*                      GUI PARAMETER                                         */</span></div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span><span class="comment">/* -------------------------------------------------------------------------- */</span></div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span> </div>
-<div class="foldopen" id="foldopen00143" data-start="{" data-end="};">
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno"><a class="line" href="structImRt_1_1GuiParameter.html">  143</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structImRt_1_1GuiParameter.html">GuiParameter</a> : <span class="keyword">public</span> <a class="code hl_class" href="classImRt_1_1ParameterLayout.html">ParameterLayout</a></div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>{</div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>   <a class="code hl_struct" href="structImRt_1_1GuiParameter.html">GuiParameter</a>(<a class="code hl_class" href="classImRt_1_1ParameterLayout.html">ParameterLayout</a> layout);</div>
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>   <a class="code hl_struct" href="structImRt_1_1GuiParameter.html">GuiParameter</a>() = <span class="keyword">delete</span>;</div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span> </div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno"><a class="line" href="structImRt_1_1GuiParameter.html#ac3e70e77762b5b8a78ce7e3694152e14">  157</a></span>   <span class="keywordtype">float</span> <a class="code hl_variable" href="structImRt_1_1GuiParameter.html#ac3e70e77762b5b8a78ce7e3694152e14">value</a>;</div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>};</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span> </div>
+<div class="foldopen" id="foldopen00141" data-start="{" data-end="};">
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno"><a class="line" href="structImRt_1_1GuiParameter.html">  141</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structImRt_1_1GuiParameter.html">GuiParameter</a> : <span class="keyword">public</span> <a class="code hl_class" href="classImRt_1_1ParameterLayout.html">ParameterLayout</a></div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>{</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>   <a class="code hl_struct" href="structImRt_1_1GuiParameter.html">GuiParameter</a>(<a class="code hl_class" href="classImRt_1_1ParameterLayout.html">ParameterLayout</a> layout);</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>   <a class="code hl_struct" href="structImRt_1_1GuiParameter.html">GuiParameter</a>() = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span> </div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno"><a class="line" href="structImRt_1_1GuiParameter.html#ac3e70e77762b5b8a78ce7e3694152e14">  155</a></span>   <span class="keywordtype">float</span> <a class="code hl_variable" href="structImRt_1_1GuiParameter.html#ac3e70e77762b5b8a78ce7e3694152e14">value</a>;</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>};</div>
 </div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span> </div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span> </div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span><span class="comment">/* -------------------------------------------------------------------------- */</span></div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span><span class="comment">/*              COLLECTION OF DSP PARAMETERS                                  */</span></div>
 <div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span><span class="comment">/* -------------------------------------------------------------------------- */</span></div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span><span class="comment">/*              COLLECTION OF DSP PARAMETERS                                  */</span></div>
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span><span class="comment">/* -------------------------------------------------------------------------- */</span></div>
-<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span> </div>
-<div class="foldopen" id="foldopen00168" data-start="{" data-end="};">
-<div class="line"><a id="l00168" name="l00168"></a><span class="lineno"><a class="line" href="classImRt_1_1DspParameters.html">  168</a></span><span class="keyword">class </span><a class="code hl_class" href="classImRt_1_1DspParameters.html">DspParameters</a></div>
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>{</div>
-<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>   <span class="keyword">friend</span> <span class="keyword">class </span><a class="code hl_class" href="classImRt_1_1GuiParameters.html">GuiParameters</a>;</div>
-<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span> </div>
-<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>   <span class="keywordtype">void</span> <a class="code hl_function" href="classImRt_1_1DspParameters.html#a6ce43113310e3287c2ebd2a06404b342">addParameter</a>(<a class="code hl_class" href="classImRt_1_1ParameterLayout.html">ParameterLayout</a>&amp; layout);</div>
-<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span> </div>
-<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>   <span class="keywordtype">void</span> <a class="code hl_function" href="classImRt_1_1DspParameters.html#adf21279b28f606c66f9f2761cfec6bfe">announceParameterChange</a>(uint32_t paramId, <span class="keywordtype">float</span>&amp; newValue);</div>
-<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span> </div>
-<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>   <span class="keywordtype">void</span> <a class="code hl_function" href="classImRt_1_1DspParameters.html#a7475f40af899ff42c6c50458a4c2284c">updateParameterValue</a>(uint32_t paramId);</div>
-<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span> </div>
-<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>   <span class="keywordtype">float</span> <a class="code hl_function" href="classImRt_1_1DspParameters.html#a39d8b693fcdfd07f3ba19e19e0575f4e">value</a>(uint32_t paramId);</div>
-<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span> </div>
-<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>   std::map&lt;uint32_t, std::unique_ptr&lt;DspParameter&gt;&gt; _params;</div>
-<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>};</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span> </div>
+<div class="foldopen" id="foldopen00166" data-start="{" data-end="};">
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno"><a class="line" href="classImRt_1_1DspParameters.html">  166</a></span><span class="keyword">class </span><a class="code hl_class" href="classImRt_1_1DspParameters.html">DspParameters</a></div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>{</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>   <span class="keyword">friend</span> <span class="keyword">class </span><a class="code hl_class" href="classImRt_1_1GuiParameters.html">GuiParameters</a>;</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span> </div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>   <span class="keywordtype">void</span> <a class="code hl_function" href="classImRt_1_1DspParameters.html#a6ce43113310e3287c2ebd2a06404b342">addParameter</a>(<a class="code hl_class" href="classImRt_1_1ParameterLayout.html">ParameterLayout</a>&amp; layout);</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span> </div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>   <span class="keywordtype">void</span> <a class="code hl_function" href="classImRt_1_1DspParameters.html#adf21279b28f606c66f9f2761cfec6bfe">announceParameterChange</a>(uint32_t paramId, <span class="keywordtype">float</span>&amp; newValue);</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span> </div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>   <span class="keywordtype">void</span> <a class="code hl_function" href="classImRt_1_1DspParameters.html#a7475f40af899ff42c6c50458a4c2284c">updateParameterValue</a>(uint32_t paramId);</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span> </div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>   <span class="keywordtype">float</span> <a class="code hl_function" href="classImRt_1_1DspParameters.html#a39d8b693fcdfd07f3ba19e19e0575f4e">value</a>(uint32_t paramId);</div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span> </div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>   std::map&lt;uint32_t, std::unique_ptr&lt;DspParameter&gt;&gt; _params;</div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>};</div>
 </div>
-<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span> </div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span> </div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span><span class="comment">/* -------------------------------------------------------------------------- */</span></div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span><span class="comment">/*              COLLECTION OF GUI PARAMETERS                                  */</span></div>
 <div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span><span class="comment">/* -------------------------------------------------------------------------- */</span></div>
-<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span><span class="comment">/*              COLLECTION OF GUI PARAMETERS                                  */</span></div>
-<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span><span class="comment">/* -------------------------------------------------------------------------- */</span></div>
-<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span> </div>
-<div class="foldopen" id="foldopen00223" data-start="{" data-end="};">
-<div class="line"><a id="l00223" name="l00223"></a><span class="lineno"><a class="line" href="classImRt_1_1GuiParameters.html">  223</a></span><span class="keyword">class </span><a class="code hl_class" href="classImRt_1_1GuiParameters.html">GuiParameters</a></div>
-<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>{</div>
-<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>   <a class="code hl_class" href="classImRt_1_1GuiParameters.html">GuiParameters</a>(<span class="keyword">const</span> <a class="code hl_class" href="classImRt_1_1DspParameters.html">DspParameters</a>&amp; audioParameters);</div>
-<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>   <a class="code hl_class" href="classImRt_1_1GuiParameters.html">GuiParameters</a>() = <span class="keyword">delete</span>;</div>
-<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span> </div>
-<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>   <a class="code hl_struct" href="structImRt_1_1GuiParameter.html">GuiParameter</a>* <a class="code hl_function" href="classImRt_1_1GuiParameters.html#ac7370e36959eabcaf0b2d386176c1b4b">byId</a>(uint32_t paramId);</div>
-<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span> </div>
-<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>   std::map&lt;uint32_t, std::unique_ptr&lt;GuiParameter&gt;&gt; _params;</div>
-<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>};</div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span> </div>
+<div class="foldopen" id="foldopen00221" data-start="{" data-end="};">
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno"><a class="line" href="classImRt_1_1GuiParameters.html">  221</a></span><span class="keyword">class </span><a class="code hl_class" href="classImRt_1_1GuiParameters.html">GuiParameters</a></div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>{</div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>   <a class="code hl_class" href="classImRt_1_1GuiParameters.html">GuiParameters</a>(<span class="keyword">const</span> <a class="code hl_class" href="classImRt_1_1DspParameters.html">DspParameters</a>&amp; audioParameters);</div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>   <a class="code hl_class" href="classImRt_1_1GuiParameters.html">GuiParameters</a>() = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span> </div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>   <a class="code hl_struct" href="structImRt_1_1GuiParameter.html">GuiParameter</a>* <a class="code hl_function" href="classImRt_1_1GuiParameters.html#ac7370e36959eabcaf0b2d386176c1b4b">byId</a>(uint32_t paramId);</div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span> </div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>   std::map&lt;uint32_t, std::unique_ptr&lt;GuiParameter&gt;&gt; _params;</div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>};</div>
 </div>
-<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span> </div>
-<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>} <span class="comment">// namespace ImRt</span></div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span> </div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>} <span class="comment">// namespace ImRt</span></div>
 <div class="ttc" id="aclassImRt_1_1DspParameter_html"><div class="ttname"><a href="classImRt_1_1DspParameter.html">ImRt::DspParameter</a></div><div class="ttdoc">This class fills the skeleton given by a parameter layout with life. It has a parameter value to whic...</div><div class="ttdef"><b>Definition</b> imrt-params.h:87</div></div>
 <div class="ttc" id="aclassImRt_1_1DspParameter_html_a789e678bac050139bde483f2fd342839"><div class="ttname"><a href="classImRt_1_1DspParameter.html#a789e678bac050139bde483f2fd342839">ImRt::DspParameter::announceChange</a></div><div class="ttdeci">void announceChange(float &amp;newValue)</div><div class="ttdoc">Announces a change of the parameter value by pushing the new value to a multiple writer,...</div><div class="ttdef"><b>Definition</b> imrt-params.cpp:60</div></div>
 <div class="ttc" id="aclassImRt_1_1DspParameter_html_aa00bf4f18aef16e672371b3c9f674c91"><div class="ttname"><a href="classImRt_1_1DspParameter.html#aa00bf4f18aef16e672371b3c9f674c91">ImRt::DspParameter::updateValue</a></div><div class="ttdeci">void updateValue()</div><div class="ttdoc">Updates a possible DspParameter value change by consuming the value from the FIFO to which Dsp::annou...</div><div class="ttdef"><b>Definition</b> imrt-params.cpp:65</div></div>
 <div class="ttc" id="aclassImRt_1_1DspParameter_html_ab80aec0b89e1517d6060d1e3e0834ec3"><div class="ttname"><a href="classImRt_1_1DspParameter.html#ab80aec0b89e1517d6060d1e3e0834ec3">ImRt::DspParameter::value</a></div><div class="ttdeci">float value()</div><div class="ttdoc">Returns the value of the DspParameter.</div><div class="ttdef"><b>Definition</b> imrt-params.cpp:78</div></div>
-<div class="ttc" id="aclassImRt_1_1DspParameters_html"><div class="ttname"><a href="classImRt_1_1DspParameters.html">ImRt::DspParameters</a></div><div class="ttdoc">A collection of DspParameter objects that typically is owned by the Dsp&lt;&gt; object.</div><div class="ttdef"><b>Definition</b> imrt-params.h:169</div></div>
-<div class="ttc" id="aclassImRt_1_1DspParameters_html_a39d8b693fcdfd07f3ba19e19e0575f4e"><div class="ttname"><a href="classImRt_1_1DspParameters.html#a39d8b693fcdfd07f3ba19e19e0575f4e">ImRt::DspParameters::value</a></div><div class="ttdeci">float value(uint32_t paramId)</div><div class="ttdoc">Returns the value of a DspParameter.</div><div class="ttdef"><b>Definition</b> imrt-params.cpp:118</div></div>
+<div class="ttc" id="aclassImRt_1_1DspParameters_html"><div class="ttname"><a href="classImRt_1_1DspParameters.html">ImRt::DspParameters</a></div><div class="ttdoc">A collection of DspParameter objects that typically is owned by the Dsp&lt;&gt; object.</div><div class="ttdef"><b>Definition</b> imrt-params.h:167</div></div>
+<div class="ttc" id="aclassImRt_1_1DspParameters_html_a39d8b693fcdfd07f3ba19e19e0575f4e"><div class="ttname"><a href="classImRt_1_1DspParameters.html#a39d8b693fcdfd07f3ba19e19e0575f4e">ImRt::DspParameters::value</a></div><div class="ttdeci">float value(uint32_t paramId)</div><div class="ttdoc">Returns the value of a DspParameter.</div><div class="ttdef"><b>Definition</b> imrt-params.cpp:124</div></div>
 <div class="ttc" id="aclassImRt_1_1DspParameters_html_a6ce43113310e3287c2ebd2a06404b342"><div class="ttname"><a href="classImRt_1_1DspParameters.html#a6ce43113310e3287c2ebd2a06404b342">ImRt::DspParameters::addParameter</a></div><div class="ttdeci">void addParameter(ParameterLayout &amp;layout)</div><div class="ttdoc">Creates a new DspParameter with the given ParameterLayout and adds this parameter to the DspParameter...</div><div class="ttdef"><b>Definition</b> imrt-params.cpp:99</div></div>
-<div class="ttc" id="aclassImRt_1_1DspParameters_html_a7475f40af899ff42c6c50458a4c2284c"><div class="ttname"><a href="classImRt_1_1DspParameters.html#a7475f40af899ff42c6c50458a4c2284c">ImRt::DspParameters::updateParameterValue</a></div><div class="ttdeci">void updateParameterValue(uint32_t paramId)</div><div class="ttdoc">Updates a possible DspParameter value change by consuming the value from the FIFO to which announcePa...</div><div class="ttdef"><b>Definition</b> imrt-params.cpp:112</div></div>
-<div class="ttc" id="aclassImRt_1_1DspParameters_html_adf21279b28f606c66f9f2761cfec6bfe"><div class="ttname"><a href="classImRt_1_1DspParameters.html#adf21279b28f606c66f9f2761cfec6bfe">ImRt::DspParameters::announceParameterChange</a></div><div class="ttdeci">void announceParameterChange(uint32_t paramId, float &amp;newValue)</div><div class="ttdoc">Announces a change of a parameter value by pushing the new value to a multiple writer,...</div><div class="ttdef"><b>Definition</b> imrt-params.cpp:106</div></div>
-<div class="ttc" id="aclassImRt_1_1GuiParameters_html"><div class="ttname"><a href="classImRt_1_1GuiParameters.html">ImRt::GuiParameters</a></div><div class="ttdoc">A collection of GuiParameter objects that is typically owned by the Gui&lt;&gt; object.</div><div class="ttdef"><b>Definition</b> imrt-params.h:224</div></div>
-<div class="ttc" id="aclassImRt_1_1GuiParameters_html_ac7370e36959eabcaf0b2d386176c1b4b"><div class="ttname"><a href="classImRt_1_1GuiParameters.html#ac7370e36959eabcaf0b2d386176c1b4b">ImRt::GuiParameters::byId</a></div><div class="ttdeci">GuiParameter * byId(uint32_t paramId)</div><div class="ttdoc">Returns the GuiParameter identified by the given parameter ID.</div><div class="ttdef"><b>Definition</b> imrt-params.cpp:142</div></div>
+<div class="ttc" id="aclassImRt_1_1DspParameters_html_a7475f40af899ff42c6c50458a4c2284c"><div class="ttname"><a href="classImRt_1_1DspParameters.html#a7475f40af899ff42c6c50458a4c2284c">ImRt::DspParameters::updateParameterValue</a></div><div class="ttdeci">void updateParameterValue(uint32_t paramId)</div><div class="ttdoc">Updates a possible DspParameter value change by consuming the value from the FIFO to which announcePa...</div><div class="ttdef"><b>Definition</b> imrt-params.cpp:116</div></div>
+<div class="ttc" id="aclassImRt_1_1DspParameters_html_adf21279b28f606c66f9f2761cfec6bfe"><div class="ttname"><a href="classImRt_1_1DspParameters.html#adf21279b28f606c66f9f2761cfec6bfe">ImRt::DspParameters::announceParameterChange</a></div><div class="ttdeci">void announceParameterChange(uint32_t paramId, float &amp;newValue)</div><div class="ttdoc">Announces a change of a parameter value by pushing the new value to a multiple writer,...</div><div class="ttdef"><b>Definition</b> imrt-params.cpp:108</div></div>
+<div class="ttc" id="aclassImRt_1_1GuiParameters_html"><div class="ttname"><a href="classImRt_1_1GuiParameters.html">ImRt::GuiParameters</a></div><div class="ttdoc">A collection of GuiParameter objects that is typically owned by the Gui&lt;&gt; object.</div><div class="ttdef"><b>Definition</b> imrt-params.h:222</div></div>
+<div class="ttc" id="aclassImRt_1_1GuiParameters_html_ac7370e36959eabcaf0b2d386176c1b4b"><div class="ttname"><a href="classImRt_1_1GuiParameters.html#ac7370e36959eabcaf0b2d386176c1b4b">ImRt::GuiParameters::byId</a></div><div class="ttdeci">GuiParameter * byId(uint32_t paramId)</div><div class="ttdoc">Returns the GuiParameter identified by the given parameter ID.</div><div class="ttdef"><b>Definition</b> imrt-params.cpp:150</div></div>
 <div class="ttc" id="aclassImRt_1_1ParameterLayout_html"><div class="ttname"><a href="classImRt_1_1ParameterLayout.html">ImRt::ParameterLayout</a></div><div class="ttdoc">This class serves as a &quot;skeleton&quot; for a parameter layout. Note that a parameter layout does not have ...</div><div class="ttdef"><b>Definition</b> imrt-params.h:25</div></div>
 <div class="ttc" id="aclassImRt_1_1ParameterLayout_html_a428d483d77e7710a3c55835b12867163"><div class="ttname"><a href="classImRt_1_1ParameterLayout.html#a428d483d77e7710a3c55835b12867163">ImRt::ParameterLayout::name</a></div><div class="ttdeci">const char * name()</div><div class="ttdoc">Returns the name of the parameter.</div><div class="ttdef"><b>Definition</b> imrt-params.cpp:27</div></div>
 <div class="ttc" id="aclassImRt_1_1ParameterLayout_html_aa2f7357e3f565b627e0ec287cb48a66a"><div class="ttname"><a href="classImRt_1_1ParameterLayout.html#aa2f7357e3f565b627e0ec287cb48a66a">ImRt::ParameterLayout::min</a></div><div class="ttdeci">float min()</div><div class="ttdoc">Returns the minimum value of the parameter.</div><div class="ttdef"><b>Definition</b> imrt-params.cpp:32</div></div>
 <div class="ttc" id="aclassImRt_1_1ParameterLayout_html_ab0c390fc7742f4b8d9a4c262095df670"><div class="ttname"><a href="classImRt_1_1ParameterLayout.html#ab0c390fc7742f4b8d9a4c262095df670">ImRt::ParameterLayout::id</a></div><div class="ttdeci">uint32_t id()</div><div class="ttdoc">Returns the unique ID of the parameter.</div><div class="ttdef"><b>Definition</b> imrt-params.cpp:22</div></div>
 <div class="ttc" id="aclassImRt_1_1ParameterLayout_html_ad5e80ebb5fae692e3e8046a7e13550ee"><div class="ttname"><a href="classImRt_1_1ParameterLayout.html#ad5e80ebb5fae692e3e8046a7e13550ee">ImRt::ParameterLayout::init</a></div><div class="ttdeci">float init()</div><div class="ttdoc">Returns the initial resp. default value of the parameter.</div><div class="ttdef"><b>Definition</b> imrt-params.cpp:42</div></div>
 <div class="ttc" id="aclassImRt_1_1ParameterLayout_html_af6da96bc4b0c519c75c4a21198a3988a"><div class="ttname"><a href="classImRt_1_1ParameterLayout.html#af6da96bc4b0c519c75c4a21198a3988a">ImRt::ParameterLayout::max</a></div><div class="ttdeci">float max()</div><div class="ttdoc">Returns the maximum value of the parameter.</div><div class="ttdef"><b>Definition</b> imrt-params.cpp:37</div></div>
-<div class="ttc" id="astructImRt_1_1GuiParameter_html"><div class="ttname"><a href="structImRt_1_1GuiParameter.html">ImRt::GuiParameter</a></div><div class="ttdoc">This class fills the skeleton given by a parameter layout with life. It has a parameter value as a pu...</div><div class="ttdef"><b>Definition</b> imrt-params.h:144</div></div>
-<div class="ttc" id="astructImRt_1_1GuiParameter_html_ac3e70e77762b5b8a78ce7e3694152e14"><div class="ttname"><a href="structImRt_1_1GuiParameter.html#ac3e70e77762b5b8a78ce7e3694152e14">ImRt::GuiParameter::value</a></div><div class="ttdeci">float value</div><div class="ttdoc">The current value of the GUI parameter.</div><div class="ttdef"><b>Definition</b> imrt-params.h:157</div></div>
+<div class="ttc" id="astructImRt_1_1GuiParameter_html"><div class="ttname"><a href="structImRt_1_1GuiParameter.html">ImRt::GuiParameter</a></div><div class="ttdoc">This class fills the skeleton given by a parameter layout with life. It has a parameter value as a pu...</div><div class="ttdef"><b>Definition</b> imrt-params.h:142</div></div>
+<div class="ttc" id="astructImRt_1_1GuiParameter_html_ac3e70e77762b5b8a78ce7e3694152e14"><div class="ttname"><a href="structImRt_1_1GuiParameter.html#ac3e70e77762b5b8a78ce7e3694152e14">ImRt::GuiParameter::value</a></div><div class="ttdeci">float value</div><div class="ttdoc">The current value of the GUI parameter.</div><div class="ttdef"><b>Definition</b> imrt-params.h:155</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
