@@ -1,5 +1,4 @@
 #include "dsp.h"
-#include "params.h"
 
 Dsp::Dsp(ImRt::DspSettings settings)
    : ImRt::Dsp<Dsp>(settings)
