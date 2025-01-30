@@ -10,6 +10,10 @@ void Gui::onStart() { }
 void Gui::onUpdate()
 {
    gainKnob.show();
+
    ImGui::SameLine();
    panKnob.show();
+
+   ImGui::Separator();
+   muteButton.show();
 }

@@ -10,5 +10,5 @@ public:
    int process(ImRt::Buffer& in, ImRt::Buffer& out, uint32_t numFrames);
 
 private:
-   float gainValue, panValue, panAmountL, panAmountR;
+   float gainValue, panValue, panAmountL, panAmountR, muteValue;
 };

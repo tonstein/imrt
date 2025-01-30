@@ -7,3 +7,6 @@ static ImRt::ParameterLayout gainLayout(gainId, "Gain", 0.0f, 2.0f, 1.0f);
 
 static uint32_t panId = 2;
 static ImRt::ParameterLayout panLayout(panId, "Pan", -1.0f, 1.0f, 0.0f);
+
+static uint32_t muteId = 3;
+static ImRt::ParameterLayout muteLayout(muteId, "Mute", 0.0f, 1.0f, 0.0f);

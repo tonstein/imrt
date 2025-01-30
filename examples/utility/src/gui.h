@@ -16,4 +16,5 @@ public:
 private:
    ImRt::Knob<Gui, Dsp> gainKnob { *this, gainId };
    ImRt::Knob<Gui, Dsp> panKnob { *this, panId };
+   ImRt::ToggleButton<Gui, Dsp> muteButton { *this, muteId };
 };
