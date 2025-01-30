@@ -85,8 +85,6 @@ protected:
  */
 class DspParameter : public ParameterLayout
 {
-   friend class DspParameters;
-
 public:
    /**
     * @brief Constructs a new DSP parameter object based on a ParameterLayout.
