@@ -149,8 +149,10 @@ GuiParameters::GuiParameters(const DspParameters& audioParameters)
 
 GuiParameter* GuiParameters::byId(uint32_t paramId)
 {
-   // [FixMe] Check if paramId is available.
-   return _params.at(paramId).get();
+   auto iterator = _params.find(paramId);
+   assert(iterator != _params.end());
+
+   return iterator->second.get();
 }
 
 } // namespace ImRt
