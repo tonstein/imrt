@@ -21,7 +21,7 @@ Check the documentation on [https://tonstein.github.io/imrt/](https://tonstein.g
 
 ### Oscilloscope
 
-<img src="examples/oscilloscope/img/oscilloscope.gif" alt="Oscilloscope" width="2034">
+<img src="examples/oscilloscope/img/oscilloscope.gif" alt="Oscilloscope" width="1320">
 
 See [examples/oscilloscope](examples/oscilloscope).
 
