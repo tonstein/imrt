@@ -146,7 +146,7 @@ public:
     * @brief Announces a change of a parameter value by pushing the new value to
     * a multiple writer, single consumer parameter FIFO. This parameter change
     * should be read in the Dsp::process() method of the digital signal
-    * processor by calling the Dsp::updateParameterValue() and the
+    * processor by calling the Dsp::updatedParameterValue() and the
     * Dsp::parameterValue() methods. Multiple write threads may have to briefly
     * spin-wait for each other, but the reader thread is not blocked by the
     * activity of writers.
@@ -156,7 +156,7 @@ public:
     */
    void announceParameterChange(uint32_t paramId, float& newValue)
    {
-      parameters.announceParameterChange(paramId, newValue);
+      parameters.announceChange(paramId, newValue);
    }
 
    /**
@@ -167,9 +167,9 @@ public:
     *
     * @param paramId The ID of the parameter whose value could have changed.
     */
-   void updateParameterValue(uint32_t paramId)
+   float updatedParameterValue(uint32_t paramId)
    {
-      parameters.updateParameterValue(paramId);
+      return parameters.updatedValue(paramId);
    }
 
    /**
@@ -187,7 +187,7 @@ private:
     * @brief The audio callback method that is fed with the input and output
     * stream of the digital signal processor. This method must be implemented
     * by the inheritor class of the DSP template class. Within this method
-    * one can call the Dsp::updateParameterValue() method of the member
+    * one can call the Dsp::updatedParameterValue() method of the member
     * DspParameters parameters to the announced value (cf.
     * announceParameterChange()).
     *

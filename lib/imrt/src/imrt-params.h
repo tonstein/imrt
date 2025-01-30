@@ -80,8 +80,8 @@ protected:
  * @brief This class fills the skeleton given by a parameter layout with life.
  * It has a parameter value to which changes can be announced via
  * DspParameter::announce(). This is typically done by the GUI thread. The
- * changes are applied when the DspParameter::update() method is called. This is
- * typically done by the DSP thread.
+ * changes are applied when the DspParameter::updatedValue() method is called.
+ * This is typically done by the DSP thread.
  */
 class DspParameter : public ParameterLayout
 {
@@ -107,13 +107,13 @@ public:
 
    /**
     * @brief Updates a possible DspParameter value change by consuming the
-    * value from the FIFO to which Dsp::announceParameterChange()
+    * value from the FIFO to which Dsp::announceChange()
     * pushes. The new value of the DspParameter can be obtained by calling the
     * parameterValue() method.
     *
     * @param paramId The ID of the parameter whose value could have changed.
     */
-   void updateValue();
+   float updatedValue();
 
    /**
     * @brief Returns the value of the DspParameter.
@@ -187,17 +187,17 @@ public:
     * @param paramId The ID of the parameter whose value should change.
     * @param newValue The value to which the parameter value should change.
     */
-   void announceParameterChange(uint32_t paramId, float& newValue);
+   void announceChange(uint32_t paramId, float& newValue);
 
    /**
     * @brief Updates a possible DspParameter value change by consuming the
-    * value from the FIFO to which announceParameterChange()
+    * value from the FIFO to which announceChange()
     * pushes. The new value of the DspParameter can be obtained by calling the
     * parameterValue() method.
     *
     * @param paramId The ID of the parameter whose value could have changed.
     */
-   void updateParameterValue(uint32_t paramId);
+   float updatedValue(uint32_t paramId);
 
    /**
     * @brief Returns the value of a DspParameter.

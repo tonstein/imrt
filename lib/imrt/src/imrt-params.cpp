@@ -62,7 +62,7 @@ void DspParameter::announceChange(float& newValue)
    _fifo.push(&newValue, sizeof(float));
 }
 
-void DspParameter::updateValue()
+float DspParameter::updatedValue()
 {
    _fifo.pop(
       [this](const void* data, uint32_t size)
@@ -73,6 +73,7 @@ void DspParameter::updateValue()
          }
       }
    );
+   return _value;
 }
 
 float DspParameter::value()
@@ -105,7 +106,7 @@ void DspParameters::addParameter(ParameterLayout& layout)
    _params.insert_or_assign(layout.id(), std::move(parameter));
 }
 
-void DspParameters::announceParameterChange(uint32_t paramId, float& newValue)
+void DspParameters::announceChange(uint32_t paramId, float& newValue)
 {
    auto iterator = _params.find(paramId);
    assert(iterator != _params.end());
@@ -113,12 +114,13 @@ void DspParameters::announceParameterChange(uint32_t paramId, float& newValue)
    iterator->second->announceChange(newValue);
 }
 
-void DspParameters::updateParameterValue(uint32_t paramId)
+float DspParameters::updatedValue(uint32_t paramId)
 {
    auto iterator = _params.find(paramId);
    assert(iterator != _params.end());
 
-   iterator->second->updateValue();
+   iterator->second->updatedValue();
+   return iterator->second->value();
 }
 
 float DspParameters::value(uint32_t paramId)
