@@ -19,6 +19,10 @@ namespace ImRt {
 /*                     WINDOW SETTINGS                                        */
 /* -------------------------------------------------------------------------- */
 
+/**
+ * @brief A style (of a window) consists of an ImGuiStyle, an ImPlotStyle and a
+ * font size.
+ */
 struct Style
 {
    ImGuiStyle gui   = ImGuiStyle();
@@ -26,6 +30,13 @@ struct Style
    float fontSize   = 14.0f;
 };
 
+/**
+ * @brief This structure can be passed to the constructor of the Gui class to
+ * specify the title, the size and the style of the window and whether the
+ * window ...
+ * - has a native window decoration,
+ * - always stays on top.
+ */
 struct GuiSettings
 {
    std::string title = "Default title";

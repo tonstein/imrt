@@ -13,9 +13,9 @@
 
 A framework for the developement of audio applications using __Dear ImGui__ with the backends __GLFW__ and __OpenGL__ as well as __ImPlot__ and __RtAudio__.
 
-## Documentation
+# How do I use ImRt?
 
-[https://tonstein.github.io/imrt/](https://tonstein.github.io/imrt/)
+Check the documentation on [https://tonstein.github.io/imrt/](https://tonstein.github.io/imrt/) and the following examples.
 
 ## Examples
 
