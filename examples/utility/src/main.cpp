@@ -9,7 +9,7 @@ int main()
 
    ImRt::GuiSettings settings;
    settings.title          = "Utility";
-   settings.size           = { 235, 266 };
+   settings.size           = { 476, 258 };
    settings.style          = ImRt::DefaultStyle();
    settings.style.fontSize = 13.0f;
    settings.alwaysOnTop    = true;

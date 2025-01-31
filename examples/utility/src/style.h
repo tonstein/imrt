@@ -61,6 +61,7 @@ static ImRt::Style DefaultStyle()
    colors[ImGuiCol_ButtonHovered]    = ImRt::Color::White;
    colors[ImGuiCol_ButtonActive]     = ImRt::Color::White;
    colors[ImGuiCol_CheckMark]        = ImRt::Color::White;
+   colors[ImGuiCol_PlotHistogram]    = ImRt::Color::Magenta;
 
    // ImPlot style
    style.plot.PlotBorderSize = 0;

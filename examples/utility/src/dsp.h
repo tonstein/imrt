@@ -9,6 +9,8 @@ public:
 
    int process(ImRt::Buffer& in, ImRt::Buffer& out, uint32_t numFrames);
 
+   choc::buffer::BufferView<float, choc::buffer::SeparateChannelLayout> view;
+
 private:
    float gainValue, panValue, panAmountL, panAmountR, muteValue;
 };

@@ -40,6 +40,6 @@ See [examples/oscilloscope](examples/oscilloscope).
 
 ### Utility 
 
-<img src="examples/utility/img/utility.png" alt="Oscilloscope" width="100">
+<img src="examples/utility/img/utility.gif" alt="Oscilloscope" width="860">
 
 See [examples/utility](examples/utility).

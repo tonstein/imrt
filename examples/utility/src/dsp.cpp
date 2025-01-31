@@ -41,5 +41,7 @@ int Dsp::process(ImRt::Buffer& in, ImRt::Buffer& out, uint32_t numFrames)
       out.getSample(1, frame) = in.getSample(0, frame) * panAmountR * gainValue;
    }
 
+   view = out.getView();
+
    return 0;
 }

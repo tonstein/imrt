@@ -1,3 +1,3 @@
 # Gain and pan utility
 
-<img src="img/utility.png" alt="Oscilloscope" width="100">
+<img src="img/utility.gif" alt="Oscilloscope" width="860">
