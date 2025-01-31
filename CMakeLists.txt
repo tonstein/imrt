@@ -1,9 +1,3 @@
-cmake_minimum_required(VERSION 3.16)
-set(CMAKE_CXX_EXTENSIONS OFF)
-set(CMAKE_CXX_STANDARD 17)
-
-project(imrt-template LANGUAGES CXX)
-
 add_subdirectory(lib)
 
 option(IMRT_BUILD_EXAMPLES "Build examples")
