@@ -25,43 +25,22 @@ void Gui::onUpdate()
 
    if (ImGui::BeginChild("#Right", { 235, 0 }))
    {
-      showVolumeBars();
+      volumeBarL.show();
+
+      ImGui::SameLine();
+      volumeBarR.show();
+
+      ImGui::SameLine();
+      showVolumeLabels();
    }
    ImGui::EndChild();
 }
 
-void Gui::showVolumeBars()
+void Gui::showVolumeLabels()
 {
-   for (uint32_t k = 0; k < dsp.view.getNumFrames(); ++k)
+   if (ImGui::BeginChild("#Volume Labels", { 235, 0 }))
    {
-      maxL = std::max(maxL, std::abs((float)dsp.view.getSample(0, k)));
-      maxR = std::max(maxR, std::abs((float)dsp.view.getSample(1, k)));
-
-      ++bufferPos;
-
-      if (bufferPos == bufferSize)
-      {
-         bufferPos -= bufferSize;
-
-         volumeL = maxL;
-         volumeR = maxR;
-
-         maxL = 0.0f;
-         maxR = 0.0f;
-      }
-   }
-
-   volumeBarL.show(volumeL);
-
-   ImGui::SameLine();
-   volumeBarR.show(volumeR);
-
-   ImGui::SameLine();
-   if (ImGui::BeginChild("#Volume Labels", { 150, 200 }))
-   {
-      float volumeLdB = std::max(-99.0f, 20 * std::log(volumeL));
-      float volumeRdB = std::max(-99.0f, 20 * std::log(volumeR));
-
+      float volumeLdB = volumeBarL.value();
       if (volumeLdB < -90.0f)
       {
          ImGui::Text("L: -inf dB");
@@ -71,6 +50,7 @@ void Gui::showVolumeBars()
          ImGui::Text("L: %.1f dB", volumeLdB);
       }
 
+      float volumeRdB = volumeBarR.value();
       if (volumeRdB < -90.0f)
       {
          ImGui::Text("R: -inf dB");

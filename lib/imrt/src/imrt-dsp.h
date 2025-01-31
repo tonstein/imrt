@@ -1,13 +1,11 @@
 #pragma once
 
 #include <RtAudio.h>
-#include <audio/choc_SampleBuffers.h>
 #include "imrt-params.h"
 
-namespace ImRt {
+#include "imrt-constants.h"
 
-using Buffer
-   = choc::buffer::AllocatedBuffer<float, choc::buffer::SeparateChannelLayout>;
+namespace ImRt {
 
 /* -------------------------------------------------------------------------- */
 /*                     AUDIO SETTINGS                                         */

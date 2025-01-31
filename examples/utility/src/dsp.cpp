@@ -1,5 +1,4 @@
 #include "dsp.h"
-#include "imgui.h"
 #include "params.h"
 
 Dsp::Dsp(ImRt::DspSettings settings)
@@ -38,7 +37,7 @@ int Dsp::process(ImRt::Buffer& in, ImRt::Buffer& out, uint32_t numFrames)
       gainValue = updatedParameterValue(gainId);
 
       out.getSample(0, frame) = in.getSample(0, frame) * panAmountL * gainValue;
-      out.getSample(1, frame) = in.getSample(0, frame) * panAmountR * gainValue;
+      out.getSample(1, frame) = in.getSample(1, frame) * panAmountR * gainValue;
    }
 
    view = out.getView();
