@@ -12,5 +12,6 @@ public:
    ImRt::BufferView view;
 
 private:
-   float gainValue, panValue, panAmountL, panAmountR, muteValue;
+   const uint32_t _gainId, _panId, _muteId;
+   float _gainValue, _panValue, _panAmountL, _panAmountR, _muteValue;
 };

@@ -3,6 +3,9 @@
 
 Dsp::Dsp(ImRt::DspSettings settings)
    : ImRt::Dsp<Dsp>(settings)
+   , _gainId(gainLayout.id())
+   , _panId(panLayout.id())
+   , _muteId(muteLayout.id())
 {
    addParameter(gainLayout);
    addParameter(panLayout);
@@ -13,31 +16,33 @@ int Dsp::process(ImRt::Buffer& in, ImRt::Buffer& out, uint32_t numFrames)
 {
    for (uint32_t frame = 0; frame < numFrames; ++frame)
    {
-      muteValue = updatedParameterValue(muteId);
+      _muteValue = updatedParameterValue(_muteId);
 
-      if (muteValue > 0.5)
+      if (_muteValue > 0.5)
       {
          out.clear();
          return 0;
       }
 
-      panValue = updatedParameterValue(panId);
+      _panValue = updatedParameterValue(_panId);
 
-      if (panValue < 0)
+      if (_panValue < 0)
       {
-         panAmountL = 1.0f;
-         panAmountR = 1.0f + panValue;
+         _panAmountL = 1.0f;
+         _panAmountR = 1.0f + _panValue;
       }
       else
       {
-         panAmountL = 1.0f - panValue;
-         panAmountR = 1.0f;
+         _panAmountL = 1.0f - _panValue;
+         _panAmountR = 1.0f;
       }
 
-      gainValue = updatedParameterValue(gainId);
+      _gainValue = updatedParameterValue(_gainId);
 
-      out.getSample(0, frame) = in.getSample(0, frame) * panAmountL * gainValue;
-      out.getSample(1, frame) = in.getSample(1, frame) * panAmountR * gainValue;
+      out.getSample(0, frame)
+         = in.getSample(0, frame) * _panAmountL * _gainValue;
+      out.getSample(1, frame)
+         = in.getSample(1, frame) * _panAmountR * _gainValue;
    }
 
    view = out.getView();
