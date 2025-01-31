@@ -184,19 +184,33 @@ public:
 
    void show(float value)
    {
-      const ImGuiStyle& style  = ImGui::GetStyle();
-      ImDrawList* draw_list    = ImGui::GetWindowDrawList();
-      const ImVec2& cursor_pos = ImGui::GetCursorScreenPos();
-      const float fraction     = std::abs(value - _min) / (_max - _min);
+      const ImGuiStyle& style = ImGui::GetStyle();
+      ImDrawList* drawList    = ImGui::GetWindowDrawList();
+      const ImVec2& cursorPos = ImGui::GetCursorScreenPos();
+      const float fraction    = std::abs(value - _min) / (_max - _min);
 
-      draw_list->AddRectFilled(
-         cursor_pos, cursor_pos + _itemSize,
-         ImGui::GetColorU32(ImGuiCol_FrameBg), style.FrameRounding
+      drawList->AddRectFilled(
+         cursorPos, cursorPos + _itemSize, ImGui::GetColorU32(ImGuiCol_FrameBg),
+         style.FrameRounding
       );
-      draw_list->AddRectFilled(
-         cursor_pos + ImVec2 { 0, (1 - fraction) * _itemSize.y },
-         cursor_pos + _itemSize, ImGui::GetColorU32(ImGuiCol_PlotHistogram),
+      drawList->AddRectFilled(
+         cursorPos + ImVec2 { 0, (1 - fraction) * _itemSize.y },
+         cursorPos + _itemSize, ImGui::GetColorU32(ImGuiCol_PlotHistogram),
          style.FrameRounding, ImDrawFlags_RoundCornersBottom
+      );
+
+      auto colorTop = ImGui::GetColorU32(
+         ImGui::GetStyleColorVec4(ImGuiCol_FrameBg)
+         * ImVec4(1.0f, 1.0f, 1.0f, 0.0f)
+      );
+      auto colorBottom = ImGui::GetColorU32(
+         ImGui::GetStyleColorVec4(ImGuiCol_FrameBg)
+         * ImVec4(1.0f, 1.0f, 1.0f, 0.9f)
+      );
+
+      drawList->AddRectFilledMultiColor(
+         cursorPos, cursorPos + _itemSize, colorTop, colorTop, colorBottom,
+         colorBottom
       );
       ImGui::ItemSize(_itemSize);
    }
