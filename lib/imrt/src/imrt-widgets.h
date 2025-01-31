@@ -1,10 +1,11 @@
 #pragma once
 
-#include <imgui-knobs.h>
-
 #include "imgui.h"
 #include "imgui_internal.h"
+#include <imgui-knobs.h>
+
 #include "imrt-gui.h"
+#include "imrt-constants.h"
 
 namespace ImRt {
 
@@ -200,10 +201,55 @@ public:
       ImGui::ItemSize(_itemSize);
    }
 
-private:
+protected:
    Gui<Derived, Dsp>& _gui;
    const float _min, _max, _difference;
    const ImVec2 _itemSize = { 20, 200 };
+};
+
+/* ------------------------------------------------------ */
+/*                       VOLUME BAR                       */
+/* ------------------------------------------------------ */
+
+template <typename Derived, typename Dsp>
+class VolumeBar : public ValueBar<Derived, Dsp>
+{
+public:
+   VolumeBar(Gui<Derived, Dsp>& gui, ImRt::BufferView& view, uint32_t channel)
+      : ImRt::ValueBar<Derived, Dsp>(gui, 0.0f, 1.0f)
+      , _view(view)
+      , _channel(channel)
+   {
+   }
+
+   void show()
+   {
+      for (uint32_t k = 0; k < _view.getNumFrames(); ++k)
+      {
+         _max = std::max(_max, std::abs((float)_view.getSample(_channel, k)));
+
+         ++_pos;
+         if (_pos == _size)
+         {
+            _pos    = _pos - _size;
+            _volume = _max;
+            _max    = 0.0f;
+         }
+      }
+      ImRt::ValueBar<Derived, Dsp>::show(_volume);
+   }
+
+   float value()
+   {
+      return std::max(-99.0f, 20 * std::log(_volume));
+   }
+
+private:
+   ImRt::BufferView& _view;
+   const uint32_t _channel;
+
+   float _max { 0.0f }, _volume { 0.0f };
+   uint32_t _pos { 0 }, _size { 128 };
 };
 
 } // namespace ImRt
