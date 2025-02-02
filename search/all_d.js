@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['value_0',['value',['../structImRt_1_1GuiParameter.html#ac3e70e77762b5b8a78ce7e3694152e14',1,'ImRt::GuiParameter::value'],['../classImRt_1_1DspParameter.html#ab80aec0b89e1517d6060d1e3e0834ec3',1,'ImRt::DspParameter::value()'],['../classImRt_1_1DspParameters.html#a39d8b693fcdfd07f3ba19e19e0575f4e',1,'ImRt::DspParameters::value()']]],
-  ['valuebar_1',['ValueBar',['../classImRt_1_1ValueBar.html',1,'ImRt']]],
-  ['volumebar_2',['VolumeBar',['../classImRt_1_1VolumeBar.html',1,'ImRt']]]
+  ['updatedparametervalue_0',['updatedParameterValue',['../classImRt_1_1Dsp.html#ae22a9ce22a832e2d53b9675ff923415a',1,'ImRt::Dsp']]],
+  ['updatedvalue_1',['updatedvalue',['../classImRt_1_1DspParameter.html#ab456e65e007c675d09e5ac5868d9c594',1,'ImRt::DspParameter::updatedValue()'],['../classImRt_1_1DspParameters.html#a446b40c05613a47e286b81706c84e0d1',1,'ImRt::DspParameters::updatedValue()']]]
 ];

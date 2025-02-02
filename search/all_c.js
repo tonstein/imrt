@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['updatedparametervalue_0',['updatedParameterValue',['../classImRt_1_1Dsp.html#ae22a9ce22a832e2d53b9675ff923415a',1,'ImRt::Dsp']]],
-  ['updatedvalue_1',['updatedvalue',['../classImRt_1_1DspParameter.html#ab456e65e007c675d09e5ac5868d9c594',1,'ImRt::DspParameter::updatedValue()'],['../classImRt_1_1DspParameters.html#a446b40c05613a47e286b81706c84e0d1',1,'ImRt::DspParameters::updatedValue()']]]
+  ['togglebutton_0',['togglebutton',['../classImRt_1_1ToggleButton.html',1,'ImRt::ToggleButton&lt; Derived, Dsp &gt;'],['../classImRt_1_1ToggleButton.html#ae61ef6898b7982c139ee0803a3ee33fa',1,'ImRt::ToggleButton::ToggleButton()']]]
 ];
