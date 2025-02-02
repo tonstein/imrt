@@ -5,5 +5,4 @@ set(IMRT_BUILD_EXAMPLES ON)
 
 if(IMRT_BUILD_EXAMPLES)
    add_subdirectory(examples/utility)
-   add_subdirectory(examples/oscilloscope)
 endif()

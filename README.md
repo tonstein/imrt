@@ -32,12 +32,6 @@ The most important classes of the framework are documented on [https://tonstein.
 
 ## Examples
 
-### Oscilloscope
-
-<img src="examples/oscilloscope/img/oscilloscope.gif" alt="Oscilloscope" width="1320">
-
-See [examples/oscilloscope](examples/oscilloscope).
-
 ### Utility 
 
 <img src="examples/utility/img/utility.gif" alt="Oscilloscope" width="860">

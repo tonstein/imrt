@@ -156,7 +156,7 @@ public:
          ImGui::SetNextWindowSize(io.DisplaySize);
          ImGui::SetNextWindowPos({ 0, 0 });
          if (ImGui::Begin(
-                "Audioskop", nullptr,
+                "Main", nullptr,
                 ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize
                    | ImGuiWindowFlags_NoScrollbar
                    | ImGuiWindowFlags_NoScrollWithMouse

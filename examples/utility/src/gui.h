@@ -12,11 +12,10 @@ public:
    void onStart();
    void onUpdate();
 
-   void showVolumeLabels();
-
 private:
    uint32_t _gainId, _panId, _muteId;
    ImRt::Knob<Gui, Dsp> _gainKnob, _panKnob;
    ImRt::ToggleButton<Gui, Dsp> _muteButton;
    ImRt::VolumeBar<Gui, Dsp> _volumeBarL, _volumeBarR;
+   ImRt::Oscilloscope<Gui, Dsp> oscilloscope;
 };

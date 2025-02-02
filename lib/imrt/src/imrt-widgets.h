@@ -2,7 +2,9 @@
 
 #include "imgui.h"
 #include "imgui_internal.h"
+#include <cstdint>
 #include <imgui-knobs.h>
+#include "implot.h"
 
 #include "imrt-gui.h"
 #include "imrt-constants.h"
@@ -166,19 +168,23 @@ private:
    float _speed = 0.0f;
 };
 
-/* ------------------------------------------------------ */
-/*                        VALUE BAR                       */
-/* ------------------------------------------------------ */
+/* -------------------------------------------------------------------------- */
+/*                        VALUE BAR                                           */
+/* -------------------------------------------------------------------------- */
 
 template <typename Derived, typename Dsp>
 class ValueBar
 {
 public:
-   ValueBar(Gui<Derived, Dsp>& gui, const float minValue, const float maxValue)
+   ValueBar(
+      Gui<Derived, Dsp>& gui, const float minValue, const float maxValue,
+      const ImVec2 widgetSize = { 15, 200 }
+   )
       : _gui(gui)
       , _min(minValue)
       , _max(maxValue)
       , _difference(maxValue - minValue)
+      , _widgetSize(widgetSize)
    {
    }
 
@@ -190,12 +196,12 @@ public:
       const float fraction    = std::abs(value - _min) / (_max - _min);
 
       drawList->AddRectFilled(
-         cursorPos, cursorPos + _itemSize, ImGui::GetColorU32(ImGuiCol_FrameBg),
-         style.FrameRounding
+         cursorPos, cursorPos + _widgetSize,
+         ImGui::GetColorU32(ImGuiCol_FrameBg), style.FrameRounding
       );
       drawList->AddRectFilled(
-         cursorPos + ImVec2 { 0, (1 - fraction) * _itemSize.y },
-         cursorPos + _itemSize, ImGui::GetColorU32(ImGuiCol_PlotHistogram),
+         cursorPos + ImVec2 { 0, (1 - fraction) * _widgetSize.y },
+         cursorPos + _widgetSize, ImGui::GetColorU32(ImGuiCol_PlotHistogram),
          style.FrameRounding, ImDrawFlags_RoundCornersBottom
       );
 
@@ -209,62 +215,106 @@ public:
       );
 
       drawList->AddRectFilledMultiColor(
-         cursorPos, cursorPos + _itemSize, colorTop, colorTop, colorBottom,
+         cursorPos, cursorPos + _widgetSize, colorTop, colorTop, colorBottom,
          colorBottom
       );
-      ImGui::ItemSize(_itemSize);
+      ImGui::ItemSize(_widgetSize);
    }
 
 protected:
    Gui<Derived, Dsp>& _gui;
    const float _min, _max, _difference;
-   const ImVec2 _itemSize = { 15, 200 };
+   ImVec2 _widgetSize;
 };
 
-/* ------------------------------------------------------ */
-/*                       VOLUME BAR                       */
-/* ------------------------------------------------------ */
+/* -------------------------------------------------------------------------- */
+/*                       VOLUME BAR                                           */
+/* -------------------------------------------------------------------------- */
 
 template <typename Derived, typename Dsp>
 class VolumeBar : public ValueBar<Derived, Dsp>
 {
 public:
-   VolumeBar(Gui<Derived, Dsp>& gui, ImRt::BufferView& view, uint32_t channel)
-      : ImRt::ValueBar<Derived, Dsp>(gui, 0.0f, 1.0f)
+   VolumeBar(
+      Gui<Derived, Dsp>& gui, ImRt::BufferView& view, uint32_t channel,
+      ImVec2 itemSize = { 15, 200 }
+   )
+      : ImRt::ValueBar<Derived, Dsp>(gui, 0.0f, 1.0f, itemSize)
       , _view(view)
       , _channel(channel)
-      , _size(gui.sampleRate() / 180)
    {
    }
 
    void show()
    {
-      for (uint32_t k = 0; k < _view.getNumFrames(); ++k)
+      float volume       = 0.0f;
+      uint32_t numFrames = _view.getNumFrames();
+
+      for (uint32_t frame = 0; frame < numFrames; ++frame)
       {
-         _max = std::max(_max, std::abs((float)_view.getSample(_channel, k)));
-
-         ++_pos;
-         if (_pos == _size)
-         {
-            _pos    = _pos - _size;
-            _volume = _max;
-            _max    = 0.0f;
-         }
+         float newVolume = std::abs(_view.getSample(_channel, frame));
+         volume          = std::max(volume, newVolume);
       }
-      ImRt::ValueBar<Derived, Dsp>::show(_volume);
-   }
-
-   float value()
-   {
-      return std::max(-99.0f, 20 * std::log(_volume));
+      ImRt::ValueBar<Derived, Dsp>::show(volume);
    }
 
 private:
    ImRt::BufferView& _view;
    const uint32_t _channel;
+};
 
-   float _max { 0.0f }, _volume { 0.0f };
-   uint32_t _pos { 0 }, _size;
+/* -------------------------------------------------------------------------- */
+/*                      OSCILLOSCOPE                                          */
+/* -------------------------------------------------------------------------- */
+
+template <typename Derived, typename Dsp>
+class Oscilloscope
+{
+public:
+   Oscilloscope(
+      Gui<Derived, Dsp>& gui, ImRt::BufferView& view,
+      ImVec2 widgetSize = { 300, 200 }
+   )
+      : _view(view)
+      , _widgetSize(widgetSize)
+   {
+   }
+
+   void show()
+   {
+      uint32_t numChannels = std::min<uint32_t>(2, _view.getNumChannels());
+      uint32_t numFrames   = _view.getNumFrames();
+
+      ImPlotFlags plotFlags = ImPlotFlags_CanvasOnly;
+      ImPlotAxisFlags axisFlags
+         = ImPlotAxisFlags_NoDecorations | ImPlotAxisFlags_Lock;
+
+      bool plotted = ImPlot::BeginPlot("#NoTitle", _widgetSize, plotFlags);
+
+      ImPlot::SetupAxes(nullptr, nullptr, axisFlags, axisFlags);
+      ImPlot::SetupAxisLimits(ImAxis_X1, 0, numFrames - 1);
+      ImPlot::SetupAxisLimits(ImAxis_Y1, -1, 1);
+
+      ImVec4 color[2];
+      color[0] = ImPlot::GetStyle().Colors[ImPlotCol_Line];
+      color[1] = color[0] * ImVec4(0.0f, 1.0f, 1.0f, 1.0f);
+
+      for (uint32_t channel = 0; channel < numChannels; ++channel)
+      {
+         ImPlot::PushStyleColor(ImPlotCol_Line, color[channel]);
+         ImPlot::PlotLine("", &_view.getSample(channel, 0), numFrames);
+         ImPlot::PopStyleColor();
+      }
+
+      if (plotted)
+      {
+         ImPlot::EndPlot();
+      }
+   }
+
+private:
+   ImVec2 _widgetSize;
+   ImRt::BufferView& _view;
 };
 
 } // namespace ImRt

@@ -10,9 +10,9 @@ Gui::Gui(Dsp& dsp, ImRt::GuiSettings settings)
    , _gainKnob(*this, _gainId)
    , _panKnob(*this, _panId)
    , _muteButton(*this, _muteId)
-   , _volumeBarL(*this, dsp.view, 0)
-   , _volumeBarR(*this, dsp.view, 1)
-
+   , _volumeBarL(*this, dsp.viewVolume, 0, { 15, 230 })
+   , _volumeBarR(*this, dsp.viewVolume, 1, { 15, 230 })
+   , oscilloscope(*this, dsp.viewOscilloscope, { 870, 230 })
 {
 }
 
@@ -20,7 +20,7 @@ void Gui::onStart() { }
 
 void Gui::onUpdate()
 {
-   if (ImGui::BeginChild("#Left", { 235, 0 }))
+   if (ImGui::BeginChild("#1", { 235, 0 }))
    {
       _gainKnob.show();
 
@@ -33,42 +33,15 @@ void Gui::onUpdate()
 
    ImGui::SameLine();
 
-   if (ImGui::BeginChild("#Right", { 235, 0 }))
+   if (ImGui::BeginChild("#2", { 46, 0 }))
    {
       _volumeBarL.show();
 
       ImGui::SameLine();
       _volumeBarR.show();
-
-      ImGui::SameLine();
-      showVolumeLabels();
    }
    ImGui::EndChild();
-}
 
-void Gui::showVolumeLabels()
-{
-   if (ImGui::BeginChild("#Volume Labels", { 235, 0 }))
-   {
-      float volumeLdB = _volumeBarL.value();
-      if (volumeLdB < -90.0f)
-      {
-         ImGui::Text("L: -inf dB");
-      }
-      else
-      {
-         ImGui::Text("L: %.1f dB", volumeLdB);
-      }
-
-      float volumeRdB = _volumeBarR.value();
-      if (volumeRdB < -90.0f)
-      {
-         ImGui::Text("R: -inf dB");
-      }
-      else
-      {
-         ImGui::Text("R: %.1f dB", volumeRdB);
-      }
-   }
-   ImGui::EndChild();
+   ImGui::SameLine();
+   oscilloscope.show();
 }
