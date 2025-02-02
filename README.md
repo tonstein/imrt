@@ -34,6 +34,6 @@ The most important classes of the framework are documented on [https://tonstein.
 
 ### Utility 
 
-<img src="examples/utility/img/utility.gif" alt="Oscilloscope" width="860">
+![](examples/utility/img/utility.gif)
 
 See [examples/utility](examples/utility).
