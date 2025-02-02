@@ -218,7 +218,7 @@ public:
 protected:
    Gui<Derived, Dsp>& _gui;
    const float _min, _max, _difference;
-   const ImVec2 _itemSize = { 20, 200 };
+   const ImVec2 _itemSize = { 15, 200 };
 };
 
 /* ------------------------------------------------------ */
@@ -233,6 +233,7 @@ public:
       : ImRt::ValueBar<Derived, Dsp>(gui, 0.0f, 1.0f)
       , _view(view)
       , _channel(channel)
+      , _size(gui.sampleRate() / 180)
    {
    }
 
@@ -263,7 +264,7 @@ private:
    const uint32_t _channel;
 
    float _max { 0.0f }, _volume { 0.0f };
-   uint32_t _pos { 0 }, _size { 128 };
+   uint32_t _pos { 0 }, _size;
 };
 
 } // namespace ImRt

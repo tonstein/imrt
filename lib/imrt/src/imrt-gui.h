@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstddef>
+#include <cstdint>
 #include <cstdio>
 #include <iostream>
 
@@ -145,7 +146,6 @@ public:
 
       while (!glfwWindowShouldClose(_window))
       {
-
          glfwPollEvents();
 
          ImGui_ImplOpenGL3_NewFrame();
@@ -158,6 +158,9 @@ public:
          if (ImGui::Begin(
                 "Audioskop", nullptr,
                 ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize
+                   | ImGuiWindowFlags_NoScrollbar
+                   | ImGuiWindowFlags_NoScrollWithMouse
+                   | ImGuiWindowFlags_NoSavedSettings
              ))
          {
             onUpdate();
@@ -165,9 +168,9 @@ public:
          ImGui::End();
 
          ImGui::Render();
-         int display_w, display_h;
-         glfwGetFramebufferSize(_window, &display_w, &display_h);
-         glViewport(0, 0, display_w, display_h);
+         int displayWidth, displayHeight;
+         glfwGetFramebufferSize(_window, &displayWidth, &displayHeight);
+         glViewport(0, 0, displayWidth, displayHeight);
          glClearColor(
             _settings.clearColor.x, _settings.clearColor.y,
             _settings.clearColor.z, _settings.clearColor.w
@@ -176,10 +179,10 @@ public:
          ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
          if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
          {
-            GLFWwindow* backup_current_context = glfwGetCurrentContext();
+            GLFWwindow* backupCurrentContext = glfwGetCurrentContext();
             ImGui::UpdatePlatformWindows();
             ImGui::RenderPlatformWindowsDefault();
-            glfwMakeContextCurrent(backup_current_context);
+            glfwMakeContextCurrent(backupCurrentContext);
          }
          glfwSwapBuffers(_window);
       }
@@ -188,6 +191,11 @@ public:
    ImVec2 scale()
    {
       return _scale;
+   }
+
+   uint32_t sampleRate()
+   {
+      return dsp.sampleRate();
    }
 
 private:
