@@ -239,7 +239,7 @@ public:
       Gui<Derived, Dsp>& gui, ImRt::BufferView& view, uint32_t channel,
       ImVec2 itemSize = { 15, 200 }
    )
-      : ImRt::ValueBar<Derived, Dsp>(gui, 0.0f, 1.0f, itemSize)
+      : ImRt::ValueBar<Derived, Dsp>(gui, -72.0f, 0.0f, itemSize)
       , _view(view)
       , _channel(channel)
    {
@@ -255,7 +255,7 @@ public:
          float newVolume = std::abs(_view.getSample(_channel, frame));
          volume          = std::max(volume, newVolume);
       }
-      ImRt::ValueBar<Derived, Dsp>::show(volume);
+      ImRt::ValueBar<Derived, Dsp>::show(20.0f * std::log(volume));
    }
 
 private:
