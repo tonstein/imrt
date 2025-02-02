@@ -10,13 +10,12 @@ public:
 
    int process(ImRt::Buffer& in, ImRt::Buffer& out, uint32_t numFrames);
 
-   ImRt::BufferView viewOscilloscope, viewVolume;
+   ImRt::BufferView oscView, volView;
 
 private:
    const uint32_t _gainId, _panId, _muteId;
-   float _gainValue, _panValue, _panAmountL, _panAmountR, _muteValue;
 
-   ImRt::Buffer _bufferOscilloscope, _bufferVolume;
-   uint32_t _posOscilloscope { 0 }, _posVolume { 0 };
-   uint32_t _numFramesOscilloscope { 4096 }, _numFramesVolume { 1024 };
+   ImRt::Buffer _oscBuffer, _volBuffer;
+   uint32_t _oscPos { 0 }, _volPos { 0 };
+   uint32_t _oscNumFrames { 4096 }, _volNumFrames { 1024 };
 };

@@ -10,9 +10,9 @@ Gui::Gui(Dsp& dsp, ImRt::GuiSettings settings)
    , _gainKnob(*this, _gainId)
    , _panKnob(*this, _panId)
    , _muteButton(*this, _muteId)
-   , _volumeBarL(*this, dsp.viewVolume, 0, { 15, 230 })
-   , _volumeBarR(*this, dsp.viewVolume, 1, { 15, 230 })
-   , oscilloscope(*this, dsp.viewOscilloscope, { 870, 230 })
+   , _volumeBarL(*this, dsp.volView, 0, { 15, 230 })
+   , _volumeBarR(*this, dsp.volView, 1, { 15, 230 })
+   , oscilloscope(*this, dsp.oscView, { 870, 230 })
 {
 }
 
